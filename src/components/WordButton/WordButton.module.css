@@ -1,50 +1,20 @@
-.selected {
-  border: 2px solid black;
+.growShrink {
+  min-height: clamp(4.75rem, 18vw, 6.25rem);
+  border: 2px solid transparent;
+  border-radius: 9px;
+  background: var(--tile);
+  color: var(--cream);
+  letter-spacing: 0;
+  transition: background 0.14s ease, border-color 0.14s ease,
+    box-shadow 0.14s ease, transform 0.14s ease;
 }
 
-.growShrink {
-  /*Tell this element which properties to animate if something changes
-  We are saying all properties will animate when changed seconds*/
-  transition: all 0.4s;
+.growShrink:hover {
+  background: var(--tile-hi);
 }
 
 .growShrink[data-state="on"] {
-  transform: scale(1.05);
+  border-color: var(--vermil);
+  box-shadow: 0 0 0 2px rgba(200, 56, 26, 0.18);
+  transform: scale(0.98);
 }
-
-/* .button {
-  padding: 8px 8px;
-  gap: 4px;
-  border: none;
-  border-radius: 4px;
-  background: gray;
-  color: white;
-  font-weight: 600;
-  font-size: 1.25rem;
-  cursor: pointer;
-  outline-offset: 4px;
-}
-
-.item:hover {
-  cursor: pointer;
-}
-
-.item {
-  width: 24px;
-  max-width: 48px;
-  min-width: 20px;
-  min-height: 70px;
-  height: 22.5vw;
-  max-height: 22.5vw;
-  font-size: 15px;
-  background-color: grey;
-  color: black;
-  outline: none;
-  text-align: center;
-  font-family: "NYT-Franklin";
-  font-weight: bold;
-  border-radius: 6px;
-  z-index: 0;
-  position: absolute;
-  transition: opacity 0.4s ease;
-} */

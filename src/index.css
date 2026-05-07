@@ -4,39 +4,71 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 47.4% 11.2%;
+    --font-display: "Playfair Display";
+    --font-serif: "Lora";
+    --font-sans: "Instrument Sans";
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --char: #1e1c18;
+    --cream: #f4f0e6;
+    --vermil: #c8381a;
+    --surface: #ede8dc;
+    --tile: #1e1c18;
+    --tile-hi: #2e2b25;
+    --text2: #7a7568;
+    --rule: #d8d2c4;
+    --vlt: #f5e8e4;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%;
+    --t1: #e6d48a;
+    --t1d: #4a3c08;
+    --t2: #9ecfb4;
+    --t2d: #1a4030;
+    --t3: #9ab8d4;
+    --t3d: #1a2e48;
+    --t4: #d49a8a;
+    --t4d: #4a1a10;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    --background: 43 38% 93%;
+    --foreground: 36 11% 11%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 47.4% 11.2%;
+    --muted: 39 29% 90%;
+    --muted-foreground: 42 8% 44%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --popover: 43 38% 93%;
+    --popover-foreground: 36 11% 11%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --border: 39 23% 81%;
+    --input: 39 23% 81%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --card: 39 29% 90%;
+    --card-foreground: 36 11% 11%;
+
+    --primary: 10 77% 44%;
+    --primary-foreground: 43 38% 93%;
+
+    --secondary: 39 29% 90%;
+    --secondary-foreground: 36 11% 11%;
+
+    --accent: 13 54% 93%;
+    --accent-foreground: 10 77% 44%;
 
     --destructive: 0 100% 50%;
     --destructive-foreground: 210 40% 98%;
 
-    --ring: 215 20.2% 65.1%;
+    --ring: 10 77% 44%;
 
     --radius: 0.5rem;
   }
 
   .dark {
+    --char: #f0ece0;
+    --cream: #f4f0e6;
+    --surface: #1e1c18;
+    --tile: #2a2722;
+    --tile-hi: #3a3630;
+    --text2: #8a8478;
+    --rule: #38342e;
+    --vlt: #2a1a14;
+
     --background: 224 71% 4%;
     --foreground: 213 31% 91%;
 

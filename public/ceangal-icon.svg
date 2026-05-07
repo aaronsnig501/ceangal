@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Ceangal fada-knot mark">
+  <rect width="128" height="128" rx="28" fill="#f4f0e6"/>
+  <path d="M39 70c0-13.8 11.2-25 25-25h21c9.4 0 17 7.6 17 17s-7.6 17-17 17H45c-10.5 0-19-8.5-19-19s8.5-19 19-19h38c13.8 0 25 11.2 25 25s-11.2 25-25 25H48" fill="none" stroke="#1e1c18" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M43 82c3.7 6.6 10.7 11 19 11h23" fill="none" stroke="#c8381a" stroke-width="10" stroke-linecap="round"/>
+  <path d="M54 28h31" fill="none" stroke="#c8381a" stroke-width="10" stroke-linecap="round"/>
+</svg>

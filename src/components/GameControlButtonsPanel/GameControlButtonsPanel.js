@@ -41,8 +41,8 @@ function GameControlButtonsPanel({
     if (isGuessRepeated({ submittedGuesses, guessCandidate })) {
       toast({
         label: "Notification",
-        title: "Repeated Guess",
-        description: "You previously made this guess!",
+        title: "Rogha déanta cheana",
+        description: "Rinne tú an rogha seo cheana.",
       });
 
       return;
@@ -81,9 +81,8 @@ function GameControlButtonsPanel({
       if (isGuessOneAway) {
         toast({
           label: "Notification",
-          title: "Close Guess",
-          description:
-            "You were one guess away from correctly guessing a category!",
+          title: "Beagnach ann",
+          description: "Tá focal amháin as áit sa rogha sin.",
         });
       }
     }
@@ -99,7 +98,7 @@ function GameControlButtonsPanel({
         }
       >
         <Shuffle className="h-4 w-4 mr-2" strokeWidth={1} />
-        <p className="select-none">Shuffle</p>
+        <p className="select-none">Measc</p>
       </Button>
       <Button
         size="deselectallsize"
@@ -108,7 +107,7 @@ function GameControlButtonsPanel({
         onClick={deselectAll}
       >
         <Undo className="h-4 w-4 mr-2" strokeWidth={1} />
-        <p className="select-none">Deselect All</p>
+        <p className="select-none">Glan</p>
       </Button>
       <Button
         variant="submit"
@@ -116,7 +115,7 @@ function GameControlButtonsPanel({
         disabled={isGameOver || guessCandidate.length !== categorySize}
       >
         <SendHorizontal className="h-4 w-4 mr-2" strokeWidth={1} />
-        <p className="select-none">Submit</p>
+        <p className="select-none">Seol</p>
       </Button>
     </div>
   );

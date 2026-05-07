@@ -13,6 +13,24 @@ module.exports = {
     },
     extend: {
       colors: {
+        char: "var(--char)",
+        cream: "var(--cream)",
+        vermil: "var(--vermil)",
+        surface: "var(--surface)",
+        tile: "var(--tile)",
+        "tile-hi": "var(--tile-hi)",
+        "text-soft": "var(--text2)",
+        rule: "var(--rule)",
+        tier: {
+          1: "var(--t1)",
+          "1-fg": "var(--t1d)",
+          2: "var(--t2)",
+          "2-fg": "var(--t2d)",
+          3: "var(--t3)",
+          "3-fg": "var(--t3d)",
+          4: "var(--t4)",
+          "4-fg": "var(--t4d)",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -54,6 +72,8 @@ module.exports = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        display: ["var(--font-display)", "serif"],
+        serif: ["var(--font-serif)", "serif"],
       },
       keyframes: {
         "accordion-down": {
@@ -71,7 +91,9 @@ module.exports = {
       },
     },
     fontFamily: {
-      "space-mono": ["Space Mono"],
+      display: ["var(--font-display)", "serif"],
+      serif: ["var(--font-serif)", "serif"],
+      sans: ["var(--font-sans)", ...fontFamily.sans],
     },
   },
   plugins: [require("tailwindcss-animate")],

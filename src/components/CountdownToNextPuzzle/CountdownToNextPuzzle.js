@@ -9,29 +9,29 @@ const renderer = ({ days, hours, minutes, seconds, completed }) => {
   if (completed) {
     return (
       <span className="font-[600]">
-        New Game Available! Refresh Your Browser.
+        Tá cluiche nua ar fáil. Athnuaigh an leathanach.
       </span>
     );
   }
   const timeParts = [];
 
   if (days > 0) {
-    timeParts.push(`${days} Day${days > 1 ? "s" : ""}`);
+    timeParts.push(`${days} lá`);
   }
   if (hours > 0) {
-    timeParts.push(`${hours} Hour${hours > 1 ? "s" : ""}`);
+    timeParts.push(`${hours} uair`);
   }
   if (minutes > 0) {
-    timeParts.push(`${minutes} Minute${minutes > 1 ? "s" : ""}`);
+    timeParts.push(`${minutes} nóiméad`);
   }
 
   // Create a sentence based on the time parts
-  let timeLeftString = "Next Puzzle Released in ";
+  let timeLeftString = "An chéad dúshlán eile i ";
   if (timeParts.length > 2) {
     timeLeftString += timeParts.slice(0, -1).join(", ");
-    timeLeftString += `, and ${timeParts.slice(-1)}`;
+    timeLeftString += `, agus ${timeParts.slice(-1)}`;
   } else if (timeParts.length == 2) {
-    timeLeftString += `${timeParts[0]} and ${timeParts[1]}`;
+    timeLeftString += `${timeParts[0]} agus ${timeParts[1]}`;
   } else {
     timeLeftString += timeParts[0];
   }
@@ -42,9 +42,9 @@ const renderer = ({ days, hours, minutes, seconds, completed }) => {
 
 function CountdownToNextPuzzle() {
   return (
-    <div className="flex flex-row place-content-center mt-4">
+    <div className="flex flex-row place-content-center mt-4 font-serif italic text-text-soft">
       <Countdown
-        className="text-lg text-gray-900"
+        className="text-base"
         renderer={renderer}
         date={dateOfNextPuzzle}
         intervalDelay={1000}

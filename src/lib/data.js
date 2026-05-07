@@ -80,11 +80,10 @@ export function getPuzzleById(id) {
 // Maps our structure to the shape the base repo expects:
 //   { startingGroups: [{ title, color, members }] }
 export function toGameFormat(puzzle) {
-  const colorMap = { t1: "yellow", t2: "green", t3: "blue", t4: "purple" };
   return {
     startingGroups: puzzle.categories.map((cat) => ({
       title: cat.name,
-      color: colorMap[cat.color],
+      color: cat.color,
       members: cat.words.map((w) => w.w),
       // non-standard extra fields Ceangal components will use:
       _ceangalColor: cat.color,

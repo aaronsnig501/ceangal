@@ -59,13 +59,15 @@ function WordButton({ word, fullCandidateSize }) {
       variant="outline"
       pressed={isSelected}
       onClick={flipSelection}
+      aria-pressed={isSelected}
     >
       <p
         style={{ fontSize: getFontSize(word) }}
-        className="font-display font-bold sm:text-xs md:text-xs"
+        className={styles.wordText}
       >
         {word}
       </p>
+      <span className={styles.selectedDot} aria-hidden="true" />
     </Toggle>
   );
 }

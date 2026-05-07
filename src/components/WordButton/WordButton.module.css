@@ -1,5 +1,9 @@
 .growShrink {
-  min-height: clamp(4.75rem, 18vw, 6.25rem);
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 0.86;
+  min-height: 4rem;
+  padding: 0.35rem;
   border: 2px solid transparent;
   border-radius: 9px;
   background: var(--tile);
@@ -17,4 +21,29 @@
   border-color: var(--vermil);
   box-shadow: 0 0 0 2px rgba(200, 56, 26, 0.18);
   transform: scale(0.98);
+}
+
+.selectedDot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--vermil);
+  opacity: 0;
+  transition: opacity 0.14s ease;
+}
+
+.growShrink[data-state="on"] .selectedDot {
+  opacity: 1;
+}
+
+.wordText {
+  font-family: var(--font-display), serif;
+  font-size: clamp(0.62rem, 2.8vw, 0.86rem);
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  overflow-wrap: anywhere;
 }

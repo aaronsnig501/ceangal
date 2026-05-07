@@ -1,10 +1,10 @@
 import React from "react";
 import BaseModal from "../BaseModal";
 
-import { generateEmojiGrid } from "../../../lib/game-helpers";
 import ShareScoreButton from "../../ShareScoreButton";
 import CountdownToNextPuzzle from "../../CountdownToNextPuzzle";
 import { PuzzleDataContext } from "../../../providers/PuzzleDataProvider";
+import ResultMap from "../../ResultMap";
 
 function GameWonModal({ open, submittedGuesses }) {
   const { gameData } = React.useContext(PuzzleDataContext);
@@ -18,11 +18,7 @@ function GameWonModal({ open, submittedGuesses }) {
     >
       <p className="text-center italic">Réiteach deas. Roinn do thoradh.</p>
       <div className="justify-center">
-        {/* the whitespace: pre style makes the emoji grid appear with new lines character */}
-        <span className="text-center whitespace-pre">
-          {"\n"}
-          {generateEmojiGrid(gameData, submittedGuesses)}
-        </span>
+        <ResultMap gameData={gameData} submittedGuesses={submittedGuesses} />
         <CountdownToNextPuzzle />
       </div>
     </BaseModal>

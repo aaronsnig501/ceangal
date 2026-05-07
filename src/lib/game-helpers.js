@@ -164,6 +164,20 @@ export const generateEmojiGrid = (gameData, submittedGuesses) => {
   return `${allEmojiRowsArray.join("\n")}`;
 };
 
+export const generateDifficultyGrid = (gameData, submittedGuesses) => {
+  const wordToDifficultyMap = {};
+
+  gameData.forEach((group) => {
+    group.words.forEach((word) => {
+      wordToDifficultyMap[word] = group.difficulty;
+    });
+  });
+
+  return submittedGuesses.map((guess) =>
+    guess.map((word) => wordToDifficultyMap[word])
+  );
+};
+
 export function getEmojiTiles() {
   let tiles = [];
   tiles.push("🟩");

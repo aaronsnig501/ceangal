@@ -2,6 +2,72 @@
   animation: shake-horizontal 0.38s ease;
 }
 
+.solvedReveal {
+  animation: solved-slide-down 0.38s cubic-bezier(0.22, 0.68, 0, 1.15) both;
+}
+
+.solvedCard {
+  position: relative;
+  min-height: clamp(4.75rem, 17vw, 5.75rem);
+  padding: 0.7rem 0.85rem;
+  border-radius: 9px;
+}
+
+.solvedLabel {
+  margin-bottom: 0.15rem;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  opacity: 0.62;
+}
+
+.solvedTitle {
+  font-family: var(--font-display), serif;
+  font-size: clamp(0.9rem, 3.5vw, 1.08rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.solvedWords {
+  margin-top: 0.2rem;
+  font-family: var(--font-serif), serif;
+  font-size: clamp(0.72rem, 2.8vw, 0.86rem);
+  font-style: italic;
+  line-height: 1.25;
+  opacity: 0.75;
+}
+
+.solvedBadge {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.5rem;
+  background: rgba(30, 28, 24, 0.16);
+  color: currentColor;
+}
+
+.tier1 {
+  background: var(--t1);
+  color: var(--t1d);
+}
+
+.tier2 {
+  background: var(--t2);
+  color: var(--t2d);
+}
+
+.tier3 {
+  background: var(--t3);
+  color: var(--t3d);
+}
+
+.tier4 {
+  background: var(--t4);
+  color: var(--t4d);
+}
+
 @keyframes shake-horizontal {
   0% {
     transform: translateX(0%);
@@ -24,20 +90,14 @@
   }
 }
 
-@keyframes tilt-shaking {
-  0% {
-    transform: rotate(0deg);
+@keyframes solved-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-0.55rem) scale(0.98);
   }
-  25% {
-    transform: rotate(1deg);
-  }
-  50% {
-    transform: rotate(0deg);
-  }
-  75% {
-    transform: rotate(-1deg);
-  }
-  100% {
-    transform: rotate(0deg);
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }

@@ -4,7 +4,6 @@ import WordButton from "../WordButton";
 
 import * as styles from "./GameGrid.module.css";
 
-import { useSpring, animated } from "react-spring";
 import { PuzzleDataContext } from "../../providers/PuzzleDataProvider";
 import { GameStatusContext } from "../../providers/GameStatusProvider";
 
@@ -22,60 +21,44 @@ function WordRow({ words }) {
 }
 
 export function SolvedWordRow({ ...props }) {
-  const DIFFICULTY_COLOR_MAP = {
-    1: "var(--t1)",
-    2: "var(--t2)",
-    3: "var(--t3)",
-    4: "var(--t4)",
+  const tierClassMap = {
+    1: styles.tier1,
+    2: styles.tier2,
+    3: styles.tier3,
+    4: styles.tier4,
   };
 
-  const color = `${DIFFICULTY_COLOR_MAP[props.difficulty]}`;
-
   const [hasBeenClicked, setHasBeenClicked] = React.useState(false);
-
-  const springProps = useSpring({
-    from: {
-      opacity: 0,
-      transform: "translateY(100%)",
-    },
-    to: {
-      opacity: 1,
-      transform: "translateY(0%)",
-    },
-    delay: 250,
-  });
-  // if there is an image available render it as a popover
   const isImageAvailable = props.imageSrc != null;
+  const cardClassName = `${styles.solvedCard} ${
+    tierClassMap[props.difficulty] ?? styles.tier1
+  }`;
+
+  const cardContent = (
+    <>
+      <p className={styles.solvedLabel}>Leibhéal {props.difficulty}</p>
+      <p className={styles.solvedTitle}>{props.category}</p>
+      <p className={styles.solvedWords}>{props.words.join(", ")}</p>
+    </>
+  );
+
   return (
-    <animated.div style={springProps}>
+    <div className={styles.solvedReveal}>
       {!isImageAvailable ? (
-        <div style={{ backgroundColor: color, borderRadius: 9 }}>
-          <p className="font-display font-bold pt-3 px-4 leading-tight">
-            {props.category}
-          </p>
-          <p className="font-serif italic text-sm pb-3 px-4 opacity-75">
-            {props.words.join(", ")}
-          </p>
-        </div>
+        <div className={cardClassName}>{cardContent}</div>
       ) : (
         <Popover>
           <PopoverTrigger asChild>
             <div
-              className="cursor-pointer shadow-md"
-              style={{ backgroundColor: color, borderRadius: 9 }}
+              className={`${cardClassName} cursor-pointer shadow-md`}
               onClick={() => setHasBeenClicked(true)}
             >
               {!hasBeenClicked && (
-                <Badge className="absolute top-0 right-0 mr-2 mt-2">
+                <Badge className={styles.solvedBadge}>
                   Féach
                 </Badge>
               )}
-              <p className="font-display font-bold pt-3 px-4 leading-tight">
-                {props.category}
-              </p>
-              <p className="font-serif italic text-sm pb-3 px-4 opacity-75">
-                {props.words.join(", ")}
-              </p>
+              {cardContent}
             </div>
           </PopoverTrigger>
           <PopoverContent>
@@ -85,7 +68,7 @@ export function SolvedWordRow({ ...props }) {
           </PopoverContent>
         </Popover>
       )}
-    </animated.div>
+    </div>
   );
 }
 
@@ -120,7 +103,11 @@ function GameGrid({ gameRows, shouldGridShake, setShouldGridShake }) {
         </div>
       )}
       {isGameActive && (
-        <div className={`grid gap-y-1.5 min-[380px]:gap-y-2 ${shouldGridShake ? styles.shake : ""}`}>
+        <div
+          className={`grid gap-y-1.5 min-[380px]:gap-y-2 ${
+            shouldGridShake ? styles.shake : ""
+          }`}
+        >
           {gameRows.map((row, idx) => (
             <WordRow key={idx} words={row} />
           ))}

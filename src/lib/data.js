@@ -92,3 +92,14 @@ export function toGameFormat(puzzle) {
     })),
   };
 }
+
+const difficultyMap = { t1: 1, t2: 2, t3: 3, t4: 4 };
+
+export const CONNECTION_GAMES = allPuzzles.map((puzzle) =>
+  puzzle.categories.map((cat) => ({
+    category: cat.name,
+    words: cat.words.map((word) => word.w),
+    difficulty: difficultyMap[cat.color],
+    translations: Object.fromEntries(cat.words.map((word) => [word.w, word.t])),
+  }))
+);

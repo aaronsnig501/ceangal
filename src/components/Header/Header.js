@@ -5,7 +5,10 @@ import InfoModal from "../modals/InfoModal";
 function Header() {
   return (
     <header>
-      <h1 className="font-space-mono">Black Connections</h1>
+      <h1 className="wordmark" aria-label="Ceangal">
+        <span className="wordmark-strong">CEAN</span>
+        <span className="wordmark-light">gal</span>
+      </h1>
       <InfoModal />
     </header>
   );

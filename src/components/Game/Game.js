@@ -62,8 +62,8 @@ function Game() {
 
   return (
     <>
-      <h3 className="text-xl text-center mt-4">
-        Create {numCategories} groups of {categorySize}
+      <h3 className="font-serif italic text-text-soft text-center mt-4">
+        Aimsigh {numCategories} ghrúpa de {categorySize} fhocal
       </h3>
 
       <div className={`game-wrapper`}>

@@ -23,10 +23,10 @@ function WordRow({ words }) {
 
 export function SolvedWordRow({ ...props }) {
   const DIFFICULTY_COLOR_MAP = {
-    1: "rgb(74 222 128)", // green
-    2: "rgb(251 191 36)", // amber
-    3: "rgb(129 140 248)", //indigo
-    4: "rgb(34 211 238)", //cyan
+    1: "var(--t1)",
+    2: "var(--t2)",
+    3: "var(--t3)",
+    4: "var(--t4)",
   };
 
   const color = `${DIFFICULTY_COLOR_MAP[props.difficulty]}`;
@@ -49,25 +49,33 @@ export function SolvedWordRow({ ...props }) {
   return (
     <animated.div style={springProps}>
       {!isImageAvailable ? (
-        <div style={{ backgroundColor: color, borderRadius: 8 }}>
-          <p className="font-bold pt-2 pl-4">{props.category}</p>
-          <p className="font-thin pb-2 pl-4">{props.words.join(", ")}</p>
+        <div style={{ backgroundColor: color, borderRadius: 9 }}>
+          <p className="font-display font-bold pt-3 px-4 leading-tight">
+            {props.category}
+          </p>
+          <p className="font-serif italic text-sm pb-3 px-4 opacity-75">
+            {props.words.join(", ")}
+          </p>
         </div>
       ) : (
         <Popover>
           <PopoverTrigger asChild>
             <div
               className="cursor-pointer hover:animate-pulse shadow-md"
-              style={{ backgroundColor: color, borderRadius: 8 }}
+              style={{ backgroundColor: color, borderRadius: 9 }}
               onClick={() => setHasBeenClicked(true)}
             >
               {!hasBeenClicked && (
                 <Badge className="animate-pulse absolute top-0 right-0 mr-2 mt-2">
-                  View More
+                  Féach
                 </Badge>
               )}
-              <p className="font-bold pt-2 pl-4">{props.category}</p>
-              <p className="font-thin pb-2 pl-4">{props.words.join(", ")}</p>
+              <p className="font-display font-bold pt-3 px-4 leading-tight">
+                {props.category}
+              </p>
+              <p className="font-serif italic text-sm pb-3 px-4 opacity-75">
+                {props.words.join(", ")}
+              </p>
             </div>
           </PopoverTrigger>
           <PopoverContent>
@@ -122,7 +130,9 @@ function GameGrid({ gameRows, shouldGridShake, setShouldGridShake }) {
       {/* Show correct answers here after the game is over if they lost */}
       {isGameOverAndLost && (
         <div className="grid gap-y-2 pb-2">
-          <p>The answer categories are below.</p>
+          <p className="font-serif italic text-text-soft">
+            Seo iad na grúpaí cearta.
+          </p>
           {gameData.map((obj) => (
             <SolvedWordRow key={obj.category} {...obj} />
           ))}

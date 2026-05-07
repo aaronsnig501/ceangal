@@ -16,15 +16,19 @@ function ViewResultsModal() {
     <BaseModal
       title=""
       trigger={
-        <Button variant="submit" className="w-full" children={"View Results"} />
+        <Button
+          variant="submit"
+          className="w-full"
+          children={"Féach ar an toradh"}
+        />
       }
       initiallyOpen={false}
       showActionButton={false}
-      footerElements={<ShareScoreButton buttonText={"Share Your Score!"} />}
+      footerElements={<ShareScoreButton buttonText={"Roinn do scór"} />}
     >
       <div className="flex flex-col place-content-center">
-        <p className="text-center font-[600]">
-          Your Guesses Are Represented Below
+        <p className="text-center font-serif italic text-text-soft">
+          Seo léarscáil do roghanna
         </p>
         <span className="text-center whitespace-pre mb-2">
           {"\n"}

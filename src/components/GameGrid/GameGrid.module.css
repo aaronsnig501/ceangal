@@ -1,8 +1,5 @@
 .shake {
-  animation-name: tilt-shaking;
-  animation-duration: 0.1s;
-  animation-delay: 0.2s;
-  animation-iteration-count: 5;
+  animation: shake-horizontal 0.38s ease;
 }
 
 @keyframes shake-horizontal {

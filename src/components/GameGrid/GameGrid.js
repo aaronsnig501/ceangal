@@ -13,7 +13,7 @@ import { Badge } from "../ui/badge";
 
 function WordRow({ words }) {
   return (
-    <div className={`grid grid-cols-4 gap-4`}>
+    <div className="grid grid-cols-4 gap-1.5 min-[380px]:gap-2">
       {words.map((word) => (
         <WordButton key={word} word={word} fullCandidateSize={words.length} />
       ))}
@@ -61,12 +61,12 @@ export function SolvedWordRow({ ...props }) {
         <Popover>
           <PopoverTrigger asChild>
             <div
-              className="cursor-pointer hover:animate-pulse shadow-md"
+              className="cursor-pointer shadow-md"
               style={{ backgroundColor: color, borderRadius: 9 }}
               onClick={() => setHasBeenClicked(true)}
             >
               {!hasBeenClicked && (
-                <Badge className="animate-pulse absolute top-0 right-0 mr-2 mt-2">
+                <Badge className="absolute top-0 right-0 mr-2 mt-2">
                   Féach
                 </Badge>
               )}
@@ -98,8 +98,7 @@ function GameGrid({ gameRows, shouldGridShake, setShouldGridShake }) {
   React.useEffect(() => {
     const shakeEffect = window.setTimeout(() => {
       setShouldGridShake(false);
-      // this timeout should probably be calculated since it depends on animation values for the grid shake
-    }, 2000);
+    }, 450);
 
     // cleanup timeout
     return () => window.clearTimeout(shakeEffect);
@@ -121,7 +120,7 @@ function GameGrid({ gameRows, shouldGridShake, setShouldGridShake }) {
         </div>
       )}
       {isGameActive && (
-        <div className={`grid gap-y-2 ${shouldGridShake ? styles.shake : ""}`}>
+        <div className={`grid gap-y-1.5 min-[380px]:gap-y-2 ${shouldGridShake ? styles.shake : ""}`}>
           {gameRows.map((row, idx) => (
             <WordRow key={idx} words={row} />
           ))}

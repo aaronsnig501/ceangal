@@ -1,12 +1,12 @@
 import React from "react";
 
-import { generateEmojiGrid } from "../../../lib/game-helpers";
 import CountdownToNextPuzzle from "../../CountdownToNextPuzzle";
 import ShareScoreButton from "../../ShareScoreButton";
 import BaseModal from "../BaseModal";
 import { GameStatusContext } from "../../../providers/GameStatusProvider";
 import { PuzzleDataContext } from "../../../providers/PuzzleDataProvider";
 import { Button } from "../../ui/button";
+import ResultMap from "../../ResultMap";
 
 function ViewResultsModal() {
   const { submittedGuesses } = React.useContext(GameStatusContext);
@@ -30,10 +30,7 @@ function ViewResultsModal() {
         <p className="text-center font-serif italic text-text-soft">
           Seo léarscáil do roghanna
         </p>
-        <span className="text-center whitespace-pre mb-2">
-          {"\n"}
-          {generateEmojiGrid(gameData, submittedGuesses)}
-        </span>
+        <ResultMap gameData={gameData} submittedGuesses={submittedGuesses} />
         <CountdownToNextPuzzle />
       </div>
     </BaseModal>

@@ -11,39 +11,69 @@ import {
 } from "../../lib/game-helpers";
 export const GameStatusContext = React.createContext();
 
-function GameStatusProvider({ children }) {
-  const { gameData } = React.useContext(PuzzleDataContext);
-  const [submittedGuesses, setSubmittedGuesses] = React.useState([]);
-  const [solvedGameData, setSolvedGameData] = React.useState(() => {
-    const loadedState = loadGameStateFromLocalStorage();
-    console.log("checking game state!", {
-      loadedState: loadedState,
-      gd1: gameData,
-      gd2: loadedState?.gameData,
-    });
-    if (!isGameDataEquivalent({ gd1: gameData, gd2: loadedState?.gameData })) {
-      return [];
-    }
-    if (
-      !isGuessesFromGame({
-        gameData,
-        submittedGuesses: loadedState?.submittedGuesses,
-      })
-    ) {
-      return [];
-    }
-    if (Array.isArray(loadedState?.submittedGuesses)) {
-      setSubmittedGuesses(loadedState.submittedGuesses);
-    }
+function getInitialGameStatus(gameData) {
+  const fallbackState = {
+    submittedGuesses: [],
+    solvedGameData: [],
+    isGameOver: false,
+    isGameWon: false,
+  };
+  const loadedState = loadGameStateFromLocalStorage();
 
-    if (Array.isArray(loadedState?.solvedGameData)) {
-      return loadedState.solvedGameData;
-    }
-    return [];
+  console.log("checking game state!", {
+    loadedState: loadedState,
+    gd1: gameData,
+    gd2: loadedState?.gameData,
   });
 
-  const [isGameOver, setIsGameOver] = React.useState(false);
-  const [isGameWon, setIsGameWon] = React.useState(false);
+  if (!isGameDataEquivalent({ gd1: gameData, gd2: loadedState?.gameData })) {
+    return fallbackState;
+  }
+  if (
+    !isGuessesFromGame({
+      gameData,
+      submittedGuesses: loadedState?.submittedGuesses,
+    })
+  ) {
+    return fallbackState;
+  }
+
+  const submittedGuesses = Array.isArray(loadedState?.submittedGuesses)
+    ? loadedState.submittedGuesses
+    : [];
+  const solvedGameData = Array.isArray(loadedState?.solvedGameData)
+    ? loadedState.solvedGameData
+    : [];
+  const numMistakesUsed = submittedGuesses.length - solvedGameData.length;
+  const isGameWon = solvedGameData.length === gameData.length;
+  const isGameOver = isGameWon || numMistakesUsed >= MAX_MISTAKES;
+
+  return {
+    submittedGuesses,
+    solvedGameData,
+    isGameOver,
+    isGameWon,
+  };
+}
+
+function GameStatusProvider({ children }) {
+  const { gameData } = React.useContext(PuzzleDataContext);
+  const [initialGameStatus] = React.useState(() =>
+    getInitialGameStatus(gameData)
+  );
+  const [submittedGuesses, setSubmittedGuesses] = React.useState(
+    initialGameStatus.submittedGuesses
+  );
+  const [solvedGameData, setSolvedGameData] = React.useState(
+    initialGameStatus.solvedGameData
+  );
+
+  const [isGameOver, setIsGameOver] = React.useState(
+    initialGameStatus.isGameOver
+  );
+  const [isGameWon, setIsGameWon] = React.useState(
+    initialGameStatus.isGameWon
+  );
   const [guessCandidate, setGuessCandidate] = React.useState([]);
 
   const numMistakesUsed = submittedGuesses.length - solvedGameData.length;

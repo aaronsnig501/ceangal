@@ -22,6 +22,7 @@ function BaseModal({
   showActionButton = true,
   contentClassName = "",
   footerClassName = "",
+  onOpenChange,
 }) {
   const [isOpen, setIsOpen] = React.useState(initiallyOpen);
 
@@ -30,11 +31,16 @@ function BaseModal({
   }, [initiallyOpen]);
 
   function handleCloseEvent() {
-    setIsOpen(false);
+    handleOpenChange(false);
+  }
+
+  function handleOpenChange(nextOpen) {
+    setIsOpen(nextOpen);
+    onOpenChange?.(nextOpen);
   }
 
   return (
-    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+    <AlertDialog open={isOpen} onOpenChange={handleOpenChange}>
       {!!trigger && <AlertDialogTrigger>{trigger}</AlertDialogTrigger>}
       <AlertDialogContent
         className={contentClassName}
@@ -51,7 +57,7 @@ function BaseModal({
         <AlertDialogFooter className={footerClassName}>
           {footerElements}
           {showActionButton && (
-            <AlertDialogAction onClick={() => setIsOpen(false)}>
+            <AlertDialogAction onClick={() => handleOpenChange(false)}>
               {actionButtonText}
             </AlertDialogAction>
           )}

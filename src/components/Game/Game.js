@@ -12,8 +12,13 @@ import { GameStatusContext } from "../../providers/GameStatusProvider";
 import GameControlButtonsPanel from "../GameControlButtonsPanel";
 
 import ViewResultsModal from "../modals/ViewResultsModal";
+import {
+  loadDismissedEndGameResultFromLocalStorage,
+  saveDismissedEndGameResultToLocalStorage,
+} from "../../lib/local-storage";
+import { puzzleIndex } from "../../lib/time-utils";
 
-function Game() {
+function Game({ suppressEndGameModal = false }) {
   const { gameData, categorySize, numCategories } =
     React.useContext(PuzzleDataContext);
   const { submittedGuesses, solvedGameData, isGameOver, isGameWon } =
@@ -22,7 +27,11 @@ function Game() {
   const [shuffledRows, setShuffledRows] = React.useState(
     shuffleGameData({ gameData })
   );
-  const [isEndGameModalOpen, setisEndGameModalOpen] = React.useState(false);
+  const [isEndGameModalOpen, setIsEndGameModalOpen] = React.useState(false);
+  const [isEndGameModalDismissed, setIsEndGameModalDismissed] = React.useState(
+    () => loadDismissedEndGameResultFromLocalStorage(puzzleIndex)
+  );
+  const previousIsGameOver = React.useRef(isGameOver);
   const [gridShake, setGridShake] = React.useState(false);
 
   // use effect to update Game Grid after a row has been correctly solved
@@ -40,15 +49,31 @@ function Game() {
 
   // Handle End Game!
   React.useEffect(() => {
-    if (!isGameOver) {
+    const didGameJustEnd = !previousIsGameOver.current && isGameOver;
+    previousIsGameOver.current = isGameOver;
+
+    if (
+      !didGameJustEnd ||
+      suppressEndGameModal ||
+      isEndGameModalDismissed
+    ) {
       return;
     }
     const delayModalOpen = window.setTimeout(() => {
-      setisEndGameModalOpen(true);
+      setIsEndGameModalOpen(true);
     }, 250);
 
     return () => window.clearTimeout(delayModalOpen);
-  }, [isGameOver]);
+  }, [isGameOver, suppressEndGameModal, isEndGameModalDismissed]);
+
+  function handleEndGameModalOpenChange(nextOpen) {
+    setIsEndGameModalOpen(nextOpen);
+
+    if (!nextOpen && isGameOver) {
+      saveDismissedEndGameResultToLocalStorage(puzzleIndex);
+      setIsEndGameModalDismissed(true);
+    }
+  }
 
   return (
     <>
@@ -61,11 +86,13 @@ function Game() {
           <GameWonModal
             open={isEndGameModalOpen}
             submittedGuesses={submittedGuesses}
+            onOpenChange={handleEndGameModalOpenChange}
           />
         ) : (
           <GameLostModal
             open={isEndGameModalOpen}
             submittedGuesses={submittedGuesses}
+            onOpenChange={handleEndGameModalOpenChange}
           />
         )}
         <GameGrid

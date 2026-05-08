@@ -20,6 +20,8 @@ function BaseModal({
   children,
   actionButtonText = "Continue",
   showActionButton = true,
+  contentClassName = "",
+  footerClassName = "",
 }) {
   const [isOpen, setIsOpen] = React.useState(initiallyOpen);
 
@@ -35,6 +37,7 @@ function BaseModal({
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       {!!trigger && <AlertDialogTrigger>{trigger}</AlertDialogTrigger>}
       <AlertDialogContent
+        className={contentClassName}
         handleMouseDownOnOverlay={handleCloseEvent}
         onEscapeKeyDown={handleCloseEvent}
         onCloseAutoFocus={(e) => {
@@ -45,7 +48,7 @@ function BaseModal({
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>{children}</AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
+        <AlertDialogFooter className={footerClassName}>
           {footerElements}
           {showActionButton && (
             <AlertDialogAction onClick={() => setIsOpen(false)}>

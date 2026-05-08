@@ -10,7 +10,7 @@ import {
 
 import queryString from "query-string";
 
-import { CONNECTION_GAMES } from "./data";
+import { allPuzzles, CONNECTION_GAMES } from "./data";
 
 export const getToday = () => startOfToday();
 export const getYesterday = () => startOfYesterday();
@@ -58,14 +58,24 @@ export const getPuzzleOfDay = (index) => {
   return CONNECTION_GAMES[index % CONNECTION_GAMES.length];
 };
 
+export const getPuzzleTitleOfDay = (index) => {
+  if (index < 0) {
+    throw new Error("Invalid index");
+  }
+
+  return allPuzzles[index % allPuzzles.length].title;
+};
+
 export const getSolution = (gameDate) => {
   const nextGameDate = getNextGameDate(gameDate);
   const index = getIndex(gameDate);
   const puzzleOfTheDay = getPuzzleOfDay(index);
+  const puzzleTitle = getPuzzleTitleOfDay(index);
   console.log("index for today: ", index);
   return {
     puzzleAnswers: puzzleOfTheDay,
     puzzleGameDate: gameDate,
+    puzzleTitle,
     puzzleIndex: index,
     dateOfNextPuzzle: nextGameDate.valueOf(),
   };
@@ -107,5 +117,10 @@ export const getIsLatestGame = () => {
   return parsed === null || !("d" in parsed);
 };
 
-export const { puzzleAnswers, puzzleGameDate, puzzleIndex, dateOfNextPuzzle } =
-  getSolution(getGameDate());
+export const {
+  puzzleAnswers,
+  puzzleGameDate,
+  puzzleTitle,
+  puzzleIndex,
+  dateOfNextPuzzle,
+} = getSolution(getGameDate());

@@ -180,9 +180,9 @@ export const generateDifficultyGrid = (gameData, submittedGuesses) => {
 
 export function getEmojiTiles() {
   let tiles = [];
-  tiles.push("🟩");
   tiles.push("🟨");
-  tiles.push("🟪");
+  tiles.push("🟩");
   tiles.push("🟦");
+  tiles.push("🟪");
   return tiles;
 }

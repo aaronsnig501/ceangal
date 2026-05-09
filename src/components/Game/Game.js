@@ -14,6 +14,7 @@ import GameControlButtonsPanel from "../GameControlButtonsPanel";
 import ViewResultsModal from "../modals/ViewResultsModal";
 import {
   loadDismissedEndGameResultFromLocalStorage,
+  savePlayedPuzzleToLocalStorage,
   saveDismissedEndGameResultToLocalStorage,
 } from "../../lib/local-storage";
 import { puzzleIndex } from "../../lib/time-utils";
@@ -68,6 +69,12 @@ function Game({
 
     return () => window.clearTimeout(delayModalOpen);
   }, [isGameOver, suppressEndGameModal, isEndGameModalDismissed]);
+
+  React.useEffect(() => {
+    if (isGameOver) {
+      savePlayedPuzzleToLocalStorage(puzzleIndex);
+    }
+  }, [isGameOver]);
 
   function handleEndGameModalOpenChange(nextOpen) {
     setIsEndGameModalOpen(nextOpen);

@@ -1,11 +1,12 @@
 import React from "react";
 
-import { HelpCircle } from "lucide-react";
+import { HelpCircle, List } from "lucide-react";
 
 function Header({
   showEnglishTranslations,
   onToggleTranslations,
   onHelpClick,
+  onPuzzleBrowserClick,
 }) {
   return (
     <header>
@@ -14,6 +15,14 @@ function Header({
         <span className="wordmark-light">gal</span>
       </h1>
       <div className="flex items-center gap-1.5">
+        <button
+          type="button"
+          className="icon-trigger"
+          onClick={onPuzzleBrowserClick}
+          aria-label="Roghnaigh imirt"
+        >
+          <List strokeWidth={1.75} />
+        </button>
         <button
           type="button"
           className={`translation-toggle ${

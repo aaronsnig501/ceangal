@@ -10,14 +10,12 @@ import {
 
 import queryString from "query-string";
 
-import { allPuzzles, CONNECTION_GAMES } from "./data";
+import { allPuzzles, CONNECTION_GAMES, LAUNCH_DATE } from "./data";
 
 export const getToday = () => startOfToday();
 export const getYesterday = () => startOfYesterday();
 
-// October 2023 Game Epoch
-// https://stackoverflow.com/questions/2552483/why-does-the-month-argument-range-from-0-to-11-in-javascripts-date-constructor
-export const firstGameDate = new Date(2023, 9, 23);
+export const firstGameDate = LAUNCH_DATE;
 export const periodInDays = 7;
 
 export const getLastGameDate = (today) => {

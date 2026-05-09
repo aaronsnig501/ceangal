@@ -13,6 +13,11 @@
     box-shadow 0.14s ease, transform 0.14s ease;
 }
 
+.withTranslation {
+  aspect-ratio: 1 / 1.04;
+  min-height: 4.85rem;
+}
+
 .growShrink:hover {
   background: var(--tile-hi);
 }
@@ -39,6 +44,13 @@
   opacity: 1;
 }
 
+.wordStack {
+  display: grid;
+  gap: 0.2rem;
+  place-items: center;
+  width: 100%;
+}
+
 .wordText {
   font-family: var(--font-display), serif;
   font-size: clamp(0.62rem, 2.8vw, 0.86rem);
@@ -46,4 +58,15 @@
   line-height: 1.15;
   text-align: center;
   overflow-wrap: anywhere;
+}
+
+.translationText {
+  color: rgba(244, 240, 230, 0.78);
+  font-family: var(--font-serif), serif;
+  font-size: clamp(0.55rem, 2.35vw, 0.72rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+  text-align: center;
 }

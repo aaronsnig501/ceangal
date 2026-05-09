@@ -248,6 +248,7 @@ function MistakesStep() {
     <StepShell kicker="5 as 5" title="Botúin">
       <p className="text-center font-serif italic text-text-soft">
         Tá ceithre bhotún agat. Líontar ponc nuair a dhéanann tú rogha mhícheart.
+        Is féidir GA→EN a chasadh air sa cheanntásc má theastaíonn aistriúchán Béarla uait.
       </p>
       <div className="grid place-items-center gap-4 rounded-md border border-rule bg-surface p-6">
         <p className="font-serif italic text-sm text-text-soft">Botúin fágtha</p>

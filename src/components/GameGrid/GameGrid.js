@@ -10,11 +10,17 @@ import { GameStatusContext } from "../../providers/GameStatusProvider";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Badge } from "../ui/badge";
 
-function WordRow({ words }) {
+function WordRow({ words, translations, showEnglishTranslations }) {
   return (
     <div className="grid grid-cols-4 gap-1.5 min-[380px]:gap-2">
       {words.map((word) => (
-        <WordButton key={word} word={word} fullCandidateSize={words.length} />
+        <WordButton
+          key={word}
+          word={word}
+          translation={translations[word]}
+          fullCandidateSize={words.length}
+          showEnglishTranslation={showEnglishTranslations}
+        />
       ))}
     </div>
   );
@@ -72,11 +78,24 @@ export function SolvedWordRow({ ...props }) {
   );
 }
 
-function GameGrid({ gameRows, shouldGridShake, setShouldGridShake }) {
+function GameGrid({
+  gameRows,
+  showEnglishTranslations,
+  shouldGridShake,
+  setShouldGridShake,
+}) {
   const { submittedGuesses, isGameOver, isGameWon, solvedGameData } =
     React.useContext(GameStatusContext);
 
   const { gameData } = React.useContext(PuzzleDataContext);
+  const translations = React.useMemo(() => {
+    return gameData.reduce((translationMap, group) => {
+      return {
+        ...translationMap,
+        ...(group._translations ?? group.translations ?? {}),
+      };
+    }, {});
+  }, [gameData]);
 
   React.useEffect(() => {
     const shakeEffect = window.setTimeout(() => {
@@ -109,7 +128,12 @@ function GameGrid({ gameRows, shouldGridShake, setShouldGridShake }) {
           }`}
         >
           {gameRows.map((row, idx) => (
-            <WordRow key={idx} words={row} />
+            <WordRow
+              key={idx}
+              words={row}
+              translations={translations}
+              showEnglishTranslations={showEnglishTranslations}
+            />
           ))}
         </div>
       )}

@@ -18,7 +18,10 @@ import {
 } from "../../lib/local-storage";
 import { puzzleIndex } from "../../lib/time-utils";
 
-function Game({ suppressEndGameModal = false }) {
+function Game({
+  showEnglishTranslations = false,
+  suppressEndGameModal = false,
+}) {
   const { gameData, categorySize, numCategories } =
     React.useContext(PuzzleDataContext);
   const { submittedGuesses, solvedGameData, isGameOver, isGameWon } =
@@ -97,6 +100,7 @@ function Game({ suppressEndGameModal = false }) {
         )}
         <GameGrid
           gameRows={shuffledRows}
+          showEnglishTranslations={showEnglishTranslations}
           shouldGridShake={gridShake}
           setShouldGridShake={setGridShake}
         />

@@ -28,6 +28,10 @@ export const getNextGameDate = (today) => {
   return addDays(getLastGameDate(today), periodInDays);
 };
 
+export const getGameDateForPuzzleIndex = (index) => {
+  return addDays(firstGameDate, index * periodInDays);
+};
+
 export const isValidGameDate = (date) => {
   if (date < firstGameDate || date > getToday()) {
     return false;
@@ -80,11 +84,24 @@ export const getSolution = (gameDate) => {
 };
 
 export const getGameDate = () => {
+  const parsed = queryString.parse(window.location.search);
+
+  if ("p" in parsed) {
+    const puzzleIndexFromQuery = Number.parseInt(parsed.p?.toString(), 10);
+
+    if (
+      Number.isInteger(puzzleIndexFromQuery) &&
+      puzzleIndexFromQuery >= 0 &&
+      puzzleIndexFromQuery < allPuzzles.length
+    ) {
+      return getGameDateForPuzzleIndex(puzzleIndexFromQuery);
+    }
+  }
+
   if (getIsLatestGame()) {
     return getToday();
   }
 
-  const parsed = queryString.parse(window.location.search);
   try {
     const d = startOfDay(parseISO(parsed.d?.toString()));
     if (d >= getToday() || d < firstGameDate) {
@@ -109,10 +126,21 @@ export const setGameDate = (d) => {
   window.location.href = "/";
 };
 
+export const setPuzzleIndex = (index) => {
+  const latestPuzzleIndex = getIndex(getLastGameDate(getToday()));
+
+  if (index === latestPuzzleIndex) {
+    window.location.href = "/";
+    return;
+  }
+
+  window.location.href = "/?p=" + index;
+};
+
 export const getIsLatestGame = () => {
   // https://github.com/cwackerfuss/react-wordle/pull/505
   const parsed = queryString.parse(window.location.search);
-  return parsed === null || !("d" in parsed);
+  return parsed === null || (!("d" in parsed) && !("p" in parsed));
 };
 
 export const {

@@ -99,6 +99,9 @@ export const CONNECTION_GAMES = allPuzzles.map((puzzle) =>
     category: cat.name,
     words: cat.words.map((word) => word.w),
     difficulty: difficultyMap[cat.color],
+    _translations: Object.fromEntries(
+      cat.words.map((word) => [word.w, word.t])
+    ),
     translations: Object.fromEntries(cat.words.map((word) => [word.w, word.t])),
   }))
 );

@@ -4,7 +4,12 @@ import { Toggle } from "../ui/toggle";
 
 import { GameStatusContext } from "../../providers/GameStatusProvider";
 
-function WordButton({ word, fullCandidateSize }) {
+function WordButton({
+  word,
+  translation,
+  fullCandidateSize,
+  showEnglishTranslation = false,
+}) {
   const { guessCandidate, setGuessCandidate } =
     React.useContext(GameStatusContext);
   const [isSelected, setIsSelected] = React.useState(
@@ -55,18 +60,22 @@ function WordButton({ word, fullCandidateSize }) {
   // word = "washingtonian";
   return (
     <Toggle
-      className={`${styles.growShrink} select-none`}
+      className={`${styles.growShrink} ${
+        showEnglishTranslation ? styles.withTranslation : ""
+      } select-none`}
       variant="outline"
       pressed={isSelected}
       onClick={flipSelection}
       aria-pressed={isSelected}
     >
-      <p
-        style={{ fontSize: getFontSize(word) }}
-        className={styles.wordText}
-      >
-        {word}
-      </p>
+      <span className={styles.wordStack}>
+        <span style={{ fontSize: getFontSize(word) }} className={styles.wordText}>
+          {word}
+        </span>
+        {showEnglishTranslation && translation && (
+          <span className={styles.translationText}>{translation}</span>
+        )}
+      </span>
       <span className={styles.selectedDot} aria-hidden="true" />
     </Toggle>
   );

@@ -1,6 +1,7 @@
 const gameStateKey = "gameState";
 const hasSeenOnboardingKey = "hasSeenOnboarding";
 const dismissedEndGameResultKey = "dismissedEndGameResult";
+const showEnglishTranslationsKey = "showEnglishTranslations";
 
 export const saveGameStateToLocalStorage = (gameState) => {
   localStorage.setItem(gameStateKey, JSON.stringify(gameState));
@@ -36,4 +37,12 @@ export const saveDismissedEndGameResultToLocalStorage = (puzzleId) => {
 
 export const loadDismissedEndGameResultFromLocalStorage = (puzzleId) => {
   return localStorage.getItem(dismissedEndGameResultKey) === String(puzzleId);
+};
+
+export const saveShowEnglishTranslationsToLocalStorage = (showTranslations) => {
+  localStorage.setItem(showEnglishTranslationsKey, String(showTranslations));
+};
+
+export const loadShowEnglishTranslationsFromLocalStorage = () => {
+  return localStorage.getItem(showEnglishTranslationsKey) === "true";
 };

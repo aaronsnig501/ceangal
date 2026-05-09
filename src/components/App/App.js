@@ -8,7 +8,9 @@ import PuzzleDataProvider from "../../providers/PuzzleDataProvider";
 import GameStatusProvider from "../../providers/GameStatusProvider";
 import {
   loadHasSeenOnboardingFromLocalStorage,
+  loadShowEnglishTranslationsFromLocalStorage,
   saveHasSeenOnboardingToLocalStorage,
+  saveShowEnglishTranslationsToLocalStorage,
 } from "../../lib/local-storage";
 
 function App() {
@@ -17,6 +19,17 @@ function App() {
   );
   const [isSplashOpen, setIsSplashOpen] = React.useState(!hasSeenOnboarding);
   const [isOnboardingOpen, setIsOnboardingOpen] = React.useState(false);
+  const [showEnglishTranslations, setShowEnglishTranslations] = React.useState(
+    () => loadShowEnglishTranslationsFromLocalStorage()
+  );
+
+  function toggleEnglishTranslations() {
+    setShowEnglishTranslations((currentValue) => {
+      const nextValue = !currentValue;
+      saveShowEnglishTranslationsToLocalStorage(nextValue);
+      return nextValue;
+    });
+  }
 
   function completeFirstRun() {
     saveHasSeenOnboardingToLocalStorage();
@@ -44,8 +57,15 @@ function App() {
       <GameStatusProvider>
         <div className="wrapper">
           <Toaster />
-          <Header onHelpClick={() => setIsOnboardingOpen(true)} />
-          <Game suppressEndGameModal={isSplashOpen || isOnboardingOpen} />
+          <Header
+            showEnglishTranslations={showEnglishTranslations}
+            onToggleTranslations={toggleEnglishTranslations}
+            onHelpClick={() => setIsOnboardingOpen(true)}
+          />
+          <Game
+            showEnglishTranslations={showEnglishTranslations}
+            suppressEndGameModal={isSplashOpen || isOnboardingOpen}
+          />
         </div>
         <OnboardingFlow
           showSplash={isSplashOpen}

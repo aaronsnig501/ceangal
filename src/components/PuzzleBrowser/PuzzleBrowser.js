@@ -12,7 +12,9 @@ import {
 
 function PuzzleBrowser({ open, onOpenChange }) {
   const [playedPuzzles, setPlayedPuzzles] = React.useState([]);
-  const todaysPuzzleIndex = getIndex(getLastGameDate(getToday()));
+  const todaysPuzzleIndex =
+    getIndex(getLastGameDate(getToday())) % allPuzzles.length;
+  const currentPuzzleIndex = puzzleIndex % allPuzzles.length;
 
   React.useEffect(() => {
     if (open) {
@@ -53,7 +55,7 @@ function PuzzleBrowser({ open, onOpenChange }) {
           <div className="grid gap-2">
             {allPuzzles.map((puzzle, index) => {
               const isToday = index === todaysPuzzleIndex;
-              const isCurrent = index === puzzleIndex;
+              const isCurrent = index === currentPuzzleIndex;
               const isPlayed = playedPuzzles.includes(index);
 
               return (

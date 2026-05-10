@@ -15,7 +15,7 @@ import ViewResultsModal from "../modals/ViewResultsModal";
 import {
   loadDismissedEndGameResultFromLocalStorage,
   recordCompletedPuzzleStats,
-  savePlayedPuzzleToLocalStorage,
+  saveCompletedPuzzleToLocalStorage,
   saveDismissedEndGameResultToLocalStorage,
 } from "../../lib/local-storage";
 import {
@@ -82,7 +82,7 @@ function Game({
 
   React.useEffect(() => {
     if (isGameOver) {
-      savePlayedPuzzleToLocalStorage(puzzleId);
+      saveCompletedPuzzleToLocalStorage(puzzleId);
       recordCompletedPuzzleStats({
         puzzleKey: puzzleId,
         isGameWon,

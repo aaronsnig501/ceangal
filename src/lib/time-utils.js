@@ -2,7 +2,7 @@ import { addDays, differenceInDays, formatISO, startOfDay } from "date-fns";
 import queryString from "query-string";
 
 import { allPuzzles, CONNECTION_GAMES, LAUNCH_DATE } from "./data";
-import { loadPlayedPuzzlesFromLocalStorage } from "./local-storage";
+import { loadCompletedPuzzlesFromLocalStorage } from "./local-storage";
 
 export const firstGameDate = LAUNCH_DATE;
 export const periodInDays = 1;
@@ -32,12 +32,17 @@ export const getPuzzleTitleOfDay = (index) => {
 };
 
 export const getDefaultPuzzleIndex = () => {
-  const playedPuzzleIds = loadPlayedPuzzlesFromLocalStorage();
+  const completedPuzzleIds = loadCompletedPuzzlesFromLocalStorage();
   const firstUnplayedIndex = allPuzzles.findIndex(
-    (puzzle) => !playedPuzzleIds.includes(puzzle.id)
+    (puzzle) => !completedPuzzleIds.includes(puzzle.id)
   );
 
   return firstUnplayedIndex === -1 ? 0 : firstUnplayedIndex;
+};
+
+export const getAreAllPuzzlesCompleted = () => {
+  const completedPuzzleIds = loadCompletedPuzzlesFromLocalStorage();
+  return allPuzzles.every((puzzle) => completedPuzzleIds.includes(puzzle.id));
 };
 
 export const getSelectedPuzzleIndex = () => {
@@ -97,3 +102,4 @@ export const {
 } = getSolution(getSelectedPuzzleIndex());
 
 export const puzzleDateKey = String(puzzleId);
+export const allPuzzlesCompletedOnBoot = getAreAllPuzzlesCompleted();

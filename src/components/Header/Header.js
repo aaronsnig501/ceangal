@@ -1,12 +1,13 @@
 import React from "react";
 
-import { HelpCircle, List } from "lucide-react";
+import { BarChart3, HelpCircle, List } from "lucide-react";
 
 function Header({
   showEnglishTranslations,
   onToggleTranslations,
   onHelpClick,
   onPuzzleBrowserClick,
+  onStatsClick,
 }) {
   return (
     <header>
@@ -22,6 +23,14 @@ function Header({
           aria-label="Roghnaigh imirt"
         >
           <List strokeWidth={1.75} />
+        </button>
+        <button
+          type="button"
+          className="icon-trigger"
+          onClick={onStatsClick}
+          aria-label="Staitisticí"
+        >
+          <BarChart3 strokeWidth={1.75} />
         </button>
         <button
           type="button"

@@ -3,6 +3,7 @@ import Header from "../Header";
 import Game from "../Game";
 import OnboardingFlow from "../OnboardingFlow";
 import PuzzleBrowser from "../PuzzleBrowser";
+import StatisticsModal from "../StatisticsModal";
 
 import { Toaster } from "../ui/toaster";
 import PuzzleDataProvider from "../../providers/PuzzleDataProvider";
@@ -21,6 +22,7 @@ function App() {
   const [isSplashOpen, setIsSplashOpen] = React.useState(!hasSeenOnboarding);
   const [isOnboardingOpen, setIsOnboardingOpen] = React.useState(false);
   const [isPuzzleBrowserOpen, setIsPuzzleBrowserOpen] = React.useState(false);
+  const [isStatsOpen, setIsStatsOpen] = React.useState(false);
   const [showEnglishTranslations, setShowEnglishTranslations] = React.useState(
     () => loadShowEnglishTranslationsFromLocalStorage()
   );
@@ -64,6 +66,7 @@ function App() {
             onToggleTranslations={toggleEnglishTranslations}
             onHelpClick={() => setIsOnboardingOpen(true)}
             onPuzzleBrowserClick={() => setIsPuzzleBrowserOpen(true)}
+            onStatsClick={() => setIsStatsOpen(true)}
           />
           <Game
             showEnglishTranslations={showEnglishTranslations}
@@ -87,6 +90,11 @@ function App() {
         <PuzzleBrowser
           open={isPuzzleBrowserOpen}
           onOpenChange={setIsPuzzleBrowserOpen}
+        />
+        <StatisticsModal
+          showTrigger={false}
+          initiallyOpen={isStatsOpen}
+          onOpenChange={setIsStatsOpen}
         />
       </GameStatusProvider>
     </PuzzleDataProvider>

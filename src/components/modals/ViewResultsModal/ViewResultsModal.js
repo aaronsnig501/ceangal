@@ -7,6 +7,7 @@ import { GameStatusContext } from "../../../providers/GameStatusProvider";
 import { PuzzleDataContext } from "../../../providers/PuzzleDataProvider";
 import { Button } from "../../ui/button";
 import ResultMap from "../../ResultMap";
+import StatisticsModal from "../../StatisticsModal";
 
 function ViewResultsModal({ initiallyOpen = false }) {
   const { submittedGuesses } = React.useContext(GameStatusContext);
@@ -24,7 +25,12 @@ function ViewResultsModal({ initiallyOpen = false }) {
       }
       initiallyOpen={initiallyOpen}
       showActionButton={false}
-      footerElements={<ShareScoreButton buttonText={"Roinn do scór"} />}
+      footerElements={
+        <div className="grid w-full gap-2">
+          <ShareScoreButton buttonText={"Roinn do scór"} />
+          <StatisticsModal />
+        </div>
+      }
     >
       <div className="flex flex-col place-content-center">
         <p className="text-center font-serif italic text-text-soft">

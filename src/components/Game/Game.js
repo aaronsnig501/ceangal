@@ -15,10 +15,15 @@ import ViewResultsModal from "../modals/ViewResultsModal";
 import CountdownToNextPuzzle from "../CountdownToNextPuzzle";
 import {
   loadDismissedEndGameResultFromLocalStorage,
+  recordCompletedPuzzleStats,
   savePlayedPuzzleToLocalStorage,
   saveDismissedEndGameResultToLocalStorage,
 } from "../../lib/local-storage";
-import { getIsLatestGame, puzzleIndex } from "../../lib/time-utils";
+import {
+  getIsLatestGame,
+  puzzleDateKey,
+  puzzleIndex,
+} from "../../lib/time-utils";
 
 function Game({
   showEnglishTranslations = false,
@@ -31,6 +36,7 @@ function Game({
     solvedGameData,
     isGameOver,
     isGameWon,
+    numMistakesUsed,
     wasGameOverOnLoad,
   } = React.useContext(GameStatusContext);
   const isDailyPuzzle = getIsLatestGame();
@@ -80,8 +86,13 @@ function Game({
   React.useEffect(() => {
     if (isGameOver) {
       savePlayedPuzzleToLocalStorage(puzzleIndex);
+      recordCompletedPuzzleStats({
+        puzzleKey: puzzleDateKey,
+        isGameWon,
+        numMistakesUsed,
+      });
     }
-  }, [isGameOver]);
+  }, [isGameOver, isGameWon, numMistakesUsed]);
 
   function handleEndGameModalOpenChange(nextOpen) {
     setIsEndGameModalOpen(nextOpen);

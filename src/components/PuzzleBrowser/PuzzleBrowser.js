@@ -1,16 +1,16 @@
 import React from "react";
 import { Check, ChevronRight, X } from "lucide-react";
 import { allPuzzles } from "../../lib/data";
-import { loadPlayedPuzzlesFromLocalStorage } from "../../lib/local-storage";
+import { loadCompletedPuzzlesFromLocalStorage } from "../../lib/local-storage";
 import { puzzleIndex, setPuzzleIndex } from "../../lib/time-utils";
 
 function PuzzleBrowser({ open, onOpenChange }) {
-  const [playedPuzzles, setPlayedPuzzles] = React.useState([]);
+  const [completedPuzzles, setCompletedPuzzles] = React.useState([]);
   const currentPuzzleIndex = puzzleIndex % allPuzzles.length;
 
   React.useEffect(() => {
     if (open) {
-      setPlayedPuzzles(loadPlayedPuzzlesFromLocalStorage());
+      setCompletedPuzzles(loadCompletedPuzzlesFromLocalStorage());
     }
   }, [open]);
 
@@ -47,7 +47,7 @@ function PuzzleBrowser({ open, onOpenChange }) {
           <div className="grid gap-2">
             {allPuzzles.map((puzzle, index) => {
               const isCurrent = index === currentPuzzleIndex;
-              const isPlayed = playedPuzzles.includes(puzzle.id);
+              const isPlayed = completedPuzzles.includes(puzzle.id);
 
               return (
                 <button

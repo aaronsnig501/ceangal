@@ -2,7 +2,7 @@ const gameStateKey = "gameState";
 const hasSeenOnboardingKey = "hasSeenOnboarding";
 const dismissedEndGameResultKey = "dismissedEndGameResult";
 const showEnglishTranslationsKey = "showEnglishTranslations";
-const playedPuzzlesKey = "playedPuzzles";
+const donePuzzleKeyPrefix = "ceangal-done-";
 
 const getGameStateStorageKey = (puzzleId) => {
   return puzzleId ? `${gameStateKey}:puzzle:${puzzleId}` : gameStateKey;
@@ -120,25 +120,31 @@ export const loadShowEnglishTranslationsFromLocalStorage = () => {
   return localStorage.getItem(showEnglishTranslationsKey) === "true";
 };
 
-export const savePlayedPuzzleToLocalStorage = (puzzleId) => {
-  const playedPuzzles = loadPlayedPuzzlesFromLocalStorage();
-  localStorage.setItem(
-    playedPuzzlesKey,
-    JSON.stringify([...new Set([...playedPuzzles, puzzleId])])
-  );
+export const saveCompletedPuzzleToLocalStorage = (puzzleId) => {
+  localStorage.setItem(`${donePuzzleKeyPrefix}${puzzleId}`, "true");
 };
 
-export const loadPlayedPuzzlesFromLocalStorage = () => {
-  const playedPuzzles = localStorage.getItem(playedPuzzlesKey);
+export const loadIsPuzzleCompletedFromLocalStorage = (puzzleId) => {
+  return localStorage.getItem(`${donePuzzleKeyPrefix}${puzzleId}`) === "true";
+};
 
-  if (!playedPuzzles) {
-    return [];
+export const loadCompletedPuzzlesFromLocalStorage = () => {
+  const completedPuzzles = new Set();
+
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+
+    if (key?.startsWith(donePuzzleKeyPrefix)) {
+      const puzzleId = Number.parseInt(
+        key.slice(donePuzzleKeyPrefix.length),
+        10
+      );
+
+      if (Number.isInteger(puzzleId)) {
+        completedPuzzles.add(puzzleId);
+      }
+    }
   }
 
-  try {
-    const parsedPuzzles = JSON.parse(playedPuzzles);
-    return Array.isArray(parsedPuzzles) ? parsedPuzzles : [];
-  } catch (error) {
-    return [];
-  }
+  return [...completedPuzzles];
 };

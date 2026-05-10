@@ -2,18 +2,10 @@ import React from "react";
 import { Check, ChevronRight, X } from "lucide-react";
 import { allPuzzles } from "../../lib/data";
 import { loadPlayedPuzzlesFromLocalStorage } from "../../lib/local-storage";
-import {
-  getIndex,
-  getLastGameDate,
-  getToday,
-  puzzleIndex,
-  setPuzzleIndex,
-} from "../../lib/time-utils";
+import { puzzleIndex, setPuzzleIndex } from "../../lib/time-utils";
 
 function PuzzleBrowser({ open, onOpenChange }) {
   const [playedPuzzles, setPlayedPuzzles] = React.useState([]);
-  const todaysPuzzleIndex =
-    getIndex(getLastGameDate(getToday())) % allPuzzles.length;
   const currentPuzzleIndex = puzzleIndex % allPuzzles.length;
 
   React.useEffect(() => {
@@ -54,9 +46,8 @@ function PuzzleBrowser({ open, onOpenChange }) {
         <div className="min-h-0 flex-1 overflow-y-auto py-3">
           <div className="grid gap-2">
             {allPuzzles.map((puzzle, index) => {
-              const isToday = index === todaysPuzzleIndex;
               const isCurrent = index === currentPuzzleIndex;
-              const isPlayed = playedPuzzles.includes(index);
+              const isPlayed = playedPuzzles.includes(puzzle.id);
 
               return (
                 <button
@@ -83,11 +74,6 @@ function PuzzleBrowser({ open, onOpenChange }) {
                       {puzzle.title}
                     </span>
                     <span className="mt-1 flex flex-wrap gap-1.5">
-                      {isToday && (
-                        <span className="rounded-full border border-vermil px-2 py-0.5 text-xs font-semibold text-vermil">
-                          Inniu
-                        </span>
-                      )}
                       {isPlayed && (
                         <span className="inline-flex items-center gap-1 rounded-full border border-rule px-2 py-0.5 text-xs font-semibold text-text-soft">
                           <Check size={12} /> Imeartha

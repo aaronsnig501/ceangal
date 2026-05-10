@@ -6,19 +6,15 @@ import { PuzzleDataContext } from "../../../providers/PuzzleDataProvider";
 import { GameStatusContext } from "../../../providers/GameStatusProvider";
 import ResultMap from "../../ResultMap";
 import { Button } from "../../ui/button";
-import {
-  periodInDays,
-  puzzleGameDate,
-  setGameDate,
-} from "../../../lib/time-utils";
-import { addDays } from "date-fns";
+import { puzzleIndex, setPuzzleIndex } from "../../../lib/time-utils";
+import { allPuzzles } from "../../../lib/data";
 
 function GameWonModal({ open, submittedGuesses, onOpenChange }) {
   const { gameData } = React.useContext(PuzzleDataContext);
   const { numMistakesUsed } = React.useContext(GameStatusContext);
 
   function handlePlayNextPuzzle() {
-    setGameDate(addDays(puzzleGameDate, periodInDays));
+    setPuzzleIndex((puzzleIndex + 1) % allPuzzles.length);
   }
 
   return (

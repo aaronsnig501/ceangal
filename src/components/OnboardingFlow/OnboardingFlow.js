@@ -77,6 +77,9 @@ function SplashScreen({ onStart, onSkip }) {
           <Button variant="secondary" onClick={onStart}>
             Conas a imrítear
           </Button>
+          <a className="text-sm text-text-soft underline" href="/privacy/">
+            Príobháideachas
+          </a>
         </div>
       </div>
     </div>

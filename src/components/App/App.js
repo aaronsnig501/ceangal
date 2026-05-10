@@ -69,6 +69,11 @@ function App() {
             showEnglishTranslations={showEnglishTranslations}
             suppressEndGameModal={isSplashOpen || isOnboardingOpen}
           />
+          <footer className="pb-3 text-center text-sm">
+            <a className="text-text-soft underline" href="/privacy/">
+              Príobháideachas
+            </a>
+          </footer>
         </div>
         <OnboardingFlow
           showSplash={isSplashOpen}

@@ -36,10 +36,10 @@
   },
   "scripts": {
     "predev": "rimraf .parcel-cache dist",
-    "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html",
+    "dev": "parcel src/index.html src/privacy/index.html",
+    "build": "parcel build src/index.html src/privacy/index.html",
     "nc": "new-component",
-    "build:app": "parcel build src/index.html && npx cap sync"
+    "build:app": "parcel build src/index.html src/privacy/index.html && npx cap sync"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "devDependencies": {

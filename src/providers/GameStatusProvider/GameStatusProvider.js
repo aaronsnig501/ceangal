@@ -9,7 +9,7 @@ import {
   isGameDataEquivalent,
   isGuessesFromGame,
 } from "../../lib/game-helpers";
-import { puzzleDateKey } from "../../lib/time-utils";
+import { puzzleId } from "../../lib/time-utils";
 export const GameStatusContext = React.createContext();
 
 function getInitialGameStatus(gameData, dateKey) {
@@ -62,7 +62,7 @@ function getInitialGameStatus(gameData, dateKey) {
 function GameStatusProvider({ children }) {
   const { gameData } = React.useContext(PuzzleDataContext);
   const [initialGameStatus] = React.useState(() =>
-    getInitialGameStatus(gameData, puzzleDateKey)
+    getInitialGameStatus(gameData, puzzleId)
   );
   const [submittedGuesses, setSubmittedGuesses] = React.useState(
     initialGameStatus.submittedGuesses
@@ -89,7 +89,7 @@ function GameStatusProvider({ children }) {
       setIsGameWon(true);
     }
     const gameState = { submittedGuesses, solvedGameData, gameData };
-    saveGameStateToLocalStorage(gameState, puzzleDateKey);
+    saveGameStateToLocalStorage(gameState, puzzleId);
   }, [solvedGameData]);
 
   // use effect to check if all mistakes have been used and end the game accordingly
@@ -99,7 +99,7 @@ function GameStatusProvider({ children }) {
       setIsGameWon(false);
     }
     const gameState = { submittedGuesses, solvedGameData, gameData };
-    saveGameStateToLocalStorage(gameState, puzzleDateKey);
+    saveGameStateToLocalStorage(gameState, puzzleId);
   }, [submittedGuesses]);
 
   return (

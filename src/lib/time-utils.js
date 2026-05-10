@@ -1,47 +1,14 @@
-import {
-  addDays,
-  differenceInDays,
-  formatISO,
-  parseISO,
-  startOfDay,
-  startOfToday,
-  startOfYesterday,
-} from "date-fns";
-
+import { addDays, differenceInDays, formatISO, startOfDay } from "date-fns";
 import queryString from "query-string";
 
 import { allPuzzles, CONNECTION_GAMES, LAUNCH_DATE } from "./data";
-
-export const getToday = () => startOfToday();
-export const getYesterday = () => startOfYesterday();
+import { loadPlayedPuzzlesFromLocalStorage } from "./local-storage";
 
 export const firstGameDate = LAUNCH_DATE;
 export const periodInDays = 1;
 
-export const getLastGameDate = (today) => {
-  const t = startOfDay(today);
-  if (t <= firstGameDate) {
-    return firstGameDate;
-  }
-
-  let daysSinceLastGame = differenceInDays(t, firstGameDate) % periodInDays;
-  return addDays(t, -daysSinceLastGame);
-};
-
-export const getNextGameDate = (today) => {
-  return addDays(getLastGameDate(today), periodInDays);
-};
-
 export const getGameDateForPuzzleIndex = (index) => {
   return addDays(firstGameDate, index * periodInDays);
-};
-
-export const isValidGameDate = (date) => {
-  if (date < firstGameDate || date > getToday()) {
-    return false;
-  }
-
-  return differenceInDays(firstGameDate, date) % periodInDays === 0;
 };
 
 export const getIndex = (gameDate) => {
@@ -64,22 +31,16 @@ export const getPuzzleTitleOfDay = (index) => {
   return allPuzzles[index % allPuzzles.length].title;
 };
 
-export const getSolution = (gameDate) => {
-  const nextGameDate = getNextGameDate(gameDate);
-  const index = getIndex(gameDate);
-  const puzzleOfTheDay = getPuzzleOfDay(index);
-  const puzzleTitle = getPuzzleTitleOfDay(index);
-  console.log("index for today: ", index);
-  return {
-    puzzleAnswers: puzzleOfTheDay,
-    puzzleGameDate: gameDate,
-    puzzleTitle,
-    puzzleIndex: index,
-    dateOfNextPuzzle: nextGameDate.valueOf(),
-  };
+export const getDefaultPuzzleIndex = () => {
+  const playedPuzzleIds = loadPlayedPuzzlesFromLocalStorage();
+  const firstUnplayedIndex = allPuzzles.findIndex(
+    (puzzle) => !playedPuzzleIds.includes(puzzle.id)
+  );
+
+  return firstUnplayedIndex === -1 ? 0 : firstUnplayedIndex;
 };
 
-export const getGameDate = () => {
+export const getSelectedPuzzleIndex = () => {
   const parsed = queryString.parse(window.location.search);
 
   if ("p" in parsed) {
@@ -90,66 +51,49 @@ export const getGameDate = () => {
       puzzleIndexFromQuery >= 0 &&
       puzzleIndexFromQuery < allPuzzles.length
     ) {
-      return getGameDateForPuzzleIndex(puzzleIndexFromQuery);
+      return puzzleIndexFromQuery;
     }
   }
 
-  if (getIsLatestGame()) {
-    return getLastGameDate(getToday());
-  }
-
-  try {
-    const d = startOfDay(parseISO(parsed.d?.toString()));
-    if (d >= getToday() || d < firstGameDate) {
-      setGameDate(getToday());
-    }
-    return d;
-  } catch (e) {
-    console.log(e);
-    return getToday();
-  }
+  return getDefaultPuzzleIndex();
 };
 
-export const setGameDate = (d) => {
-  try {
-    if (d < getToday()) {
-      window.location.href = "/?d=" + formatISO(d, { representation: "date" });
-      return;
-    }
-  } catch (e) {
-    console.log(e);
-  }
-  window.location.href = "/";
+export const getSolution = (index) => {
+  const normalizedIndex = index % CONNECTION_GAMES.length;
+  const puzzle = allPuzzles[normalizedIndex];
+
+  return {
+    puzzleAnswers: CONNECTION_GAMES[normalizedIndex],
+    puzzleGameDate: getGameDateForPuzzleIndex(normalizedIndex),
+    puzzleId: puzzle.id,
+    puzzleTitle: puzzle.title,
+    puzzleIndex: normalizedIndex,
+    dateOfNextPuzzle: addDays(new Date(), 1).valueOf(),
+  };
 };
 
 export const setPuzzleIndex = (index) => {
-  const latestPuzzleIndex =
-    getIndex(getLastGameDate(getToday())) % allPuzzles.length;
-
-  if (index === latestPuzzleIndex) {
-    window.location.href = "/";
-    return;
-  }
-
   window.location.href = "/?p=" + index;
+};
+
+export const setGameDate = (date) => {
+  window.location.href =
+    "/?p=" + (getIndex(startOfDay(date)) % allPuzzles.length);
 };
 
 export const getGameDateKey = (gameDate) => {
   return formatISO(startOfDay(gameDate), { representation: "date" });
 };
 
-export const getIsLatestGame = () => {
-  // https://github.com/cwackerfuss/react-wordle/pull/505
-  const parsed = queryString.parse(window.location.search);
-  return parsed === null || (!("d" in parsed) && !("p" in parsed));
-};
+export const getIsLatestGame = () => false;
 
 export const {
   puzzleAnswers,
   puzzleGameDate,
+  puzzleId,
   puzzleTitle,
   puzzleIndex,
   dateOfNextPuzzle,
-} = getSolution(getGameDate());
+} = getSolution(getSelectedPuzzleIndex());
 
-export const puzzleDateKey = getGameDateKey(puzzleGameDate);
+export const puzzleDateKey = String(puzzleId);

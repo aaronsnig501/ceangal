@@ -4,19 +4,19 @@ const dismissedEndGameResultKey = "dismissedEndGameResult";
 const showEnglishTranslationsKey = "showEnglishTranslations";
 const playedPuzzlesKey = "playedPuzzles";
 
-const getGameStateStorageKey = (dateKey) => {
-  return dateKey ? `${gameStateKey}:${dateKey}` : gameStateKey;
+const getGameStateStorageKey = (puzzleId) => {
+  return puzzleId ? `${gameStateKey}:puzzle:${puzzleId}` : gameStateKey;
 };
 
-export const saveGameStateToLocalStorage = (gameState, dateKey) => {
+export const saveGameStateToLocalStorage = (gameState, puzzleId) => {
   localStorage.setItem(
-    getGameStateStorageKey(dateKey),
+    getGameStateStorageKey(puzzleId),
     JSON.stringify(gameState)
   );
 };
 
-export const loadGameStateFromLocalStorage = (dateKey) => {
-  const state = localStorage.getItem(getGameStateStorageKey(dateKey));
+export const loadGameStateFromLocalStorage = (puzzleId) => {
+  const state = localStorage.getItem(getGameStateStorageKey(puzzleId));
   return state ? JSON.parse(state) : null;
 };
 
@@ -120,11 +120,11 @@ export const loadShowEnglishTranslationsFromLocalStorage = () => {
   return localStorage.getItem(showEnglishTranslationsKey) === "true";
 };
 
-export const savePlayedPuzzleToLocalStorage = (puzzleIndex) => {
+export const savePlayedPuzzleToLocalStorage = (puzzleId) => {
   const playedPuzzles = loadPlayedPuzzlesFromLocalStorage();
   localStorage.setItem(
     playedPuzzlesKey,
-    JSON.stringify([...new Set([...playedPuzzles, puzzleIndex])])
+    JSON.stringify([...new Set([...playedPuzzles, puzzleId])])
   );
 };
 

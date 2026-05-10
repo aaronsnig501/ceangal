@@ -4,18 +4,14 @@ import ShareScoreButton from "../../ShareScoreButton";
 import { PuzzleDataContext } from "../../../providers/PuzzleDataProvider";
 import ResultMap from "../../ResultMap";
 import { Button } from "../../ui/button";
-import {
-  periodInDays,
-  puzzleGameDate,
-  setGameDate,
-} from "../../../lib/time-utils";
-import { addDays } from "date-fns";
+import { puzzleIndex, setPuzzleIndex } from "../../../lib/time-utils";
+import { allPuzzles } from "../../../lib/data";
 
 function GameLostModal({ open, submittedGuesses, onOpenChange }) {
   const { gameData } = React.useContext(PuzzleDataContext);
 
   function handlePlayNextPuzzle() {
-    setGameDate(addDays(puzzleGameDate, periodInDays));
+    setPuzzleIndex((puzzleIndex + 1) % allPuzzles.length);
   }
 
   return (

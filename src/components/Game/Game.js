@@ -12,7 +12,6 @@ import { GameStatusContext } from "../../providers/GameStatusProvider";
 import GameControlButtonsPanel from "../GameControlButtonsPanel";
 
 import ViewResultsModal from "../modals/ViewResultsModal";
-import CountdownToNextPuzzle from "../CountdownToNextPuzzle";
 import {
   loadDismissedEndGameResultFromLocalStorage,
   recordCompletedPuzzleStats,
@@ -20,8 +19,7 @@ import {
   saveDismissedEndGameResultToLocalStorage,
 } from "../../lib/local-storage";
 import {
-  getIsLatestGame,
-  puzzleDateKey,
+  puzzleId,
   puzzleIndex,
 } from "../../lib/time-utils";
 
@@ -39,14 +37,13 @@ function Game({
     numMistakesUsed,
     wasGameOverOnLoad,
   } = React.useContext(GameStatusContext);
-  const isDailyPuzzle = getIsLatestGame();
 
   const [shuffledRows, setShuffledRows] = React.useState(
     shuffleGameData({ gameData })
   );
   const [isEndGameModalOpen, setIsEndGameModalOpen] = React.useState(false);
   const [isEndGameModalDismissed, setIsEndGameModalDismissed] = React.useState(
-    () => loadDismissedEndGameResultFromLocalStorage(puzzleIndex)
+    () => loadDismissedEndGameResultFromLocalStorage(puzzleId)
   );
   const previousIsGameOver = React.useRef(isGameOver);
   const [gridShake, setGridShake] = React.useState(false);
@@ -85,9 +82,9 @@ function Game({
 
   React.useEffect(() => {
     if (isGameOver) {
-      savePlayedPuzzleToLocalStorage(puzzleIndex);
+      savePlayedPuzzleToLocalStorage(puzzleId);
       recordCompletedPuzzleStats({
-        puzzleKey: puzzleDateKey,
+        puzzleKey: puzzleId,
         isGameWon,
         numMistakesUsed,
       });
@@ -98,7 +95,7 @@ function Game({
     setIsEndGameModalOpen(nextOpen);
 
     if (!nextOpen && isGameOver) {
-      saveDismissedEndGameResultToLocalStorage(puzzleIndex);
+      saveDismissedEndGameResultToLocalStorage(puzzleId);
       setIsEndGameModalDismissed(true);
     }
   }
@@ -142,18 +139,8 @@ function Game({
           </>
         ) : (
           <div className="grid gap-3">
-            {isDailyPuzzle && (
-              <div className="rounded-md border border-rule bg-surface p-4 text-center">
-                <p className="font-display text-lg font-bold text-char">
-                  Tar ar ais amárach
-                </p>
-                <CountdownToNextPuzzle />
-              </div>
-            )}
             <ViewResultsModal
-              initiallyOpen={
-                isDailyPuzzle && wasGameOverOnLoad && !suppressEndGameModal
-              }
+              initiallyOpen={wasGameOverOnLoad && !suppressEndGameModal}
             />
           </div>
         )}

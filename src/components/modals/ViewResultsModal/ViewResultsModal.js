@@ -1,6 +1,5 @@
 import React from "react";
 
-import CountdownToNextPuzzle from "../../CountdownToNextPuzzle";
 import ShareScoreButton from "../../ShareScoreButton";
 import BaseModal from "../BaseModal";
 import { GameStatusContext } from "../../../providers/GameStatusProvider";
@@ -37,7 +36,6 @@ function ViewResultsModal({ initiallyOpen = false }) {
           Seo léarscáil do roghanna
         </p>
         <ResultMap gameData={gameData} submittedGuesses={submittedGuesses} />
-        <CountdownToNextPuzzle />
       </div>
     </BaseModal>
   );

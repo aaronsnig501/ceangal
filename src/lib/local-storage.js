@@ -4,12 +4,19 @@ const dismissedEndGameResultKey = "dismissedEndGameResult";
 const showEnglishTranslationsKey = "showEnglishTranslations";
 const playedPuzzlesKey = "playedPuzzles";
 
-export const saveGameStateToLocalStorage = (gameState) => {
-  localStorage.setItem(gameStateKey, JSON.stringify(gameState));
+const getGameStateStorageKey = (dateKey) => {
+  return dateKey ? `${gameStateKey}:${dateKey}` : gameStateKey;
 };
 
-export const loadGameStateFromLocalStorage = () => {
-  const state = localStorage.getItem(gameStateKey);
+export const saveGameStateToLocalStorage = (gameState, dateKey) => {
+  localStorage.setItem(
+    getGameStateStorageKey(dateKey),
+    JSON.stringify(gameState)
+  );
+};
+
+export const loadGameStateFromLocalStorage = (dateKey) => {
+  const state = localStorage.getItem(getGameStateStorageKey(dateKey));
   return state ? JSON.parse(state) : null;
 };
 

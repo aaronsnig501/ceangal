@@ -16,10 +16,14 @@ export const getToday = () => startOfToday();
 export const getYesterday = () => startOfYesterday();
 
 export const firstGameDate = LAUNCH_DATE;
-export const periodInDays = 7;
+export const periodInDays = 1;
 
 export const getLastGameDate = (today) => {
   const t = startOfDay(today);
+  if (t <= firstGameDate) {
+    return firstGameDate;
+  }
+
   let daysSinceLastGame = differenceInDays(t, firstGameDate) % periodInDays;
   return addDays(t, -daysSinceLastGame);
 };
@@ -41,15 +45,7 @@ export const isValidGameDate = (date) => {
 };
 
 export const getIndex = (gameDate) => {
-  let start = firstGameDate;
-  let index = -1;
-  console.log(firstGameDate);
-  do {
-    index++;
-    start = addDays(start, periodInDays);
-  } while (start <= gameDate);
-
-  return index;
+  return Math.max(0, differenceInDays(startOfDay(gameDate), firstGameDate));
 };
 
 export const getPuzzleOfDay = (index) => {
@@ -99,7 +95,7 @@ export const getGameDate = () => {
   }
 
   if (getIsLatestGame()) {
-    return getToday();
+    return getLastGameDate(getToday());
   }
 
   try {
@@ -127,7 +123,8 @@ export const setGameDate = (d) => {
 };
 
 export const setPuzzleIndex = (index) => {
-  const latestPuzzleIndex = getIndex(getLastGameDate(getToday()));
+  const latestPuzzleIndex =
+    getIndex(getLastGameDate(getToday())) % allPuzzles.length;
 
   if (index === latestPuzzleIndex) {
     window.location.href = "/";
@@ -135,6 +132,10 @@ export const setPuzzleIndex = (index) => {
   }
 
   window.location.href = "/?p=" + index;
+};
+
+export const getGameDateKey = (gameDate) => {
+  return formatISO(startOfDay(gameDate), { representation: "date" });
 };
 
 export const getIsLatestGame = () => {
@@ -150,3 +151,5 @@ export const {
   puzzleIndex,
   dateOfNextPuzzle,
 } = getSolution(getGameDate());
+
+export const puzzleDateKey = getGameDateKey(puzzleGameDate);

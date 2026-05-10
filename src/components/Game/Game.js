@@ -12,12 +12,13 @@ import { GameStatusContext } from "../../providers/GameStatusProvider";
 import GameControlButtonsPanel from "../GameControlButtonsPanel";
 
 import ViewResultsModal from "../modals/ViewResultsModal";
+import CountdownToNextPuzzle from "../CountdownToNextPuzzle";
 import {
   loadDismissedEndGameResultFromLocalStorage,
   savePlayedPuzzleToLocalStorage,
   saveDismissedEndGameResultToLocalStorage,
 } from "../../lib/local-storage";
-import { puzzleIndex } from "../../lib/time-utils";
+import { getIsLatestGame, puzzleIndex } from "../../lib/time-utils";
 
 function Game({
   showEnglishTranslations = false,
@@ -25,8 +26,14 @@ function Game({
 }) {
   const { gameData, categorySize, numCategories } =
     React.useContext(PuzzleDataContext);
-  const { submittedGuesses, solvedGameData, isGameOver, isGameWon } =
-    React.useContext(GameStatusContext);
+  const {
+    submittedGuesses,
+    solvedGameData,
+    isGameOver,
+    isGameWon,
+    wasGameOverOnLoad,
+  } = React.useContext(GameStatusContext);
+  const isDailyPuzzle = getIsLatestGame();
 
   const [shuffledRows, setShuffledRows] = React.useState(
     shuffleGameData({ gameData })
@@ -123,7 +130,21 @@ function Game({
             />
           </>
         ) : (
-          <ViewResultsModal />
+          <div className="grid gap-3">
+            {isDailyPuzzle && (
+              <div className="rounded-md border border-rule bg-surface p-4 text-center">
+                <p className="font-display text-lg font-bold text-char">
+                  Tar ar ais amárach
+                </p>
+                <CountdownToNextPuzzle />
+              </div>
+            )}
+            <ViewResultsModal
+              initiallyOpen={
+                isDailyPuzzle && wasGameOverOnLoad && !suppressEndGameModal
+              }
+            />
+          </div>
         )}
       </div>
     </>

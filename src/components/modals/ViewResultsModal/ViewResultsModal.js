@@ -8,7 +8,7 @@ import { PuzzleDataContext } from "../../../providers/PuzzleDataProvider";
 import { Button } from "../../ui/button";
 import ResultMap from "../../ResultMap";
 
-function ViewResultsModal() {
+function ViewResultsModal({ initiallyOpen = false }) {
   const { submittedGuesses } = React.useContext(GameStatusContext);
   const { gameData } = React.useContext(PuzzleDataContext);
 
@@ -22,7 +22,7 @@ function ViewResultsModal() {
           children={"Féach ar an toradh"}
         />
       }
-      initiallyOpen={false}
+      initiallyOpen={initiallyOpen}
       showActionButton={false}
       footerElements={<ShareScoreButton buttonText={"Roinn do scór"} />}
     >

@@ -1166,12 +1166,22 @@ export const allPuzzles = [
  
 // ── Helpers ────────────────────────────────────────────────────
  
-export const LAUNCH_DATE = new Date("2026-05-09");
+export const LAUNCH_DATE = new Date(2026, 4, 9);
+
+function getCalendarDayNumber(date) {
+  return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+}
  
 export function getTodaysPuzzle() {
   const today = new Date();
-  const dayOffset = Math.floor((today - LAUNCH_DATE) / 86_400_000);
-  return allPuzzles[((dayOffset % allPuzzles.length) + allPuzzles.length) % allPuzzles.length];
+  const dayOffset = Math.max(
+    0,
+    Math.floor(
+      (getCalendarDayNumber(today) - getCalendarDayNumber(LAUNCH_DATE)) /
+        86_400_000
+    )
+  );
+  return allPuzzles[dayOffset % allPuzzles.length];
 }
  
 export function getPuzzleById(id) {

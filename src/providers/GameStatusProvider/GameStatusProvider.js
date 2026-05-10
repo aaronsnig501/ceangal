@@ -9,16 +9,18 @@ import {
   isGameDataEquivalent,
   isGuessesFromGame,
 } from "../../lib/game-helpers";
+import { puzzleDateKey } from "../../lib/time-utils";
 export const GameStatusContext = React.createContext();
 
-function getInitialGameStatus(gameData) {
+function getInitialGameStatus(gameData, dateKey) {
   const fallbackState = {
     submittedGuesses: [],
     solvedGameData: [],
     isGameOver: false,
     isGameWon: false,
+    wasGameOverOnLoad: false,
   };
-  const loadedState = loadGameStateFromLocalStorage();
+  const loadedState = loadGameStateFromLocalStorage(dateKey);
 
   console.log("checking game state!", {
     loadedState: loadedState,
@@ -53,13 +55,14 @@ function getInitialGameStatus(gameData) {
     solvedGameData,
     isGameOver,
     isGameWon,
+    wasGameOverOnLoad: isGameOver,
   };
 }
 
 function GameStatusProvider({ children }) {
   const { gameData } = React.useContext(PuzzleDataContext);
   const [initialGameStatus] = React.useState(() =>
-    getInitialGameStatus(gameData)
+    getInitialGameStatus(gameData, puzzleDateKey)
   );
   const [submittedGuesses, setSubmittedGuesses] = React.useState(
     initialGameStatus.submittedGuesses
@@ -75,6 +78,7 @@ function GameStatusProvider({ children }) {
     initialGameStatus.isGameWon
   );
   const [guessCandidate, setGuessCandidate] = React.useState([]);
+  const wasGameOverOnLoad = initialGameStatus.wasGameOverOnLoad;
 
   const numMistakesUsed = submittedGuesses.length - solvedGameData.length;
 
@@ -85,7 +89,7 @@ function GameStatusProvider({ children }) {
       setIsGameWon(true);
     }
     const gameState = { submittedGuesses, solvedGameData, gameData };
-    saveGameStateToLocalStorage(gameState);
+    saveGameStateToLocalStorage(gameState, puzzleDateKey);
   }, [solvedGameData]);
 
   // use effect to check if all mistakes have been used and end the game accordingly
@@ -95,7 +99,7 @@ function GameStatusProvider({ children }) {
       setIsGameWon(false);
     }
     const gameState = { submittedGuesses, solvedGameData, gameData };
-    saveGameStateToLocalStorage(gameState);
+    saveGameStateToLocalStorage(gameState, puzzleDateKey);
   }, [submittedGuesses]);
 
   return (
@@ -110,6 +114,7 @@ function GameStatusProvider({ children }) {
         setSubmittedGuesses,
         guessCandidate,
         setGuessCandidate,
+        wasGameOverOnLoad,
       }}
     >
       {children}

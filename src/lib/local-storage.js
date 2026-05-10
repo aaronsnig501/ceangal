@@ -21,6 +21,19 @@ export const loadGameStateFromLocalStorage = (dateKey) => {
 };
 
 const gameStatKey = "gameStats";
+const defaultGameStats = {
+  gamesPlayed: 0,
+  gamesWon: 0,
+  currentStreak: 0,
+  maxStreak: 0,
+  guessDistribution: {
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+  },
+  recordedPuzzles: [],
+};
 
 export const saveStatsToLocalStorage = (gameStats) => {
   localStorage.setItem(gameStatKey, JSON.stringify(gameStats));
@@ -28,7 +41,59 @@ export const saveStatsToLocalStorage = (gameStats) => {
 
 export const loadStatsFromLocalStorage = () => {
   const stats = localStorage.getItem(gameStatKey);
-  return stats ? JSON.parse(stats) : null;
+  if (!stats) {
+    return defaultGameStats;
+  }
+
+  try {
+    const parsedStats = JSON.parse(stats);
+    return {
+      ...defaultGameStats,
+      ...parsedStats,
+      guessDistribution: {
+        ...defaultGameStats.guessDistribution,
+        ...(parsedStats.guessDistribution ?? {}),
+      },
+      recordedPuzzles: Array.isArray(parsedStats.recordedPuzzles)
+        ? parsedStats.recordedPuzzles
+        : [],
+    };
+  } catch (error) {
+    return defaultGameStats;
+  }
+};
+
+export const recordCompletedPuzzleStats = ({
+  puzzleKey,
+  isGameWon,
+  numMistakesUsed,
+}) => {
+  const stats = loadStatsFromLocalStorage();
+
+  if (stats.recordedPuzzles.includes(puzzleKey)) {
+    return stats;
+  }
+
+  const nextCurrentStreak = isGameWon ? stats.currentStreak + 1 : 0;
+  const nextStats = {
+    ...stats,
+    gamesPlayed: stats.gamesPlayed + 1,
+    gamesWon: stats.gamesWon + (isGameWon ? 1 : 0),
+    currentStreak: nextCurrentStreak,
+    maxStreak: Math.max(stats.maxStreak, nextCurrentStreak),
+    recordedPuzzles: [...stats.recordedPuzzles, puzzleKey],
+    guessDistribution: {
+      ...stats.guessDistribution,
+    },
+  };
+
+  if (isGameWon && numMistakesUsed >= 1 && numMistakesUsed <= 4) {
+    nextStats.guessDistribution[numMistakesUsed] =
+      (nextStats.guessDistribution[numMistakesUsed] ?? 0) + 1;
+  }
+
+  saveStatsToLocalStorage(nextStats);
+  return nextStats;
 };
 
 export const saveHasSeenOnboardingToLocalStorage = () => {

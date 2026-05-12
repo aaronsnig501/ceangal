@@ -2,11 +2,16 @@ import React from "react";
 import { Check, ChevronRight, X } from "lucide-react";
 import { allPuzzles } from "../../lib/data";
 import { loadCompletedPuzzlesFromLocalStorage } from "../../lib/local-storage";
-import { puzzleIndex, setPuzzleIndex } from "../../lib/time-utils";
+import {
+  getDefaultPuzzleIndex,
+  puzzleIndex,
+  setPuzzleIndex,
+} from "../../lib/time-utils";
 
 function PuzzleBrowser({ open, onOpenChange }) {
   const [completedPuzzles, setCompletedPuzzles] = React.useState([]);
   const currentPuzzleIndex = puzzleIndex % allPuzzles.length;
+  const recommendedPuzzleIndex = getDefaultPuzzleIndex();
 
   React.useEffect(() => {
     if (open) {
@@ -22,6 +27,20 @@ function PuzzleBrowser({ open, onOpenChange }) {
     onOpenChange(false);
     setPuzzleIndex(index);
   }
+
+  const orderedPuzzles = allPuzzles
+    .map((puzzle, index) => ({
+      puzzle,
+      index,
+      isCompleted: completedPuzzles.includes(puzzle.id),
+    }))
+    .sort((a, b) => {
+      if (a.isCompleted !== b.isCompleted) {
+        return a.isCompleted ? 1 : -1;
+      }
+
+      return a.index - b.index;
+    });
 
   return (
     <div className="fixed inset-0 z-[80] bg-background text-char">
@@ -45,9 +64,9 @@ function PuzzleBrowser({ open, onOpenChange }) {
 
         <div className="min-h-0 flex-1 overflow-y-auto py-3">
           <div className="grid gap-2">
-            {allPuzzles.map((puzzle, index) => {
+            {orderedPuzzles.map(({ puzzle, index, isCompleted }) => {
               const isCurrent = index === currentPuzzleIndex;
-              const isPlayed = completedPuzzles.includes(puzzle.id);
+              const isRecommended = index === recommendedPuzzleIndex;
 
               return (
                 <button
@@ -56,8 +75,15 @@ function PuzzleBrowser({ open, onOpenChange }) {
                   className={`grid grid-cols-[auto_1fr_auto] items-center gap-3 rounded-md border p-3 text-left transition ${
                     isCurrent
                       ? "border-vermil bg-accent"
-                      : "border-rule bg-surface hover:border-vermil"
-                  } ${isPlayed && !isCurrent ? "opacity-70" : ""}`}
+                      : isRecommended
+                        ? "border-rule bg-background hover:border-vermil"
+                        : "border-rule bg-surface hover:border-vermil"
+                  } ${isCompleted && !isCurrent ? "opacity-70" : ""}
+                  ${
+                    isRecommended && !isCurrent
+                      ? "shadow-[inset_0_0_0_1px_rgba(200,56,26,0.12)]"
+                      : ""
+                  }`}
                   onClick={() => handleSelectPuzzle(index)}
                 >
                   <span
@@ -70,13 +96,25 @@ function PuzzleBrowser({ open, onOpenChange }) {
                     {index + 1}
                   </span>
                   <span className="min-w-0">
-                    <span className="block font-display text-lg font-bold leading-tight">
+                    <span className="flex items-center gap-2 font-display text-lg font-bold leading-tight">
                       {puzzle.title}
+                      {isCompleted && (
+                        <Check
+                          className="shrink-0 text-vermil"
+                          size={16}
+                          strokeWidth={2}
+                        />
+                      )}
                     </span>
                     <span className="mt-1 flex flex-wrap gap-1.5">
-                      {isPlayed && (
-                        <span className="inline-flex items-center gap-1 rounded-full border border-rule px-2 py-0.5 text-xs font-semibold text-text-soft">
-                          <Check size={12} /> Imeartha
+                      {isRecommended && (
+                        <span className="rounded-full border border-vermil px-2 py-0.5 text-xs font-semibold text-vermil">
+                          Ar aghaidh
+                        </span>
+                      )}
+                      {isCompleted && (
+                        <span className="rounded-full border border-rule px-2 py-0.5 text-xs font-semibold text-text-soft">
+                          Críochnaithe
                         </span>
                       )}
                     </span>

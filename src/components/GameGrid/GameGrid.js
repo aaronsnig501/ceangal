@@ -1,4 +1,5 @@
 import React from "react";
+import { Loader2, Volume2 } from "lucide-react";
 
 import WordButton from "../WordButton";
 
@@ -9,6 +10,10 @@ import { GameStatusContext } from "../../providers/GameStatusProvider";
 
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Badge } from "../ui/badge";
+import {
+  canPlayPronunciation,
+  playPronunciation,
+} from "../../lib/pronunciation";
 
 function WordRow({ words, translations, showEnglishTranslations }) {
   return (
@@ -35,16 +40,64 @@ export function SolvedWordRow({ ...props }) {
   };
 
   const [hasBeenClicked, setHasBeenClicked] = React.useState(false);
+  const [isAudioPlaying, setIsAudioPlaying] = React.useState(false);
   const isImageAvailable = props.imageSrc != null;
+  const pronunciationSources = props.pronunciations ?? props._pronunciations ?? {};
+  const hasPronunciation = canPlayPronunciation({
+    words: props.words,
+    audioSourcesByWord: pronunciationSources,
+  });
   const cardClassName = `${styles.solvedCard} ${
     tierClassMap[props.difficulty] ?? styles.tier1
   }`;
+
+  async function handlePlayPronunciation(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (!hasPronunciation || isAudioPlaying) {
+      return;
+    }
+
+    try {
+      setIsAudioPlaying(true);
+      await playPronunciation({
+        words: props.words,
+        audioSourcesByWord: pronunciationSources,
+      });
+    } catch (error) {
+      // Ignore failed playback and leave the card usable.
+    } finally {
+      setIsAudioPlaying(false);
+    }
+  }
 
   const cardContent = (
     <>
       <p className={styles.solvedLabel}>Leibhéal {props.difficulty}</p>
       <p className={styles.solvedTitle}>{props.category}</p>
       <p className={styles.solvedWords}>{props.words.join(", ")}</p>
+      {hasPronunciation && (
+        <button
+          type="button"
+          className={styles.audioButton}
+          onPointerDown={handlePlayPronunciation}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              handlePlayPronunciation(event);
+            }
+          }}
+          aria-label={`Seinn fuaim do ${props.category}`}
+          aria-pressed={isAudioPlaying}
+        >
+          {isAudioPlaying ? (
+            <Loader2 className={styles.audioIconSpin} size={16} strokeWidth={1.8} />
+          ) : (
+            <Volume2 size={16} strokeWidth={1.8} />
+          )}
+          <span>Fuaim</span>
+        </button>
+      )}
     </>
   );
 

@@ -3,9 +3,10 @@
  *
  * Structure:
  *   export const allPuzzles = [{ id, title, categories }]
- *   categories: [{ name, color: 't1'|'t2'|'t3'|'t4', words: [{ w, t }] }]
+ *   categories: [{ name, color: 't1'|'t2'|'t3'|'t4', words: [{ w, t, a? }] }]
  *     w = Irish word/phrase
  *     t = English translation (shown only when GA→EN toggle is on)
+ *     a = optional pronunciation audio file path for this word
  *
  * getTodaysPuzzle() returns the puzzle for today based on launch date offset.
  * getPuzzleById(id) returns a specific puzzle by id.
@@ -1200,6 +1201,11 @@ export function toGameFormat(puzzle) {
       // non-standard extra fields Ceangal components will use:
       _ceangalColor: cat.color,
       _translations: Object.fromEntries(cat.words.map((w) => [w.w, w.t])),
+      _pronunciations: Object.fromEntries(
+        cat.words
+          .filter((w) => typeof w.a === "string" && w.a.length > 0)
+          .map((w) => [w.w, w.a])
+      ),
     })),
   };
 }
@@ -1215,5 +1221,10 @@ export const CONNECTION_GAMES = allPuzzles.map((puzzle) =>
       cat.words.map((word) => [word.w, word.t])
     ),
     translations: Object.fromEntries(cat.words.map((word) => [word.w, word.t])),
+    _pronunciations: Object.fromEntries(
+      cat.words
+        .filter((word) => typeof word.a === "string" && word.a.length > 0)
+        .map((word) => [word.w, word.a])
+    ),
   }))
 );

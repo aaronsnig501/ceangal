@@ -2,8 +2,8 @@
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 0.86;
-  min-height: 4rem;
-  padding: 0.35rem;
+  min-height: 4.35rem;
+  padding: 0.45rem 0.38rem;
   border: 2px solid transparent;
   border-radius: 9px;
   background: var(--tile);
@@ -18,8 +18,10 @@
 }
 
 .withTranslation {
-  aspect-ratio: 1 / 1.04;
-  min-height: 4.85rem;
+  aspect-ratio: 1 / 1.12;
+  min-height: 5.35rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .growShrink:hover {
@@ -54,27 +56,37 @@
 
 .wordStack {
   display: grid;
-  gap: 0.2rem;
+  gap: 0.24rem;
   place-items: center;
   width: 100%;
 }
 
 .wordText {
   font-family: var(--font-display), serif;
-  font-size: clamp(0.62rem, 2.8vw, 0.86rem);
+  font-size: clamp(0.8rem, 2.35vw, 0.98rem);
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 1.12;
   text-align: center;
   overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.growShrink[data-word-length="long"] .wordText {
+  font-size: clamp(0.74rem, 2.15vw, 0.9rem);
+}
+
+.growShrink[data-word-length="xlong"] .wordText {
+  font-size: clamp(0.69rem, 2vw, 0.84rem);
 }
 
 .translationText {
   color: rgba(244, 240, 230, 0.78);
   font-family: var(--font-serif), serif;
-  font-size: clamp(0.55rem, 2.35vw, 0.72rem);
+  font-size: clamp(0.61rem, 1.9vw, 0.76rem);
   font-style: italic;
   font-weight: 400;
-  line-height: 1.1;
+  line-height: 1.14;
   overflow-wrap: anywhere;
   text-align: center;
+  text-wrap: balance;
 }

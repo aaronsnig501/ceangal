@@ -39,21 +39,19 @@ function WordButton({
     handlePressedChange(!isSelected);
   }
 
-  //const fontSizeByWordLength = 9characters works with 0.6rem
-
-  function getFontSize(word) {
-    const baseLength = 7;
-    const wordLength = word.length;
-    let fontSize = 1;
-    if (wordLength > baseLength) {
-      const numExtraChars = wordLength - baseLength;
-      fontSize = fontSize - numExtraChars * 0.1;
-      fontSize = Math.max(0.5, fontSize);
-      return `${fontSize}em`;
-    } else {
-      return null;
+  function getWordLengthVariant(value) {
+    if (value.length >= 18) {
+      return "xlong";
     }
+
+    if (value.length >= 13) {
+      return "long";
+    }
+
+    return "default";
   }
+
+  const wordLengthVariant = getWordLengthVariant(word);
   // word = "washingtonian";
   return (
     <button
@@ -62,6 +60,7 @@ function WordButton({
         showEnglishTranslation ? styles.withTranslation : ""
       } select-none`}
       data-state={isSelected ? "on" : "off"}
+      data-word-length={wordLengthVariant}
       onPointerDown={handlePress}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {
@@ -73,7 +72,7 @@ function WordButton({
       aria-pressed={isSelected}
     >
       <span className={styles.wordStack}>
-        <span style={{ fontSize: getFontSize(word) }} className={styles.wordText}>
+        <span className={styles.wordText}>
           {word}
         </span>
         {showEnglishTranslation && translation && (

@@ -1,0 +1,11 @@
+aws_region      = "eu-west-1"
+domain_name     = "ceangal.app"
+route53_zone_name = "ceangal.app"
+
+subject_alternative_names = [
+  "www.ceangal.app",
+]
+
+tags = {
+  Environment = "production"
+}

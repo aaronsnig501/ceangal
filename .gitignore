@@ -18,3 +18,12 @@ yarn-error.log*
 .npm/
 
 *.swp
+
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+tofu.tfvars
+.terraform.lock.hcl
+tfplan
+*.tfplan

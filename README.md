@@ -41,6 +41,41 @@ Tracked events:
 - `Puzzle Browser Open`
 - `Puzzle Browser Select`
 
+### Deploying with OpenTofu
+
+There is an OpenTofu scaffold for S3 + CloudFront deployment in
+`infra/opentofu`.
+
+What it creates:
+
+- a private S3 origin bucket with versioning enabled
+- a CloudFront distribution using Origin Access Control
+- an ACM certificate in `us-east-1` for CloudFront
+- Route 53 DNS validation records for the certificate
+- Route 53 alias `A` and `AAAA` records for the site domain
+- SPA-friendly CloudFront behavior with:
+  - default root object `index.html`
+  - `404 -> /index.html` with HTTP `200`
+
+Quick start:
+
+```bash
+cd infra/opentofu
+cp tofu.tfvars.example tofu.tfvars
+tofu init
+tofu plan
+tofu apply
+```
+
+Notes:
+
+- `domain_name` is intentionally configurable so you can use `ceangal.app`,
+  `ceangal.ie`, or another final domain without editing the module.
+- The ACM certificate is created with an aliased AWS provider in `us-east-1`,
+  because CloudFront requires it there.
+- This scaffold handles infrastructure only. Uploading the built `dist/`
+  folder and wiring CI/CD can be added separately.
+
 ### Technology
 
 - [React 18](https://react.dev/)

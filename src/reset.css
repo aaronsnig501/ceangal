@@ -33,6 +33,17 @@ textarea,
 select {
   font: inherit;
 }
+
+button,
+[role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
 p,
 h1,
 h2,

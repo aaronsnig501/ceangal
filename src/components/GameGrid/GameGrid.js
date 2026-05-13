@@ -90,21 +90,26 @@ function GameGrid({
   const { gameData } = React.useContext(PuzzleDataContext);
   const translations = React.useMemo(() => {
     return gameData.reduce((translationMap, group) => {
-      return {
-        ...translationMap,
-        ...(group._translations ?? group.translations ?? {}),
-      };
+      Object.assign(
+        translationMap,
+        group._translations ?? group.translations ?? {}
+      );
+      return translationMap;
     }, {});
   }, [gameData]);
 
   React.useEffect(() => {
+    if (!shouldGridShake) {
+      return undefined;
+    }
+
     const shakeEffect = window.setTimeout(() => {
       setShouldGridShake(false);
     }, 450);
 
     // cleanup timeout
     return () => window.clearTimeout(shakeEffect);
-  }, [submittedGuesses]);
+  }, [shouldGridShake, setShouldGridShake]);
 
   const isGameOverAndLost = isGameOver && !isGameWon;
   const isGameOverAndWon = isGameOver && isGameWon;

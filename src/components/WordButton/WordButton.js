@@ -1,8 +1,7 @@
 import React from "react";
 import * as styles from "./WordButton.module.css";
-import { Toggle } from "../ui/toggle";
 
-import { GameStatusContext } from "../../providers/GameStatusProvider";
+import { GuessCandidateContext } from "../../providers/GameStatusProvider";
 
 function WordButton({
   word,
@@ -11,35 +10,33 @@ function WordButton({
   showEnglishTranslation = false,
 }) {
   const { guessCandidate, setGuessCandidate } =
-    React.useContext(GameStatusContext);
-  const [isSelected, setIsSelected] = React.useState(
-    !!guessCandidate.includes(word)
-  );
+    React.useContext(GuessCandidateContext);
+  const isSelected = guessCandidate.includes(word);
+  const isCandidateListFull = guessCandidate.length >= fullCandidateSize;
 
-  const isCandidateListFull = guessCandidate.length == fullCandidateSize;
+  function handlePressedChange(nextPressed) {
+    setGuessCandidate((currentGuessCandidate) => {
+      const isAlreadySelected = currentGuessCandidate.includes(word);
 
-  React.useEffect(() => {
-    setIsSelected(!!guessCandidate.includes(word));
-  }, [guessCandidate]);
+      if (nextPressed) {
+        if (isAlreadySelected || currentGuessCandidate.length >= fullCandidateSize) {
+          return currentGuessCandidate;
+        }
 
-  function flipSelection() {
-    if (isSelected) {
-      // remove from candidateGuess
-      const updatedGuessCandidate = guessCandidate.filter((w) => {
-        return w !== word;
-      });
-      setGuessCandidate(updatedGuessCandidate);
-      // set state to *not* selected
-      setIsSelected(false);
-    } else {
-      // check if the candidate array is full
-      if (!isCandidateListFull) {
-        // add to candidateGuess array
-        setGuessCandidate([...guessCandidate, word]);
-        // set state to *selected*
-        setIsSelected(true);
+        return [...currentGuessCandidate, word];
       }
-    }
+
+      if (!isAlreadySelected) {
+        return currentGuessCandidate;
+      }
+
+      return currentGuessCandidate.filter((candidateWord) => candidateWord !== word);
+    });
+  }
+
+  function handlePress(event) {
+    event.preventDefault();
+    handlePressedChange(!isSelected);
   }
 
   //const fontSizeByWordLength = 9characters works with 0.6rem
@@ -59,13 +56,20 @@ function WordButton({
   }
   // word = "washingtonian";
   return (
-    <Toggle
+    <button
+      type="button"
       className={`${styles.growShrink} ${
         showEnglishTranslation ? styles.withTranslation : ""
       } select-none`}
-      variant="outline"
-      pressed={isSelected}
-      onClick={flipSelection}
+      data-state={isSelected ? "on" : "off"}
+      onPointerDown={handlePress}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          handlePress(event);
+        }
+      }}
+      onContextMenu={(event) => event.preventDefault()}
+      disabled={!isSelected && isCandidateListFull}
       aria-pressed={isSelected}
     >
       <span className={styles.wordStack}>
@@ -77,8 +81,8 @@ function WordButton({
         )}
       </span>
       <span className={styles.selectedDot} aria-hidden="true" />
-    </Toggle>
+    </button>
   );
 }
 
-export default WordButton;
+export default React.memo(WordButton);

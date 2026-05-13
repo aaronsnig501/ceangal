@@ -82,7 +82,9 @@ function Game({
 
   React.useEffect(() => {
     if (isGameOver) {
-      saveCompletedPuzzleToLocalStorage(puzzleId);
+      if (isGameWon) {
+        saveCompletedPuzzleToLocalStorage(puzzleId);
+      }
       recordCompletedPuzzleStats({
         puzzleKey: puzzleId,
         isGameWon,

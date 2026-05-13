@@ -96,8 +96,8 @@ export function isGameDataEquivalent({ gd1, gd2 }) {
   if (gd1.length !== gd2.length) {
     return false;
   }
-  for (let i = 0; i < gd1.lengthl; i++) {
-    if (!doArraysHaveSameValues(gd1.words[i], gd2.words[i])) {
+  for (let i = 0; i < gd1.length; i++) {
+    if (!doArraysHaveSameValues(gd1[i].words, gd2[i].words)) {
       return false;
     }
   }
@@ -105,14 +105,14 @@ export function isGameDataEquivalent({ gd1, gd2 }) {
 }
 
 export function isGuessesFromGame({ gameData, submittedGuesses }) {
+  if (!Array.isArray(submittedGuesses) || submittedGuesses.length === 0) {
+    return false;
+  }
+
   const allGameWordsFlattened = getAllWordsOfGameData({ gameData });
   const allGuessesFlattened = getAllWordsOfGameData({
     gameData: submittedGuesses,
   });
-
-  if (submittedGuesses.length === 0) {
-    return false;
-  }
 
   const isSubset = allGuessesFlattened.every((val) =>
     allGameWordsFlattened.includes(val)

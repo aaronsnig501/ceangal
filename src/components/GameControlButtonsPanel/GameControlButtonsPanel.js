@@ -8,7 +8,10 @@ import {
   shuffleGameData,
 } from "../../lib/game-helpers";
 
-import { GameStatusContext } from "../../providers/GameStatusProvider";
+import {
+  GameStatusContext,
+  GuessCandidateContext,
+} from "../../providers/GameStatusProvider";
 import { PuzzleDataContext } from "../../providers/PuzzleDataProvider";
 
 function GameControlButtonsPanel({
@@ -18,13 +21,13 @@ function GameControlButtonsPanel({
 }) {
   const {
     isGameOver,
-    guessCandidate,
-    setGuessCandidate,
     submittedGuesses,
     setSubmittedGuesses,
     solvedGameData,
     setSolvedGameData,
   } = React.useContext(GameStatusContext);
+  const { guessCandidate, setGuessCandidate } =
+    React.useContext(GuessCandidateContext);
   const { gameData, categorySize } = React.useContext(PuzzleDataContext);
   const { toast } = useToast();
 
@@ -48,7 +51,10 @@ function GameControlButtonsPanel({
       return;
     }
     // add guess to state
-    setSubmittedGuesses([...submittedGuesses, guessCandidate]);
+    setSubmittedGuesses((currentGuesses) => [
+      ...currentGuesses,
+      guessCandidate,
+    ]);
     // check if the guess is correct
     const {
       isCorrect,
@@ -65,8 +71,8 @@ function GameControlButtonsPanel({
     // if the guess is correct:
     // set it as solved in game data
     if (isCorrect) {
-      setSolvedGameData([
-        ...solvedGameData,
+      setSolvedGameData((currentSolvedGameData) => [
+        ...currentSolvedGameData,
         {
           category: correctCategory,
           words: correctWords,

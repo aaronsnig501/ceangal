@@ -9,8 +9,12 @@
   background: var(--tile);
   color: var(--cream);
   letter-spacing: 0;
-  transition: background 0.14s ease, border-color 0.14s ease,
-    box-shadow 0.14s ease, transform 0.14s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: background 0.12s ease, border-color 0.12s ease,
+    color 0.12s ease;
 }
 
 .withTranslation {
@@ -22,10 +26,14 @@
   background: var(--tile-hi);
 }
 
+.growShrink:active {
+  background: var(--tile-hi);
+}
+
 .growShrink[data-state="on"] {
   border-color: var(--vermil);
-  box-shadow: 0 0 0 2px rgba(200, 56, 26, 0.18);
-  transform: scale(0.98);
+  background: rgba(200, 56, 26, 0.1);
+  color: var(--char);
 }
 
 .selectedDot {

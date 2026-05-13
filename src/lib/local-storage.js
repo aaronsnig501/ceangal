@@ -17,7 +17,15 @@ export const saveGameStateToLocalStorage = (gameState, puzzleId) => {
 
 export const loadGameStateFromLocalStorage = (puzzleId) => {
   const state = localStorage.getItem(getGameStateStorageKey(puzzleId));
-  return state ? JSON.parse(state) : null;
+  if (!state) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(state);
+  } catch (error) {
+    return null;
+  }
 };
 
 const gameStatKey = "gameStats";

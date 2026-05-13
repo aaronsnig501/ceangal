@@ -7,6 +7,7 @@ import {
   puzzleIndex,
   setPuzzleIndex,
 } from "../../lib/time-utils";
+import { trackEvent } from "../../lib/analytics";
 
 function PuzzleBrowser({ open, onOpenChange }) {
   const [completedPuzzles, setCompletedPuzzles] = React.useState([]);
@@ -24,6 +25,15 @@ function PuzzleBrowser({ open, onOpenChange }) {
   }
 
   function handleSelectPuzzle(index) {
+    const selectedPuzzle = allPuzzles[index];
+
+    trackEvent("Puzzle Browser Select", {
+      props: {
+        puzzle_id: String(selectedPuzzle.id),
+        puzzle_index: String(index),
+        puzzle_title: selectedPuzzle.title,
+      },
+    });
     onOpenChange(false);
     setPuzzleIndex(index);
   }

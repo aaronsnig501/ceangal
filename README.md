@@ -16,6 +16,31 @@ npm install
 npm run dev
 ```
 
+### Plausible analytics
+
+Plausible analytics is optional and disabled unless you provide a site domain.
+
+Environment variables:
+
+- `PLAUSIBLE_DOMAIN`: the domain configured in Plausible, for example `ceangal.app`
+- `PLAUSIBLE_API_HOST` (optional): alternate Plausible host for self-hosting or proxying. Defaults to `https://plausible.io`
+- `PLAUSIBLE_SCRIPT_SRC` (optional): full script URL override if you want to serve a custom snippet path
+
+Example:
+
+```bash
+PLAUSIBLE_DOMAIN=ceangal.app npm run build
+```
+
+Tracked events:
+
+- `App Open`
+- `Puzzle Start`
+- `Puzzle Complete`
+- `Share Result`
+- `Puzzle Browser Open`
+- `Puzzle Browser Select`
+
 ### Technology
 
 - [React 18](https://react.dev/)

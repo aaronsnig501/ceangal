@@ -21,7 +21,9 @@ import {
 import {
   puzzleId,
   puzzleIndex,
+  puzzleTitle,
 } from "../../lib/time-utils";
+import { trackEvent } from "../../lib/analytics";
 
 function Game({
   showEnglishTranslations = false,
@@ -47,6 +49,16 @@ function Game({
   );
   const previousIsGameOver = React.useRef(isGameOver);
   const [gridShake, setGridShake] = React.useState(false);
+
+  React.useEffect(() => {
+    trackEvent("Puzzle Start", {
+      props: {
+        puzzle_id: String(puzzleId),
+        puzzle_index: String(puzzleIndex),
+        puzzle_title: puzzleTitle,
+      },
+    });
+  }, []);
 
   // use effect to update Game Grid after a row has been correctly solved
   React.useEffect(() => {
@@ -85,6 +97,15 @@ function Game({
       if (isGameWon) {
         saveCompletedPuzzleToLocalStorage(puzzleId);
       }
+      trackEvent("Puzzle Complete", {
+        props: {
+          puzzle_id: String(puzzleId),
+          puzzle_index: String(puzzleIndex),
+          puzzle_title: puzzleTitle,
+          result: isGameWon ? "win" : "loss",
+          mistakes: String(numMistakesUsed),
+        },
+      });
       recordCompletedPuzzleStats({
         puzzleKey: puzzleId,
         isGameWon,

@@ -16,6 +16,8 @@ import {
   saveHasSeenOnboardingToLocalStorage,
   saveShowEnglishTranslationsToLocalStorage,
 } from "../../lib/local-storage";
+import { initializePlausible, trackEvent } from "../../lib/analytics";
+import { puzzleId, puzzleIndex, puzzleTitle } from "../../lib/time-utils";
 
 function App() {
   const [hasSeenOnboarding, setHasSeenOnboarding] = React.useState(() =>
@@ -31,6 +33,18 @@ function App() {
   const [showEnglishTranslations, setShowEnglishTranslations] = React.useState(
     () => loadShowEnglishTranslationsFromLocalStorage()
   );
+
+  React.useEffect(() => {
+    initializePlausible();
+    trackEvent("App Open", {
+      props: {
+        puzzle_id: String(puzzleId),
+        puzzle_index: String(puzzleIndex),
+        puzzle_title: puzzleTitle,
+      },
+      interactive: false,
+    });
+  }, []);
 
   function toggleEnglishTranslations() {
     setShowEnglishTranslations((currentValue) => {
@@ -70,7 +84,15 @@ function App() {
             showEnglishTranslations={showEnglishTranslations}
             onToggleTranslations={toggleEnglishTranslations}
             onHelpClick={() => setIsOnboardingOpen(true)}
-            onPuzzleBrowserClick={() => setIsPuzzleBrowserOpen(true)}
+            onPuzzleBrowserClick={() => {
+              trackEvent("Puzzle Browser Open", {
+                props: {
+                  puzzle_id: String(puzzleId),
+                  puzzle_index: String(puzzleIndex),
+                },
+              });
+              setIsPuzzleBrowserOpen(true);
+            }}
             onStatsClick={() => setIsStatsOpen(true)}
           />
           {showResetPrompt && (
@@ -85,7 +107,16 @@ function App() {
               <Button
                 className="mt-3 w-full"
                 variant="secondary"
-                onClick={() => setIsPuzzleBrowserOpen(true)}
+                onClick={() => {
+                  trackEvent("Puzzle Browser Open", {
+                    props: {
+                      puzzle_id: String(puzzleId),
+                      puzzle_index: String(puzzleIndex),
+                      source: "reset_prompt",
+                    },
+                  });
+                  setIsPuzzleBrowserOpen(true);
+                }}
               >
                 Roghnaigh puzal
               </Button>

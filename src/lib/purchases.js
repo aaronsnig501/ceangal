@@ -4,6 +4,7 @@ import { Purchases } from "@revenuecat/purchases-capacitor";
 const env = import.meta.env ?? {};
 const removeAdsEntitlement =
   env.VITE_RC_REMOVE_ADS_ENTITLEMENT ?? "remove_ads";
+const defaultOfferingIdentifier = "default";
 
 let purchasesConfigurationPromise = null;
 
@@ -21,7 +22,7 @@ function getRevenueCatApiKey() {
   return "";
 }
 
-function canUseRevenueCat() {
+export function canUseRevenueCat() {
   return (
     Capacitor.isNativePlatform() &&
     Capacitor.isPluginAvailable("Purchases") &&
@@ -29,7 +30,7 @@ function canUseRevenueCat() {
   );
 }
 
-async function configurePurchasesIfNeeded() {
+export async function initializePurchases() {
   if (!canUseRevenueCat()) {
     return false;
   }
@@ -49,8 +50,14 @@ async function configurePurchasesIfNeeded() {
   return purchasesConfigurationPromise;
 }
 
+function hasActiveRemoveAdsEntitlement(customerInfo) {
+  return Boolean(
+    customerInfo?.entitlements?.active?.[removeAdsEntitlement]?.isActive
+  );
+}
+
 export async function userHasRemovedAds() {
-  const isConfigured = await configurePurchasesIfNeeded();
+  const isConfigured = await initializePurchases();
 
   if (!isConfigured) {
     return false;
@@ -58,12 +65,61 @@ export async function userHasRemovedAds() {
 
   try {
     const { customerInfo } = await Purchases.getCustomerInfo();
-
-    return Boolean(
-      customerInfo.entitlements.active?.[removeAdsEntitlement]?.isActive
-    );
+    return hasActiveRemoveAdsEntitlement(customerInfo);
   } catch (error) {
     console.warn("RevenueCat customer info lookup failed", error);
     return false;
   }
+}
+
+export async function loadRemoveAdsProduct() {
+  const isConfigured = await initializePurchases();
+
+  if (!isConfigured) {
+    return null;
+  }
+
+  const offerings = await Purchases.getOfferings();
+  const defaultOffering =
+    offerings.all?.[defaultOfferingIdentifier] ?? offerings.current ?? null;
+
+  if (!defaultOffering) {
+    return null;
+  }
+
+  return (
+    defaultOffering.lifetime ??
+    defaultOffering.availablePackages?.[0] ??
+    null
+  );
+}
+
+export async function purchaseRemoveAds() {
+  const selectedPackage = await loadRemoveAdsProduct();
+
+  if (!selectedPackage) {
+    const missingPackageError = new Error("REMOVE_ADS_PRODUCT_UNAVAILABLE");
+    missingPackageError.code = "REMOVE_ADS_PRODUCT_UNAVAILABLE";
+    throw missingPackageError;
+  }
+
+  const purchaseResult = await Purchases.purchasePackage({
+    aPackage: selectedPackage,
+  });
+
+  return {
+    package: selectedPackage,
+    hasRemovedAds: hasActiveRemoveAdsEntitlement(purchaseResult.customerInfo),
+  };
+}
+
+export async function restoreRemoveAdsPurchases() {
+  const isConfigured = await initializePurchases();
+
+  if (!isConfigured) {
+    return false;
+  }
+
+  const { customerInfo } = await Purchases.restorePurchases();
+  return hasActiveRemoveAdsEntitlement(customerInfo);
 }

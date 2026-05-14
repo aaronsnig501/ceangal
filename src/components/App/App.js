@@ -3,6 +3,7 @@ import Header from "../Header";
 import Game from "../Game";
 import OnboardingFlow from "../OnboardingFlow";
 import PuzzleBrowser from "../PuzzleBrowser";
+import RemoveAdsModal from "../RemoveAdsModal";
 import StatisticsModal from "../StatisticsModal";
 import { allPuzzlesCompletedOnBoot } from "../../lib/time-utils";
 
@@ -18,6 +19,7 @@ import {
 } from "../../lib/local-storage";
 import { initializeAdMob } from "../../lib/admob";
 import { initializePlausible, trackEvent } from "../../lib/analytics";
+import { initializePurchases } from "../../lib/purchases";
 import { puzzleId, puzzleIndex, puzzleTitle } from "../../lib/time-utils";
 
 function App() {
@@ -28,6 +30,7 @@ function App() {
   const [isOnboardingOpen, setIsOnboardingOpen] = React.useState(false);
   const [isPuzzleBrowserOpen, setIsPuzzleBrowserOpen] = React.useState(false);
   const [isStatsOpen, setIsStatsOpen] = React.useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
   const [showResetPrompt, setShowResetPrompt] = React.useState(
     allPuzzlesCompletedOnBoot
   );
@@ -37,6 +40,7 @@ function App() {
 
   React.useEffect(() => {
     initializePlausible();
+    void initializePurchases();
     void initializeAdMob();
     trackEvent("App Open", {
       props: {
@@ -96,6 +100,7 @@ function App() {
               setIsPuzzleBrowserOpen(true);
             }}
             onStatsClick={() => setIsStatsOpen(true)}
+            onSettingsClick={() => setIsSettingsOpen(true)}
           />
           {showResetPrompt && (
             <div className="rounded-md border border-rule bg-surface p-4 text-center">
@@ -159,6 +164,11 @@ function App() {
           showTrigger={false}
           initiallyOpen={isStatsOpen}
           onOpenChange={setIsStatsOpen}
+        />
+        <RemoveAdsModal
+          showTrigger={false}
+          initiallyOpen={isSettingsOpen}
+          onOpenChange={setIsSettingsOpen}
         />
       </GameStatusProvider>
     </PuzzleDataProvider>

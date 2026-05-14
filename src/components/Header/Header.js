@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BarChart3, HelpCircle, List } from "lucide-react";
+import { BarChart3, HelpCircle, List, Settings2 } from "lucide-react";
 
 function Header({
   showEnglishTranslations,
@@ -8,6 +8,7 @@ function Header({
   onHelpClick,
   onPuzzleBrowserClick,
   onStatsClick,
+  onSettingsClick,
 }) {
   return (
     <header>
@@ -41,6 +42,14 @@ function Header({
           aria-pressed={showEnglishTranslations}
         >
           GA→EN{showEnglishTranslations ? " ✓" : ""}
+        </button>
+        <button
+          type="button"
+          className="icon-trigger"
+          onClick={onSettingsClick}
+          aria-label="Socruithe"
+        >
+          <Settings2 strokeWidth={1.75} />
         </button>
         <button
           type="button"

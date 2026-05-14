@@ -11,22 +11,22 @@ const demoWords = [
   "Arán",
   "Uisce",
   "Brioscaí",
-  "Le do thoil",
+  "Le do ṫoil",
   "Anseo",
   "Sú oráiste",
   "Cupán mór",
-  "Go raibh maith agat",
+  "Go raiḃ maiṫ agat",
   "Bainne oats",
   "An féidir liom?",
   "Toirtín",
-  "Le tabhairt leat",
-  "An bhfuil sé saor?",
+  "Le taḃairt leat",
+  "An ḃfuil sé saor?",
 ];
 
 const drinks = ["Caife", "Tae", "Uisce", "Sú oráiste"];
 
 const categories = [
-  { name: "Deochanna", words: drinks, className: "bg-tier-1 text-tier-1-fg" },
+  { name: "Deoċanna", words: drinks, className: "bg-tier-1 text-tier-1-fg" },
   {
     name: "Bia",
     words: ["Toirtín", "Cáca", "Arán", "Brioscaí"],
@@ -34,19 +34,19 @@ const categories = [
   },
   {
     name: "Frásaí",
-    words: ["Le do thoil", "Go raibh maith agat", "An féidir liom?", "An bhfuil sé saor?"],
+    words: ["Le do ṫoil", "Go raiḃ maiṫ agat", "An féidir liom?", "An ḃfuil sé saor?"],
     className: "bg-tier-3 text-tier-3-fg",
   },
   {
     name: "Ordú",
-    words: ["Anseo", "Le tabhairt leat", "Cupán mór", "Bainne oats"],
+    words: ["Anseo", "Le taḃairt leat", "Cupán mór", "Bainne oats"],
     className: "bg-tier-4 text-tier-4-fg",
   },
 ];
 
 const tiers = [
   { label: "Éasca", className: "bg-tier-1", textClassName: "text-tier-1-fg" },
-  { label: "Measartha", className: "bg-tier-2", textClassName: "text-tier-2-fg" },
+  { label: "Measarṫa", className: "bg-tier-2", textClassName: "text-tier-2-fg" },
   { label: "Deacair", className: "bg-tier-3", textClassName: "text-tier-3-fg" },
   { label: "Casta", className: "bg-tier-4", textClassName: "text-tier-4-fg" },
 ];
@@ -67,18 +67,18 @@ function SplashScreen({ onStart, onSkip }) {
         <div className="grid gap-3">
           <Wordmark />
           <p className="font-serif italic text-text-soft">
-            Cluiche focal faoi cheangail rúnda.
+            Cluiċe focal faoi ċeangail rúnda.
           </p>
         </div>
         <div className="grid gap-3">
           <Button onClick={onSkip}>
-            Imirt díreach
+            Imirt díreaċ
           </Button>
           <Button variant="secondary" onClick={onStart}>
             Conas a imrítear
           </Button>
           <a className="text-sm text-text-soft underline" href="/privacy/">
-            Príobháideachas
+            Príobḃáideaċas
           </a>
         </div>
       </div>
@@ -123,7 +123,7 @@ function GridStep() {
   return (
     <StepShell kicker="1 as 5" title="An eangach">
       <p className="text-center font-serif italic text-text-soft">
-        Tosaíonn gach cluiche le 16 fhocal. Tá ceithre ghrúpa i bhfolach iontu.
+        Tosaíonn gaċ cluiche le 16 focal. Tá ceiṫre gṙúpa i ḃfolaċ iontu.
       </p>
       <div className="grid grid-cols-4 gap-1.5">
         {demoWords.map((word) => (
@@ -138,7 +138,7 @@ function GroupsStep() {
   return (
     <StepShell kicker="2 as 5" title="Na grúpaí">
       <p className="text-center font-serif italic text-text-soft">
-        Nuair a aimsíonn tú ceithre fhocal a bhaineann le chéile, nochtar an chatagóir.
+        Nuair a aimsíonn tú ceiṫre focail a ḃaineann le ċéile, noċtar an ċatagóir.
       </p>
       <div className="grid gap-2">
         {categories.map((category) => (
@@ -180,9 +180,9 @@ function SelectTilesStep({ isSolved, setIsSolved }) {
   }
 
   return (
-    <StepShell kicker="3 as 5" title="Roghnaigh tíleanna">
+    <StepShell kicker="3 as 5" title="Roġnaiġ tíleanna">
       <p className="text-center font-serif italic text-text-soft">
-        Roghnaigh an grúpa deochanna: Caife, Tae, Uisce agus Sú oráiste.
+        Roġnaiġ an gṙúpa deoċanna: Caife, Tae, Uisce ⁊ Sú oráiste.
       </p>
       <div className="grid grid-cols-4 gap-1.5">
         {demoWords.slice(0, 12).map((word) => (
@@ -207,7 +207,7 @@ function SelectTilesStep({ isSolved, setIsSolved }) {
         </Button>
         {showHint && (
           <p className="text-center text-sm text-vermil">
-            Beagnach. Cuardaigh na ceithre dheoch sa chaife.
+            Beagnaċ. Cuardaiġ na ceiṫre ḋeoċ sa ċaife.
           </p>
         )}
       </div>
@@ -217,16 +217,16 @@ function SelectTilesStep({ isSolved, setIsSolved }) {
 
 function ColoursStep() {
   return (
-    <StepShell kicker="4 as 5" title="Na dathanna">
+    <StepShell kicker="4 as 5" title="Na daṫanna">
       <p className="text-center font-serif italic text-text-soft">
-        Léiríonn dath gach grúpa a leibhéal deacrachta.
+        Léiríonn daṫ gaċ gṙúpa a leibḣéal deacraċta.
       </p>
       <div className="grid gap-2">
         {tiers.map((tier, index) => (
           <div key={tier.label} className="flex items-center gap-3 rounded-md border border-rule bg-surface p-3">
             <span className={`h-8 w-8 rounded ${tier.className}`} aria-hidden="true" />
             <div>
-              <p className={`font-semibold ${tier.textClassName}`}>Leibhéal {index + 1}</p>
+              <p className={`font-semibold ${tier.textClassName}`}>Leibḣéal {index + 1}</p>
               <p className="text-sm text-text-soft">{tier.label}</p>
             </div>
           </div>
@@ -250,11 +250,11 @@ function MistakesStep() {
   return (
     <StepShell kicker="5 as 5" title="Botúin">
       <p className="text-center font-serif italic text-text-soft">
-        Tá ceithre bhotún agat. Líontar ponc nuair a dhéanann tú rogha mhícheart.
-        Is féidir GA→EN a chasadh air sa cheanntásc má theastaíonn aistriúchán Béarla uait.
+        Tá ceiṫre ḃotún agat. Líontar ponc nuair a ḋéanann tú roġa ṁíċeart.
+        Is féidir GA→EN a ċasaḋ air sa ċeanntásc má ṫeastaíonn aistriúċán Béarla uait.
       </p>
       <div className="grid place-items-center gap-4 rounded-md border border-rule bg-surface p-6">
-        <p className="font-serif italic text-sm text-text-soft">Botúin fágtha</p>
+        <p className="font-serif italic text-sm text-text-soft">Botúin fágṫa</p>
         <div className="flex gap-3">
           {Array.from({ length: MAX_MISTAKES }).map((_, index) => (
             <span
@@ -351,10 +351,10 @@ function OnboardingFlow({
                 disabled={isDemoStepBlocked}
               >
                 {isLastStep ? (
-                  isFirstRun ? "Tosaigh" : "Déanta"
+                  isFirstRun ? "Tosaiġ" : "Déanta"
                 ) : (
                   <span className="inline-flex items-center gap-2">
-                    Ar aghaidh <ChevronRight size={18} />
+                    Ar aġaiḋ <ChevronRight size={18} />
                   </span>
                 )}
               </Button>

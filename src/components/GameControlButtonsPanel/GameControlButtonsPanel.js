@@ -48,8 +48,8 @@ function GameControlButtonsPanel({
     if (isGuessRepeated({ submittedGuesses, guessCandidate })) {
       toast({
         label: "Notification",
-        title: "Rogha déanta cheana",
-        description: "Rinne tú an rogha seo cheana.",
+        title: "Roġa déanta ċeana",
+        description: "Rinne tú an roġa seo ċeana.",
       });
 
       return;
@@ -95,8 +95,8 @@ function GameControlButtonsPanel({
       if (isGuessOneAway) {
         toast({
           label: "Notification",
-          title: "Beagnach ann",
-          description: "Tá focal amháin as áit sa rogha sin.",
+          title: "Beagnaċ ann",
+          description: "Tá focal aṁáin as áit sa roġa sin.",
         });
       }
     }

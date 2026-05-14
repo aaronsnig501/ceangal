@@ -146,7 +146,7 @@ function Game({
   return (
     <>
       <h3 className="font-serif italic text-text-soft text-center mt-4">
-        Aimsigh {numCategories} ghrúpa de {categorySize} fhocal
+        Aimsiġ {numCategories} gṙúpa de {categorySize} ḟocal
       </h3>
 
       <div className={`game-wrapper`}>

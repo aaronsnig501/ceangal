@@ -21,7 +21,7 @@ function Header({
           type="button"
           className="icon-trigger"
           onClick={onPuzzleBrowserClick}
-          aria-label="Roghnaigh imirt"
+          aria-label="Roġnaiġ imirt"
         >
           <List strokeWidth={1.75} />
         </button>

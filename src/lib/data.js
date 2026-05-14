@@ -15,10 +15,10 @@
 export const allPuzzles = [
   {
     id: 1,
-    title: "Sa Chaife",
+    title: "Sa Ċaife",
     categories: [
       {
-        name: "Deochanna",
+        name: "Deoċanna",
         color: "t1",
         words: [
           { w: "Caife", t: "Coffee" },
@@ -41,18 +41,18 @@ export const allPuzzles = [
         name: "Ag ordú",
         color: "t3",
         words: [
-          { w: "Le do thoil", t: "Please" },
-          { w: "Go raibh maith agat", t: "Thank you" },
+          { w: "Le do ṫoil", t: "Please" },
+          { w: "Go raiḃ maiṫ agat", t: "Thank you" },
           { w: "An féidir liom?", t: "May I?" },
           { w: "An bille", t: "The bill" },
         ],
       },
       {
-        name: "Roghanna cupáin",
+        name: "Roġanna cupáin",
         color: "t4",
         words: [
           { w: "Anseo", t: "To stay in" },
-          { w: "Le tabhairt leat", t: "To take away" },
+          { w: "Le taḃairt leat", t: "To take away" },
           { w: "Cupán mór", t: "Large cup" },
           { w: "Bainne coirce", t: "Oat milk" },
         ],
@@ -61,46 +61,46 @@ export const allPuzzles = [
   },
   {
     id: 2,
-    title: "Beannachtaí",
+    title: "Beannaċtaí",
     categories: [
       {
-        name: "Beannachtaí bunúsacha",
+        name: "Beannaċtaí bunúsaċa",
         color: "t1",
         words: [
           { w: "Dia duit", t: "Hello" },
           { w: "Dia is Muire duit", t: "Hello in reply" },
-          { w: "Haigh", t: "Hi" },
+          { w: "Haiġ", t: "Hi" },
           { w: "Fáilte", t: "Welcome" },
         ],
       },
       {
-        name: "Fiafraí de dhuine",
+        name: "Fiafraí de ḋuine",
         color: "t2",
         words: [
           { w: "Conas atá tú?", t: "How are you?" },
-          { w: "Cén chaoi a bhfuil tú?", t: "How are you?" },
+          { w: "Cén ċaoi a ḃfuil tú?", t: "How are you?" },
           { w: "Cad é mar atá tú?", t: "How are you?" },
-          { w: "An bhfuil tú go maith?", t: "Are you well?" },
+          { w: "An ḃfuil tú go maiṫ?", t: "Are you well?" },
         ],
       },
       {
-        name: "Freagraí dearfacha",
+        name: "Freagraí dearfaċa",
         color: "t3",
         words: [
-          { w: "Tá mé go maith", t: "I am well" },
-          { w: "Ar fheabhas", t: "Excellent" },
+          { w: "Tá mé go maiṫ", t: "I am well" },
+          { w: "Ar ḟeaḃas", t: "Excellent" },
           { w: "Go breá", t: "Fine" },
           { w: "Ní dona", t: "Not bad" },
         ],
       },
       {
-        name: "Slán a fhágáil",
+        name: "Slán a ḟágáil",
         color: "t4",
         words: [
           { w: "Slán", t: "Goodbye" },
           { w: "Slán go fóill", t: "Goodbye for now" },
-          { w: "Feicfidh mé thú", t: "I will see you" },
-          { w: "Oíche mhaith", t: "Good night" },
+          { w: "Feicfiḋ mé ṫú", t: "I will see you" },
+          { w: "Oíċe ṁaiṫ", t: "Good night" },
         ],
       },
     ],
@@ -113,10 +113,10 @@ export const allPuzzles = [
         name: "Spóirt an CLG",
         color: "t1",
         words: [
-          { w: "Peil Ghaelach", t: "Gaelic football" },
-          { w: "Iománaíocht", t: "Hurling" },
-          { w: "Camógaíocht", t: "Camogie" },
-          { w: "Liathróid láimhe", t: "Handball" },
+          { w: "Peil Ġaelaċ", t: "Gaelic football" },
+          { w: "Iománaíoċt", t: "Hurling" },
+          { w: "Camógaíoċt", t: "Camogie" },
+          { w: "Liaṫróid láiṁe", t: "Handball" },
         ],
       },
       {
@@ -143,46 +143,46 @@ export const allPuzzles = [
         name: "Áiteanna CLG",
         color: "t4",
         words: [
-          { w: "Páirc an Chrócaigh", t: "Croke Park" },
+          { w: "Páirc an Ċrócaiġ", t: "Croke Park" },
           { w: "Staidiam", t: "Stadium" },
           { w: "Seomra feistis", t: "Dressing room" },
-          { w: "Taobhlíne", t: "Sideline" },
+          { w: "Taoḃlíne", t: "Sideline" },
         ],
       },
     ],
   },
   {
     id: 4,
-    title: "Oíche Shamhna",
+    title: "Oíċe Ṡaṁna",
     categories: [
       {
         name: "Rudaí scanrúla",
         color: "t1",
         words: [
-          { w: "Taibhse", t: "Ghost" },
-          { w: "Cailleach", t: "Witch" },
-          { w: "Cnámharlach", t: "Skeleton" },
-          { w: "Arracht", t: "Monster" },
+          { w: "Taiḃse", t: "Ghost" },
+          { w: "Cailleaċ", t: "Witch" },
+          { w: "Cnáṁarlaċ", t: "Skeleton" },
+          { w: "Arraċt", t: "Monster" },
         ],
       },
       {
-        name: "Maisiúcháin",
+        name: "Maisiúċáin",
         color: "t2",
         words: [
           { w: "Puimcín", t: "Pumpkin" },
           { w: "Coinneal", t: "Candle" },
           { w: "Masc", t: "Mask" },
-          { w: "Culaith", t: "Costume" },
+          { w: "Culaiṫ", t: "Costume" },
         ],
       },
       {
-        name: "Gníomhartha na hoíche",
+        name: "Gníoṁarṫa na hoíċe",
         color: "t3",
         words: [
-          { w: "Ag cnagadh", t: "Knocking" },
+          { w: "Ag cnagaḋ", t: "Knocking" },
           { w: "Ag scanrú", t: "Scaring" },
           { w: "Ag ceilt", t: "Hiding" },
-          { w: "Ag gléasadh suas", t: "Dressing up" },
+          { w: "Ag gléasaḋ suas", t: "Dressing up" },
         ],
       },
       {
@@ -199,26 +199,26 @@ export const allPuzzles = [
   },
   {
     id: 5,
-    title: "Logainmneacha Laighean",
+    title: "Logainmneaċa Laiġean",
     categories: [
       {
-        name: "Contaetha Laighean",
+        name: "Contaeṫa Laiġean",
         color: "t1",
         words: [
-          { w: "Baile Átha Cliath", t: "Dublin" },
+          { w: "Baile Áṫa Cliaṫ", t: "Dublin" },
           { w: "Cill Dara", t: "Kildare" },
-          { w: "Cill Mhantáin", t: "Wicklow" },
-          { w: "An Mhí", t: "Meath" },
+          { w: "Cill Ṁantáin", t: "Wicklow" },
+          { w: "An Ṁí", t: "Meath" },
         ],
       },
       {
         name: "Bailte móra",
         color: "t2",
         words: [
-          { w: "Droichead Átha", t: "Drogheda" },
+          { w: "Droiċead Áṫa", t: "Drogheda" },
           { w: "Port Laoise", t: "Portlaoise" },
-          { w: "Inis Córthaidh", t: "Enniscorthy" },
-          { w: "Ceatharlach", t: "Carlow" },
+          { w: "Inis Córṫaiḋ", t: "Enniscorthy" },
+          { w: "Ceaṫarlaċ", t: "Carlow" },
         ],
       },
       {
@@ -226,19 +226,19 @@ export const allPuzzles = [
         color: "t3",
         words: [
           { w: "Bré", t: "Bray" },
-          { w: "Dún Laoghaire", t: "Dún Laoghaire" },
+          { w: "Dún Laoġaire", t: "Dún Laoghaire" },
           { w: "An Ros Láir", t: "Rosslare" },
-          { w: "Inbhear Mór", t: "Arklow" },
+          { w: "Inḃear Mór", t: "Arklow" },
         ],
       },
       {
-        name: "Logainmneacha le Cill",
+        name: "Logainmneaċa le Cill",
         color: "t4",
         words: [
-          { w: "Cill Chainnigh", t: "Kilkenny" },
-          { w: "Cill Mhór", t: "Kilmore" },
-          { w: "Cill Bheagáin", t: "Kilbeggan" },
-          { w: "Cill Choca", t: "Kilcock" },
+          { w: "Cill Ċainniġ", t: "Kilkenny" },
+          { w: "Cill Ṁór", t: "Kilmore" },
+          { w: "Cill Ḃeagáin", t: "Kilbeggan" },
+          { w: "Cill Ċoca", t: "Kilcock" },
         ],
       },
     ],
@@ -251,7 +251,7 @@ export const allPuzzles = [
         name: "Béilí traidisiúnta",
         color: "t1",
         words: [
-          { w: "Stobhach", t: "Stew" },
+          { w: "Stoḃaċ", t: "Stew" },
           { w: "Bacstaí", t: "Boxty" },
           { w: "Cál ceannann", t: "Colcannon" },
           { w: "Arán sóide", t: "Soda bread" },
@@ -268,17 +268,17 @@ export const allPuzzles = [
         ],
       },
       {
-        name: "Sa bhricfeasta",
+        name: "Sa ḃricfeasta",
         color: "t3",
         words: [
-          { w: "Ubh", t: "Egg" },
+          { w: "Uḃ", t: "Egg" },
           { w: "Ispíní", t: "Sausages" },
           { w: "Bagún", t: "Bacon" },
           { w: "Pónairí", t: "Beans" },
         ],
       },
       {
-        name: "Comhábhair",
+        name: "Coṁáḃair",
         color: "t4",
         words: [
           { w: "Prátaí", t: "Potatoes" },
@@ -294,40 +294,40 @@ export const allPuzzles = [
     title: "An Aimsir",
     categories: [
       {
-        name: "Báisteach agus scamall",
+        name: "Báisteaċ ⁊ scamall",
         color: "t1",
         words: [
-          { w: "Báisteach", t: "Rain" },
-          { w: "Ceobhrán", t: "Drizzle" },
+          { w: "Báisteaċ", t: "Rain" },
+          { w: "Ceoḃrán", t: "Drizzle" },
           { w: "Scamall", t: "Cloud" },
-          { w: "Cith", t: "Shower" },
+          { w: "Ciṫ", t: "Shower" },
         ],
       },
       {
         name: "Fuar",
         color: "t2",
         words: [
-          { w: "Sneachta", t: "Snow" },
+          { w: "Sneaċta", t: "Snow" },
           { w: "Sioc", t: "Frost" },
-          { w: "Oighear", t: "Ice" },
-          { w: "Fuacht", t: "Cold" },
+          { w: "Oiġear", t: "Ice" },
+          { w: "Fuaċt", t: "Cold" },
         ],
       },
       {
-        name: "Te agus geal",
+        name: "Te ⁊ geal",
         color: "t3",
         words: [
           { w: "Grian", t: "Sun" },
           { w: "Teas", t: "Heat" },
-          { w: "Spéir ghlan", t: "Clear sky" },
-          { w: "Bogha báistí", t: "Rainbow" },
+          { w: "Spéir ġlan", t: "Clear sky" },
+          { w: "Boġa báistí", t: "Rainbow" },
         ],
       },
       {
-        name: "Gaoth",
+        name: "Gaoṫ",
         color: "t4",
         words: [
-          { w: "Gaoth", t: "Wind" },
+          { w: "Gaoṫ", t: "Wind" },
           { w: "Stoirm", t: "Storm" },
           { w: "Séideán", t: "Gust" },
           { w: "Gála", t: "Gale" },
@@ -337,14 +337,14 @@ export const allPuzzles = [
   },
   {
     id: 8,
-    title: "An Teaghlach",
+    title: "An Teaġlaċ",
     categories: [
       {
-        name: "Tuismitheoirí agus páistí",
+        name: "Tuismiṫeoirí ⁊ páistí",
         color: "t1",
         words: [
-          { w: "Máthair", t: "Mother" },
-          { w: "Athair", t: "Father" },
+          { w: "Máṫair", t: "Mother" },
+          { w: "Aṫair", t: "Father" },
           { w: "Iníon", t: "Daughter" },
           { w: "Mac", t: "Son" },
         ],
@@ -354,18 +354,18 @@ export const allPuzzles = [
         color: "t2",
         words: [
           { w: "Deirfiúr", t: "Sister" },
-          { w: "Deartháir", t: "Brother" },
-          { w: "Leathdheirfiúr", t: "Half-sister" },
-          { w: "Leathdheartháir", t: "Half-brother" },
+          { w: "Dearṫáir", t: "Brother" },
+          { w: "Leaṫḋeirfiúr", t: "Half-sister" },
+          { w: "Leaṫḋearṫáir", t: "Half-brother" },
         ],
       },
       {
-        name: "Seantuismitheoirí",
+        name: "Seantuismiṫeoirí",
         color: "t3",
         words: [
-          { w: "Seanmháthair", t: "Grandmother" },
-          { w: "Seanathair", t: "Grandfather" },
-          { w: "Garmhac", t: "Grandson" },
+          { w: "Seanṁáṫair", t: "Grandmother" },
+          { w: "Seanaṫair", t: "Grandfather" },
+          { w: "Garṁac", t: "Grandson" },
           { w: "Gariníon", t: "Granddaughter" },
         ],
       },
@@ -375,8 +375,8 @@ export const allPuzzles = [
         words: [
           { w: "Aintín", t: "Aunt" },
           { w: "Uncail", t: "Uncle" },
-          { w: "Col ceathrar", t: "Cousin" },
-          { w: "Neacht", t: "Niece" },
+          { w: "Col ceaṫrar", t: "Cousin" },
+          { w: "Neaċt", t: "Niece" },
         ],
       },
     ],
@@ -391,18 +391,18 @@ export const allPuzzles = [
         words: [
           { w: "Fidil", t: "Fiddle" },
           { w: "Feadóg stáin", t: "Tin whistle" },
-          { w: "Bodhrán", t: "Bodhrán" },
+          { w: "Boḋrán", t: "Bodhrán" },
           { w: "Píobaí uilleann", t: "Uilleann pipes" },
         ],
       },
       {
-        name: "Cineálacha ceoil",
+        name: "Cineálaċa ceoil",
         color: "t2",
         words: [
           { w: "Port", t: "Jig" },
           { w: "Ríl", t: "Reel" },
-          { w: "Amhrán", t: "Song" },
-          { w: "Caoineadh", t: "Lament" },
+          { w: "Aṁrán", t: "Song" },
+          { w: "Caoineaḋ", t: "Lament" },
         ],
       },
       {
@@ -410,19 +410,19 @@ export const allPuzzles = [
         color: "t3",
         words: [
           { w: "Ceoltóir", t: "Musician" },
-          { w: "Amhránaí", t: "Singer" },
+          { w: "Aṁránaí", t: "Singer" },
           { w: "Rinceoir", t: "Dancer" },
           { w: "Éisteoir", t: "Listener" },
         ],
       },
       {
-        name: "Sa cheoláras",
+        name: "Sa ċeoláras",
         color: "t4",
         words: [
           { w: "Ardán", t: "Stage" },
           { w: "Micreafón", t: "Microphone" },
           { w: "Ticéad", t: "Ticket" },
-          { w: "Bualadh bos", t: "Applause" },
+          { w: "Bualaḋ bos", t: "Applause" },
         ],
       },
     ],
@@ -437,28 +437,28 @@ export const allPuzzles = [
         words: [
           { w: "Oifig", t: "Office" },
           { w: "Siopa", t: "Shop" },
-          { w: "Monarcha", t: "Factory" },
+          { w: "Monarċa", t: "Factory" },
           { w: "Feirm", t: "Farm" },
         ],
       },
       {
-        name: "Gairmeacha",
+        name: "Gairmeaċa",
         color: "t2",
         words: [
           { w: "Múinteoir", t: "Teacher" },
-          { w: "Dochtúir", t: "Doctor" },
+          { w: "Doċtúir", t: "Doctor" },
           { w: "Innealtóir", t: "Engineer" },
           { w: "Cócaire", t: "Cook" },
         ],
       },
       {
-        name: "Sa ríomhaire",
+        name: "Sa ríoṁaire",
         color: "t3",
         words: [
-          { w: "Ríomhphost", t: "Email" },
+          { w: "Ríoṁṗost", t: "Email" },
           { w: "Cruinniú", t: "Meeting" },
-          { w: "Scarbhileog", t: "Spreadsheet" },
-          { w: "Pasfhocal", t: "Password" },
+          { w: "Scarḃileog", t: "Spreadsheet" },
+          { w: "Pasḟocal", t: "Password" },
         ],
       },
       {
@@ -467,7 +467,7 @@ export const allPuzzles = [
         words: [
           { w: "Tús", t: "Start" },
           { w: "Sos", t: "Break" },
-          { w: "Spriocdháta", t: "Deadline" },
+          { w: "Spriocḋáta", t: "Deadline" },
           { w: "Tuarastal", t: "Salary" },
         ],
       },
@@ -475,10 +475,10 @@ export const allPuzzles = [
   },
   {
     id: 11,
-    title: "Na Dathanna",
+    title: "Na Daṫanna",
     categories: [
       {
-        name: "Dathanna coitianta",
+        name: "Daṫanna coitianta",
         color: "t1",
         words: [
           { w: "Dearg", t: "Red" },
@@ -488,7 +488,7 @@ export const allPuzzles = [
         ],
       },
       {
-        name: "Dathanna eile",
+        name: "Daṫanna eile",
         color: "t2",
         words: [
           { w: "Corcra", t: "Purple" },
@@ -498,22 +498,22 @@ export const allPuzzles = [
         ],
       },
       {
-        name: "Solas agus dorchadas",
+        name: "Solas ⁊ dorċadas",
         color: "t3",
         words: [
           { w: "Bán", t: "White" },
-          { w: "Dubh", t: "Black" },
-          { w: "Liath", t: "Grey" },
+          { w: "Duḃ", t: "Black" },
+          { w: "Liaṫ", t: "Grey" },
           { w: "Geal", t: "Bright" },
         ],
       },
       {
-        name: "Cur síos ar dhath",
+        name: "Cur síos ar ḋaṫ",
         color: "t4",
         words: [
           { w: "Éadrom", t: "Light" },
-          { w: "Dorcha", t: "Dark" },
-          { w: "Lonrach", t: "Shiny" },
+          { w: "Dorċa", t: "Dark" },
+          { w: "Lonraċ", t: "Shiny" },
           { w: "Breac", t: "Speckled" },
         ],
       },
@@ -528,13 +528,13 @@ export const allPuzzles = [
         color: "t1",
         words: [
           { w: "Pictiúr", t: "Picture" },
-          { w: "Dealbh", t: "Sculpture" },
+          { w: "Dealḃ", t: "Sculpture" },
           { w: "Léarscáil", t: "Map" },
           { w: "Déantán", t: "Artefact" },
         ],
       },
       {
-        name: "Daoine sa mhúsaem",
+        name: "Daoine sa ṁúsaem",
         color: "t2",
         words: [
           { w: "Cuairteoir", t: "Visitor" },
@@ -544,7 +544,7 @@ export const allPuzzles = [
         ],
       },
       {
-        name: "Áiteanna istigh",
+        name: "Áiteanna istiġ",
         color: "t3",
         words: [
           { w: "Gailearaí", t: "Gallery" },
@@ -560,7 +560,7 @@ export const allPuzzles = [
           { w: "Ré", t: "Era" },
           { w: "Fianaise", t: "Evidence" },
           { w: "Cartlann", t: "Archive" },
-          { w: "Oidhreacht", t: "Heritage" },
+          { w: "Oiḋreaċt", t: "Heritage" },
         ],
       },
     ],
@@ -570,17 +570,17 @@ export const allPuzzles = [
     title: "Sláinte!",
     categories: [
       {
-        name: "Beannachtaí sláinte",
+        name: "Beannaċtaí sláinte",
         color: "t1",
         words: [
           { w: "Sláinte", t: "Cheers" },
           { w: "Go maire tú", t: "May you live long" },
-          { w: "Ar do shláinte", t: "To your health" },
-          { w: "Beatha agus sláinte", t: "Life and health" },
+          { w: "Ar do ṡláinte", t: "To your health" },
+          { w: "Beaṫa ⁊ sláinte", t: "Life and health" },
         ],
       },
       {
-        name: "Sa teach tábhairne",
+        name: "Sa teaċ táḃairne",
         color: "t2",
         words: [
           { w: "Pionta", t: "Pint" },
@@ -595,25 +595,25 @@ export const allPuzzles = [
         words: [
           { w: "Sú", t: "Juice" },
           { w: "Líomanáid", t: "Lemonade" },
-          { w: "Tae luibhe", t: "Herbal tea" },
-          { w: "Deoch bhog", t: "Soft drink" },
+          { w: "Tae luiḃe", t: "Herbal tea" },
+          { w: "Deoċ ḃog", t: "Soft drink" },
         ],
       },
       {
-        name: "Sláinte choirp",
+        name: "Sláinte ċoirp",
         color: "t4",
         words: [
           { w: "Croí", t: "Heart" },
-          { w: "Scamhóga", t: "Lungs" },
+          { w: "Scaṁóga", t: "Lungs" },
           { w: "Fiacla", t: "Teeth" },
-          { w: "Cnámha", t: "Bones" },
+          { w: "Cnáṁa", t: "Bones" },
         ],
       },
     ],
   },
   {
     id: 14,
-    title: "An Fharraige",
+    title: "An Ḟarraige",
     categories: [
       {
         name: "Ar an uisce",
@@ -621,7 +621,7 @@ export const allPuzzles = [
         words: [
           { w: "Bád", t: "Boat" },
           { w: "Long", t: "Ship" },
-          { w: "Curach", t: "Currach" },
+          { w: "Curaċ", t: "Currach" },
           { w: "Bád seoil", t: "Sailboat" },
         ],
       },
@@ -636,7 +636,7 @@ export const allPuzzles = [
         ],
       },
       {
-        name: "Tírdhreach cósta",
+        name: "Tírḋreaċ cósta",
         color: "t3",
         words: [
           { w: "Trá", t: "Beach" },
@@ -651,7 +651,7 @@ export const allPuzzles = [
         words: [
           { w: "Tonn", t: "Wave" },
           { w: "Taoide", t: "Tide" },
-          { w: "Sruth", t: "Current" },
+          { w: "Sruṫ", t: "Current" },
           { w: "Cúr", t: "Foam" },
         ],
       },
@@ -659,26 +659,26 @@ export const allPuzzles = [
   },
   {
     id: 15,
-    title: "Seachtain na Gaeilge",
+    title: "Seaċtain na Gaeilge",
     categories: [
       {
-        name: "Imeachtaí",
+        name: "Imeaċtaí",
         color: "t1",
         words: [
           { w: "Céilí", t: "Céilí" },
-          { w: "Tráth na gceist", t: "Quiz" },
+          { w: "Tráṫ na gceist", t: "Quiz" },
           { w: "Ceardlann", t: "Workshop" },
-          { w: "Ceolchoirm", t: "Concert" },
+          { w: "Ceolċoirm", t: "Concert" },
         ],
       },
       {
         name: "Ag úsáid na Gaeilge",
         color: "t2",
         words: [
-          { w: "Labhair", t: "Speak" },
+          { w: "Laḃair", t: "Speak" },
           { w: "Éist", t: "Listen" },
-          { w: "Léigh", t: "Read" },
-          { w: "Scríobh", t: "Write" },
+          { w: "Léiġ", t: "Read" },
+          { w: "Scríoḃ", t: "Write" },
         ],
       },
       {
@@ -686,9 +686,9 @@ export const allPuzzles = [
         color: "t3",
         words: [
           { w: "Gaelscoil", t: "Irish-medium school" },
-          { w: "Gaeltacht", t: "Irish-speaking region" },
+          { w: "Gaeltaċt", t: "Irish-speaking region" },
           { w: "Cumann", t: "Society" },
-          { w: "Club comhrá", t: "Conversation club" },
+          { w: "Club coṁrá", t: "Conversation club" },
         ],
       },
       {
@@ -697,24 +697,24 @@ export const allPuzzles = [
         words: [
           { w: "Bain triail aisti", t: "Give it a try" },
           { w: "Is fiú í", t: "It is worth it" },
-          { w: "Le chéile", t: "Together" },
-          { w: "Gach lá", t: "Every day" },
+          { w: "Le ċéile", t: "Together" },
+          { w: "Gaċ lá", t: "Every day" },
         ],
       },
     ],
   },
   {
     id: 16,
-    title: "Áit Chónaithe",
+    title: "Áit Ċónaiṫe",
     categories: [
       {
-        name: "Cineálacha tí",
+        name: "Cineálaċa tí",
         color: "t1",
         words: [
-          { w: "Teach", t: "House" },
+          { w: "Teaċ", t: "House" },
           { w: "Árasán", t: "Apartment" },
           { w: "Bungaló", t: "Bungalow" },
-          { w: "Teachín", t: "Cottage" },
+          { w: "Teaċín", t: "Cottage" },
         ],
       },
       {
@@ -724,14 +724,14 @@ export const allPuzzles = [
           { w: "Cistin", t: "Kitchen" },
           { w: "Seomra suí", t: "Living room" },
           { w: "Seomra leapa", t: "Bedroom" },
-          { w: "Seomra folctha", t: "Bathroom" },
+          { w: "Seomra folcṫa", t: "Bathroom" },
         ],
       },
       {
         name: "Troscán",
         color: "t3",
         words: [
-          { w: "Cathaoir", t: "Chair" },
+          { w: "Caṫaoir", t: "Chair" },
           { w: "Bord", t: "Table" },
           { w: "Leaba", t: "Bed" },
           { w: "Cófra", t: "Cupboard" },
@@ -754,22 +754,22 @@ export const allPuzzles = [
     title: "An Léann",
     categories: [
       {
-        name: "Ábhair scoile",
+        name: "Áḃair scoile",
         color: "t1",
         words: [
           { w: "Matamaitic", t: "Mathematics" },
           { w: "Stair", t: "History" },
-          { w: "Tíreolaíocht", t: "Geography" },
-          { w: "Eolaíocht", t: "Science" },
+          { w: "Tíreolaíoċt", t: "Geography" },
+          { w: "Eolaíoċt", t: "Science" },
         ],
       },
       {
-        name: "Áiseanna foghlama",
+        name: "Áiseanna foġlama",
         color: "t2",
         words: [
-          { w: "Leabhar", t: "Book" },
-          { w: "Cóipleabhar", t: "Copybook" },
-          { w: "Peann luaidhe", t: "Pencil" },
+          { w: "Leaḃar", t: "Book" },
+          { w: "Cóipleaḃar", t: "Copybook" },
+          { w: "Peann luaiḋe", t: "Pencil" },
           { w: "Rialóir", t: "Ruler" },
         ],
       },
@@ -779,8 +779,8 @@ export const allPuzzles = [
         words: [
           { w: "Dalta", t: "Pupil" },
           { w: "Mac léinn", t: "Student" },
-          { w: "Príomhoide", t: "Principal" },
-          { w: "Léachtóir", t: "Lecturer" },
+          { w: "Príoṁoide", t: "Principal" },
+          { w: "Léaċtóir", t: "Lecturer" },
         ],
       },
       {
@@ -790,14 +790,14 @@ export const allPuzzles = [
           { w: "Aiste", t: "Essay" },
           { w: "Scrúdú", t: "Exam" },
           { w: "Tionscadal", t: "Project" },
-          { w: "Taighde", t: "Research" },
+          { w: "Taiġde", t: "Research" },
         ],
       },
     ],
   },
   {
     id: 18,
-    title: "Gnáthchaint",
+    title: "Gnáṫċaint",
     categories: [
       {
         name: "Aontú",
@@ -805,8 +805,8 @@ export const allPuzzles = [
         words: [
           { w: "Cinnte", t: "Certainly" },
           { w: "Sea", t: "Yes" },
-          { w: "Gan dabht", t: "No doubt" },
-          { w: "Ar ndóigh", t: "Of course" },
+          { w: "Gan daḃt", t: "No doubt" },
+          { w: "Ar ndóiġ", t: "Of course" },
         ],
       },
       {
@@ -814,44 +814,44 @@ export const allPuzzles = [
         color: "t2",
         words: [
           { w: "Ní hea", t: "No" },
-          { w: "Ní dóigh liom", t: "I do not think so" },
-          { w: "Níl ar chor ar bith", t: "Not at all" },
+          { w: "Ní dóiġ liom", t: "I do not think so" },
+          { w: "Níl ar ċor ar biṫ", t: "Not at all" },
           { w: "Nílim cinnte", t: "I am not sure" },
         ],
       },
       {
-        name: "Líonadh cainte",
+        name: "Líonaḋ cainte",
         color: "t3",
         words: [
-          { w: "Bhuel", t: "Well" },
+          { w: "Ḃuel", t: "Well" },
           { w: "Mar sin", t: "So" },
-          { w: "Tá a fhios agat", t: "You know" },
+          { w: "Tá a ḟios agat", t: "You know" },
           { w: "Dála an scéil", t: "By the way" },
         ],
       },
       {
-        name: "Mothúcháin ghearra",
+        name: "Moṫúċáin ġearra",
         color: "t4",
         words: [
-          { w: "Áthas orm", t: "I am glad" },
+          { w: "Áṫas orm", t: "I am glad" },
           { w: "Is trua sin", t: "That is a pity" },
-          { w: "Mo leithscéal", t: "Sorry" },
-          { w: "Nach iontach", t: "How wonderful" },
+          { w: "Mo leiṫscéal", t: "Sorry" },
+          { w: "Naċ iontaċ", t: "How wonderful" },
         ],
       },
     ],
   },
   {
     id: 19,
-    title: "An Chathair",
+    title: "An Ċaṫair",
     categories: [
       {
-        name: "Áiteanna cathrach",
+        name: "Áiteanna caṫraċ",
         color: "t1",
         words: [
           { w: "Sráid", t: "Street" },
           { w: "Cearnóg", t: "Square" },
-          { w: "Droichead", t: "Bridge" },
+          { w: "Droiċead", t: "Bridge" },
           { w: "Páirc", t: "Park" },
         ],
       },
@@ -862,26 +862,26 @@ export const allPuzzles = [
           { w: "Bus", t: "Bus" },
           { w: "Traein", t: "Train" },
           { w: "Tram", t: "Tram" },
-          { w: "Rothar", t: "Bicycle" },
+          { w: "Roṫar", t: "Bicycle" },
         ],
       },
       {
-        name: "Foirgnimh",
+        name: "Foirgniṁ",
         color: "t3",
         words: [
-          { w: "Leabharlann", t: "Library" },
-          { w: "Amharclann", t: "Theatre" },
+          { w: "Leaḃarlann", t: "Library" },
+          { w: "Aṁarclann", t: "Theatre" },
           { w: "Ospidéal", t: "Hospital" },
-          { w: "Halla na cathrach", t: "City hall" },
+          { w: "Halla na caṫraċ", t: "City hall" },
         ],
       },
       {
-        name: "Treoracha",
+        name: "Treoraċa",
         color: "t4",
         words: [
-          { w: "Ar chlé", t: "Left" },
-          { w: "Ar dheis", t: "Right" },
-          { w: "Díreach ar aghaidh", t: "Straight ahead" },
+          { w: "Ar ċlé", t: "Left" },
+          { w: "Ar ḋeis", t: "Right" },
+          { w: "Díreaċ ar aġaiḋ", t: "Straight ahead" },
           { w: "Trasna", t: "Across" },
         ],
       },
@@ -897,7 +897,7 @@ export const allPuzzles = [
         words: [
           { w: "Spéir", t: "Sky" },
           { w: "Réalt", t: "Star" },
-          { w: "Gealach", t: "Moon" },
+          { w: "Gealaċ", t: "Moon" },
           { w: "Grianstad", t: "Solstice" },
         ],
       },
@@ -912,39 +912,39 @@ export const allPuzzles = [
         ],
       },
       {
-        name: "Ard agus íseal",
+        name: "Ard ⁊ íseal",
         color: "t3",
         words: [
           { w: "Ard", t: "High" },
           { w: "Íseal", t: "Low" },
           { w: "Os cionn", t: "Above" },
-          { w: "Faoi bhun", t: "Below" },
+          { w: "Faoi ḃun", t: "Below" },
         ],
       },
       {
-        name: "Radharc ón airde",
+        name: "Raḋarc ón airde",
         color: "t4",
         words: [
-          { w: "Sliabh", t: "Mountain" },
+          { w: "Sliaḃ", t: "Mountain" },
           { w: "Túr", t: "Tower" },
           { w: "Díon ard", t: "High roof" },
-          { w: "Radharc", t: "View" },
+          { w: "Raḋarc", t: "View" },
         ],
       },
     ],
   },
   {
     id: 21,
-    title: "An Margadh",
+    title: "An Margaḋ",
     categories: [
       {
-        name: "Torthaí",
+        name: "Torṫaí",
         color: "t1",
         words: [
           { w: "Úll", t: "Apple" },
           { w: "Piorra", t: "Pear" },
           { w: "Banana", t: "Banana" },
-          { w: "Fíonchaora", t: "Grapes" },
+          { w: "Fíonċaora", t: "Grapes" },
         ],
       },
       {
@@ -958,13 +958,13 @@ export const allPuzzles = [
         ],
       },
       {
-        name: "Ag ceannach",
+        name: "Ag ceannaċ",
         color: "t3",
         words: [
-          { w: "Praghas", t: "Price" },
+          { w: "Praġas", t: "Price" },
           { w: "Airgead", t: "Money" },
           { w: "Mála", t: "Bag" },
-          { w: "Admháil", t: "Receipt" },
+          { w: "Adṁáil", t: "Receipt" },
         ],
       },
       {
@@ -974,7 +974,7 @@ export const allPuzzles = [
           { w: "Milis", t: "Sweet" },
           { w: "Géar", t: "Sour" },
           { w: "Saillte", t: "Salty" },
-          { w: "Spíosrach", t: "Spicy" },
+          { w: "Spíosraċ", t: "Spicy" },
         ],
       },
     ],
@@ -989,7 +989,7 @@ export const allPuzzles = [
         words: [
           { w: "Pas", t: "Passport" },
           { w: "Ticéad eitilte", t: "Flight ticket" },
-          { w: "Árachas", t: "Insurance" },
+          { w: "Áraċas", t: "Insurance" },
           { w: "Víosa", t: "Visa" },
         ],
       },
@@ -1004,17 +1004,17 @@ export const allPuzzles = [
         ],
       },
       {
-        name: "Cóiríocht",
+        name: "Cóiríoċt",
         color: "t3",
         words: [
           { w: "Óstán", t: "Hotel" },
           { w: "Brú", t: "Hostel" },
           { w: "Lóistín", t: "Accommodation" },
-          { w: "Seiceáil isteach", t: "Check-in" },
+          { w: "Seiceáil isteaċ", t: "Check-in" },
         ],
       },
       {
-        name: "Ag bogadh timpeall",
+        name: "Ag bogaḋ timpeall",
         color: "t4",
         words: [
           { w: "Mapa", t: "Map" },
@@ -1030,43 +1030,43 @@ export const allPuzzles = [
     title: "Spórt",
     categories: [
       {
-        name: "Liathróidí",
+        name: "Liaṫróidí",
         color: "t1",
         words: [
-          { w: "Liathróid sacair", t: "Soccer ball" },
-          { w: "Liathróid rugbaí", t: "Rugby ball" },
+          { w: "Liaṫróid sacair", t: "Soccer ball" },
+          { w: "Liaṫróid rugbaí", t: "Rugby ball" },
           { w: "Sliotar", t: "Sliotar" },
-          { w: "Liathróid leadóige", t: "Tennis ball" },
+          { w: "Liaṫróid leadóige", t: "Tennis ball" },
         ],
       },
       {
-        name: "Áiteanna imeartha",
+        name: "Áiteanna imearṫa",
         color: "t2",
         words: [
-          { w: "Páirc imeartha", t: "Playing field" },
+          { w: "Páirc imearṫa", t: "Playing field" },
           { w: "Cúirt", t: "Court" },
-          { w: "Linn snámha", t: "Swimming pool" },
+          { w: "Linn snáṁa", t: "Swimming pool" },
           { w: "Rian", t: "Track" },
         ],
       },
       {
-        name: "Gníomhaíochtaí",
+        name: "Gníoṁaíoċtaí",
         color: "t3",
         words: [
-          { w: "Rith", t: "Run" },
-          { w: "Snámh", t: "Swim" },
+          { w: "Riṫ", t: "Run" },
+          { w: "Snáṁ", t: "Swim" },
           { w: "Léim", t: "Jump" },
-          { w: "Caitheamh", t: "Throw" },
+          { w: "Caiṫeaṁ", t: "Throw" },
         ],
       },
       {
-        name: "Torthaí cluiche",
+        name: "Torṫaí cluiċe",
         color: "t4",
         words: [
           { w: "Bua", t: "Win" },
           { w: "Cailliúint", t: "Loss" },
-          { w: "Comhscór", t: "Draw" },
-          { w: "Craobh", t: "Championship" },
+          { w: "Coṁscór", t: "Draw" },
+          { w: "Craoḃ", t: "Championship" },
         ],
       },
     ],
@@ -1076,7 +1076,7 @@ export const allPuzzles = [
     title: "An Nollaig",
     categories: [
       {
-        name: "Maisiúcháin Nollag",
+        name: "Maisiúċáin Nollag",
         color: "t1",
         words: [
           { w: "Crann Nollag", t: "Christmas tree" },
@@ -1090,9 +1090,9 @@ export const allPuzzles = [
         color: "t2",
         words: [
           { w: "Turcaí", t: "Turkey" },
-          { w: "Liamhás", t: "Ham" },
+          { w: "Liaṁás", t: "Ham" },
           { w: "Maróg Nollag", t: "Christmas pudding" },
-          { w: "Pióg mhionra", t: "Mince pie" },
+          { w: "Pióg ṁionra", t: "Mince pie" },
         ],
       },
       {
@@ -1109,34 +1109,34 @@ export const allPuzzles = [
         name: "Frásaí séasúir",
         color: "t4",
         words: [
-          { w: "Nollaig shona", t: "Happy Christmas" },
-          { w: "Athbhliain faoi mhaise", t: "Happy New Year" },
-          { w: "Síocháin", t: "Peace" },
-          { w: "Áthas", t: "Joy" },
+          { w: "Nollaig ṡona", t: "Happy Christmas" },
+          { w: "Aṫḃliain faoi ṁaise", t: "Happy New Year" },
+          { w: "Síoċáin", t: "Peace" },
+          { w: "Áṫas", t: "Joy" },
         ],
       },
     ],
   },
   {
     id: 25,
-    title: "An tEarrach",
+    title: "An tEarraċ",
     categories: [
       {
-        name: "Comharthaí earraigh",
+        name: "Coṁarṫaí earraiġ",
         color: "t1",
         words: [
-          { w: "Bláth", t: "Flower" },
-          { w: "Bachlóg", t: "Bud" },
+          { w: "Bláṫ", t: "Flower" },
+          { w: "Baċlóg", t: "Bud" },
           { w: "Uan", t: "Lamb" },
           { w: "Nead", t: "Nest" },
         ],
       },
       {
-        name: "Sa ghairdín",
+        name: "Sa ġairdín",
         color: "t2",
         words: [
           { w: "Síol", t: "Seed" },
-          { w: "Ithir", t: "Soil" },
+          { w: "Iṫir", t: "Soil" },
           { w: "Lus", t: "Plant" },
           { w: "Crannóg", t: "Sapling" },
         ],
@@ -1147,16 +1147,16 @@ export const allPuzzles = [
         words: [
           { w: "Bog", t: "Mild" },
           { w: "Úr", t: "Fresh" },
-          { w: "Fliuch", t: "Wet" },
-          { w: "Grianmhar", t: "Sunny" },
+          { w: "Fliuċ", t: "Wet" },
+          { w: "Grianṁar", t: "Sunny" },
         ],
       },
       {
-        name: "Féilte earraigh",
+        name: "Féilte earraiġ",
         color: "t4",
         words: [
           { w: "Imbolc", t: "Imbolc" },
-          { w: "Lá Fhéile Bríde", t: "Saint Brigid's Day" },
+          { w: "Lá Ḟéile Bríde", t: "Saint Brigid's Day" },
           { w: "Cáisc", t: "Easter" },
           { w: "Bealtaine", t: "May Day" },
         ],

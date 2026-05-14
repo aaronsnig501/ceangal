@@ -29,20 +29,20 @@ function InfoModal() {
             <AccordionItem value="item-1">
               <AccordionTrigger>Cad é an sprioc?</AccordionTrigger>
               <AccordionContent>
-                Aimsigh ceithre ghrúpa focal a bhfuil ceangal rúnda eatarthu.
+                Aimsiġ ceiṫre gṙúpa focal a ḃfuil ceangal rúnda eatarṫu.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
               <AccordionTrigger>Conas a imrím?</AccordionTrigger>
               <AccordionContent>
-                Roghnaigh ceithre fhocal agus brúigh “Seol” le do rogha a
-                sheiceáil.
+                Roġnaiġ ceiṫre focail ⁊ brúiġ “Seol” le do roġa a
+                ṡeiceáil.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3">
-              <AccordionTrigger>Cé mhéad botún atá agam?</AccordionTrigger>
+              <AccordionTrigger>Cé ṁéad botún atá agam?</AccordionTrigger>
               <AccordionContent>
-                {`Tá ${MAX_MISTAKES} bhotún agat sula gcríochnaíonn an cluiche.`}
+                {`Tá ${MAX_MISTAKES} ḃotún agat sula gcríoċnaíonn an cluiċe.`}
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -53,22 +53,22 @@ function InfoModal() {
             <AccordionItem value="item-1">
               <AccordionTrigger>Cad é Ceangal?</AccordionTrigger>
               <AccordionContent>
-                Is cluiche focal Gaeilge é Ceangal faoi phatrúin, comhthéacs
-                agus na naisc bheaga idir focail.
+                Is cluiċe focal Ġaeilge é Ceangal faoi ṗatrúin, coṁṫéacs
+                ⁊ na naisc ḃeaga idir focail.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
-              <AccordionTrigger>Cén fáth Gaeilge?</AccordionTrigger>
+              <AccordionTrigger>Cén fáṫ Gaeilge?</AccordionTrigger>
               <AccordionContent>
-                Chun cúis bheag laethúil a thabhairt d’imreoirí focail
-                Ghaeilge a fheiceáil, a mheascadh agus a cheangal le chéile.
+                Ċun cúis ḃeag laeṫúil a taḃairt d’imreoirí focail
+                Ġaeilge a ḟeiceáil, a ṁeascaḋ ⁊ a ċeangal le ċéile.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3">
-              <AccordionTrigger>Cad iad na dathanna?</AccordionTrigger>
+              <AccordionTrigger>Cad iad na daṫanna?</AccordionTrigger>
               <AccordionContent>
-                Léiríonn na dathanna na grúpaí réitithe. Ní gá iad a thuiscint
-                roimh ré, ach cabhraíonn siad leis an toradh a léamh.
+                Léiríonn na daṫanna na gṙúpaí réitiṫe. Ní gá iad a ṫuiscint
+                roiṁ ré, aċ cabḣraíonn siad leis an torad a léaṁ.
               </AccordionContent>
             </AccordionItem>
           </Accordion>

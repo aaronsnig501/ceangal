@@ -74,7 +74,7 @@ export function SolvedWordRow({ ...props }) {
 
   const cardContent = (
     <>
-      <p className={styles.solvedLabel}>Leibhéal {props.difficulty}</p>
+      <p className={styles.solvedLabel}>Leibḣéal {props.difficulty}</p>
       <p className={styles.solvedTitle}>{props.category}</p>
       <p className={styles.solvedWords}>{props.words.join(", ")}</p>
       {hasPronunciation && (
@@ -114,7 +114,7 @@ export function SolvedWordRow({ ...props }) {
             >
               {!hasBeenClicked && (
                 <Badge className={styles.solvedBadge}>
-                  Féach
+                  Féaċ
                 </Badge>
               )}
               {cardContent}
@@ -199,7 +199,7 @@ function GameGrid({
       {isGameOverAndLost && (
         <div className="grid gap-y-2 pb-2">
           <p className="font-serif italic text-text-soft">
-            Seo iad na grúpaí cearta.
+            Seo iad na gṙúpaí cearta.
           </p>
           {gameData.map((obj) => (
             <SolvedWordRow key={obj.category} {...obj} />

@@ -17,14 +17,14 @@ function ShareScoreButton({ buttonText = "Roinn", className = "" }) {
     toast({
       label: "Notification",
       title: "",
-      description: "Cóipeáladh é.",
+      description: "Cóipeálaḋ é.",
     });
   }
   function handleShareFailure() {
     toast({
       label: "Notification",
       title: "",
-      description: "Níorbh fhéidir é a roinnt.",
+      description: "Níorḃ ḟéidir é a roinnt.",
     });
   }
   return (

@@ -20,7 +20,7 @@ function NumberOfMistakesDisplay() {
   const mistakeRange = range(MAX_MISTAKES);
   return (
     <div className="flex flex-row gap-x-2 justify-center items-center text-text-soft">
-      <p className="font-serif italic text-sm mr-2">Botúin fágtha</p>
+      <p className="font-serif italic text-sm mr-2">Botúin fágṫa</p>
       {mistakeRange.map((el) => (
         <SingleMistakeDisplay key={el} isUsed={el < numMistakesUsed} />
       ))}

@@ -19,7 +19,7 @@ function ViewResultsModal({ initiallyOpen = false }) {
         <Button
           variant="submit"
           className="w-full"
-          children={"Féach ar an toradh"}
+          children={"Féaċ ar an torad"}
         />
       }
       initiallyOpen={initiallyOpen}
@@ -33,7 +33,7 @@ function ViewResultsModal({ initiallyOpen = false }) {
     >
       <div className="flex flex-col place-content-center">
         <p className="text-center font-serif italic text-text-soft">
-          Seo léarscáil do roghanna
+          Seo léarscáil do roġanna
         </p>
         <ResultMap gameData={gameData} submittedGuesses={submittedGuesses} />
       </div>

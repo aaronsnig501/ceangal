@@ -87,9 +87,9 @@ function StatisticsModal({
     >
       <div className="grid gap-5">
         <div className="grid grid-cols-2 gap-2">
-          <StatBlock label="Imeartha" value={stats.gamesPlayed} />
+          <StatBlock label="Imearṫa" value={stats.gamesPlayed} />
           <StatBlock label="Buaite %" value={winPercentage} />
-          <StatBlock label="Sraith reatha" value={stats.currentStreak} />
+          <StatBlock label="Sraiṫ reaṫa" value={stats.currentStreak} />
           <StatBlock label="Sraith is fearr" value={stats.maxStreak} />
         </div>
 
@@ -97,12 +97,12 @@ function StatisticsModal({
           <div className="flex items-center gap-2">
             <BarChart3 size={18} className="text-vermil" strokeWidth={1.75} />
             <h3 className="font-display text-lg font-bold text-char">
-              Dáileadh botún
+              Dáileaḋ botún
             </h3>
           </div>
           <GuessDistribution distribution={stats.guessDistribution} />
           <p className="font-serif text-sm italic text-text-soft">
-            Taispeánann na barraí buaite de réir líon na mbotún, ó 1 go 4.
+            Taispeánann na barraí buaite de réir líon na mḃotún, ó 1 go 4.
           </p>
         </div>
       </div>

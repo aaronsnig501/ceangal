@@ -105,11 +105,11 @@ function App() {
           {showResetPrompt && (
             <div className="rounded-md border border-rule bg-surface p-4 text-center">
               <p className="font-display text-lg font-bold text-char">
-                Tá gach puzal críochnaithe agat
+                Tá gaċ puzal críoċnaiṫe agat
               </p>
               <p className="mt-1 font-serif text-sm italic text-text-soft">
-                Táimid tar éis filleadh ar phuzal 1. Is féidir leat imirt
-                arís nó puzal eile a roghnú.
+                Táimid tar éis filleaḋ ar ṗuzal 1. Is féidir leat imirt
+                arís nó puzal eile a roġnú.
               </p>
               <Button
                 className="mt-3 w-full"
@@ -125,7 +125,7 @@ function App() {
                   setIsPuzzleBrowserOpen(true);
                 }}
               >
-                Roghnaigh puzal
+                Roġnaiġ puzal
               </Button>
               <button
                 type="button"
@@ -143,7 +143,7 @@ function App() {
           />
           <footer className="pb-3 text-center text-sm">
             <a className="text-text-soft underline" href="/privacy/">
-              Príobháideachas
+              Príobḃáideaċas
             </a>
           </footer>
         </div>

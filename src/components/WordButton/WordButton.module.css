@@ -13,6 +13,7 @@
   -webkit-appearance: none;
   user-select: none;
   -webkit-user-select: none;
+  touch-action: manipulation;
   transition: background 0.12s ease, border-color 0.12s ease,
     color 0.12s ease;
 }
@@ -48,6 +49,7 @@
   background: var(--vermil);
   opacity: 0;
   transition: opacity 0.14s ease;
+  pointer-events: none;
 }
 
 .growShrink[data-state="on"] .selectedDot {
@@ -59,6 +61,7 @@
   gap: 0.24rem;
   place-items: center;
   width: 100%;
+  pointer-events: none;
 }
 
 .wordText {

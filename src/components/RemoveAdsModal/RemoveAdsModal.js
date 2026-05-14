@@ -1,4 +1,5 @@
 import React from "react";
+import { Capacitor } from "@capacitor/core";
 import { Loader2, Settings2 } from "lucide-react";
 import BaseModal from "../modals/BaseModal";
 import { Button } from "../ui/button";
@@ -15,6 +16,8 @@ import {
 
 const PRIVACY_URL = "https://ceangal.app/privacy/";
 const MISNEACH_URL = "https://misneachabu.ie/";
+const MOBILE_APPS_URL =
+  import.meta.env.VITE_MOBILE_APPS_URL ?? "https://ceangal.app/";
 
 function getPurchaseErrorMessage(error) {
   if (error?.userCancelled) {
@@ -47,6 +50,7 @@ function RemoveAdsModal({
   onToggleTranslations,
 }) {
   const { toast } = useToast();
+  const isNativePlatform = Capacitor.isNativePlatform();
   const [isLoading, setIsLoading] = React.useState(false);
   const [isNativePurchasesReady, setIsNativePurchasesReady] =
     React.useState(false);
@@ -175,7 +179,22 @@ function RemoveAdsModal({
           <p className="font-display text-base font-bold text-char">
             Bain Fógraí
           </p>
-          {!canUseRevenueCat() ? (
+          {!isNativePlatform ? (
+            <>
+              <p className="text-sm text-text-soft">
+                Tá an leagan gréasáin saor in aisce ⁊ gan fógraí. Tá ceannaċ
+                Bain Fógraí ar fáil san aip aṁáin.
+              </p>
+              <a
+                className="text-sm text-text-soft underline"
+                href={MOBILE_APPS_URL}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Available on iOS and Android
+              </a>
+            </>
+          ) : !canUseRevenueCat() ? (
             <p className="text-sm text-text-soft">
               Tá Bain Fógraí ar fáil san aip ḋúċasaċ aṁáin nuair atá
               eochracha RevenueCat socraithe.
@@ -206,35 +225,37 @@ function RemoveAdsModal({
               </div>
             </>
           )}
-          <div className="grid gap-2 pt-1">
-            <Button
-              className="w-full"
-              variant="submit"
-              disabled={
-                isLoading ||
-                !isNativePurchasesReady ||
-                hasRemovedAdsState ||
-                !removeAdsPackage
-              }
-              onClick={handlePurchase}
-            >
-              {isLoading ? (
-                <Loader2
-                  className="mr-2 h-4 w-4 animate-spin"
-                  strokeWidth={1.5}
-                />
-              ) : null}
-              {hasRemovedAdsState ? "Bainte ċeana" : "Bain Fógraí"}
-            </Button>
-            <Button
-              className="w-full"
-              variant="secondary"
-              disabled={isLoading || !isNativePurchasesReady}
-              onClick={handleRestorePurchases}
-            >
-              Aṫċóirigh ceannaċáin
-            </Button>
-          </div>
+          {isNativePlatform && (
+            <div className="grid gap-2 pt-1">
+              <Button
+                className="w-full"
+                variant="submit"
+                disabled={
+                  isLoading ||
+                  !isNativePurchasesReady ||
+                  hasRemovedAdsState ||
+                  !removeAdsPackage
+                }
+                onClick={handlePurchase}
+              >
+                {isLoading ? (
+                  <Loader2
+                    className="mr-2 h-4 w-4 animate-spin"
+                    strokeWidth={1.5}
+                  />
+                ) : null}
+                {hasRemovedAdsState ? "Bainte ċeana" : "Bain Fógraí"}
+              </Button>
+              <Button
+                className="w-full"
+                variant="secondary"
+                disabled={isLoading || !isNativePurchasesReady}
+                onClick={handleRestorePurchases}
+              >
+                Aṫċóirigh ceannaċáin
+              </Button>
+            </div>
+          )}
         </div>
 
         <div className="grid gap-2 rounded-md border border-rule bg-surface p-3 text-sm">

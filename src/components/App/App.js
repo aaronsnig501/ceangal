@@ -1,4 +1,5 @@
 import React from "react";
+import { Capacitor } from "@capacitor/core";
 import Header from "../Header";
 import Game from "../Game";
 import OnboardingFlow from "../OnboardingFlow";
@@ -40,8 +41,10 @@ function App() {
 
   React.useEffect(() => {
     initializePlausible();
-    void initializePurchases();
-    void initializeAdMob();
+    if (Capacitor.isNativePlatform()) {
+      void initializePurchases();
+      void initializeAdMob();
+    }
     trackEvent("App Open", {
       props: {
         puzzle_id: String(puzzleId),

@@ -57,6 +57,11 @@ Relevant environment variables:
 - `VITE_RC_ANDROID_KEY`
 - `VITE_RC_IOS_KEY`
 - `VITE_RC_REMOVE_ADS_ENTITLEMENT`
+- `VITE_MOBILE_APPS_URL` for the subtle web settings link to native apps
 
 Android also needs an AdMob application ID in native resources. The repo is
 currently wired with Google's sample Android app ID for development.
+
+RevenueCat purchase UI is hidden on web. The browser version stays free and
+ad-free, and the settings sheet shows a small link toward the native apps
+instead.

@@ -40,3 +40,23 @@ cp tofu.tfvars.example tofu.tfvars
 tofu init
 tofu plan
 tofu apply
+```
+
+### Native ads
+
+AdMob interstitials are configured for native builds only. The web build never
+initializes ads.
+
+Relevant environment variables:
+
+- `VITE_IS_DEV=true` to force Google test ads
+- `VITE_ADMOB_ANDROID_INTERSTITIAL`
+- `VITE_ADMOB_IOS_INTERSTITIAL`
+- `VITE_ADMOB_REAL_ANDROID_INTERSTITIAL`
+- `VITE_ADMOB_REAL_IOS_INTERSTITIAL`
+- `VITE_RC_ANDROID_KEY`
+- `VITE_RC_IOS_KEY`
+- `VITE_RC_REMOVE_ADS_ENTITLEMENT`
+
+Android also needs an AdMob application ID in native resources. The repo is
+currently wired with Google's sample Android app ID for development.

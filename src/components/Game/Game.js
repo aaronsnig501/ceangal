@@ -14,10 +14,12 @@ import GameControlButtonsPanel from "../GameControlButtonsPanel";
 import ViewResultsModal from "../modals/ViewResultsModal";
 import {
   loadDismissedEndGameResultFromLocalStorage,
+  recordPuzzleCompletionForAds,
   recordCompletedPuzzleStats,
   saveCompletedPuzzleToLocalStorage,
   saveDismissedEndGameResultToLocalStorage,
 } from "../../lib/local-storage";
+import { maybeShowInterstitialForCompletedPuzzle } from "../../lib/admob";
 import {
   puzzleId,
   puzzleIndex,
@@ -28,6 +30,7 @@ import { trackEvent } from "../../lib/analytics";
 function Game({
   showEnglishTranslations = false,
   suppressEndGameModal = false,
+  suppressAds = false,
 }) {
   const { gameData, categorySize, numCategories } =
     React.useContext(PuzzleDataContext);
@@ -48,6 +51,7 @@ function Game({
     () => loadDismissedEndGameResultFromLocalStorage(puzzleId)
   );
   const previousIsGameOver = React.useRef(isGameOver);
+  const hasHandledCompletedGame = React.useRef(wasGameOverOnLoad);
   const [gridShake, setGridShake] = React.useState(false);
 
   React.useEffect(() => {
@@ -93,26 +97,42 @@ function Game({
   }, [isGameOver, suppressEndGameModal, isEndGameModalDismissed]);
 
   React.useEffect(() => {
-    if (isGameOver) {
-      if (isGameWon) {
-        saveCompletedPuzzleToLocalStorage(puzzleId);
-      }
-      trackEvent("Puzzle Complete", {
-        props: {
-          puzzle_id: String(puzzleId),
-          puzzle_index: String(puzzleIndex),
-          puzzle_title: puzzleTitle,
-          result: isGameWon ? "win" : "loss",
-          mistakes: String(numMistakesUsed),
-        },
-      });
-      recordCompletedPuzzleStats({
-        puzzleKey: puzzleId,
-        isGameWon,
-        numMistakesUsed,
-      });
+    if (!isGameOver || hasHandledCompletedGame.current) {
+      return;
     }
-  }, [isGameOver, isGameWon, numMistakesUsed]);
+
+    hasHandledCompletedGame.current = true;
+
+    if (isGameWon) {
+      saveCompletedPuzzleToLocalStorage(puzzleId);
+    }
+
+    trackEvent("Puzzle Complete", {
+      props: {
+        puzzle_id: String(puzzleId),
+        puzzle_index: String(puzzleIndex),
+        puzzle_title: puzzleTitle,
+        result: isGameWon ? "win" : "loss",
+        mistakes: String(numMistakesUsed),
+      },
+    });
+
+    recordCompletedPuzzleStats({
+      puzzleKey: puzzleId,
+      isGameWon,
+      numMistakesUsed,
+    });
+
+    const completedPuzzleCount = recordPuzzleCompletionForAds();
+    const showAdTimeout = window.setTimeout(() => {
+      void maybeShowInterstitialForCompletedPuzzle({
+        completedPuzzleCount,
+        isBlocked: suppressAds,
+      });
+    }, 650);
+
+    return () => window.clearTimeout(showAdTimeout);
+  }, [isGameOver, isGameWon, numMistakesUsed, suppressAds]);
 
   function handleEndGameModalOpenChange(nextOpen) {
     setIsEndGameModalOpen(nextOpen);

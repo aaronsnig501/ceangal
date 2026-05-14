@@ -169,6 +169,8 @@ function App() {
           showTrigger={false}
           initiallyOpen={isSettingsOpen}
           onOpenChange={setIsSettingsOpen}
+          showEnglishTranslations={showEnglishTranslations}
+          onToggleTranslations={toggleEnglishTranslations}
         />
       </GameStatusProvider>
     </PuzzleDataProvider>

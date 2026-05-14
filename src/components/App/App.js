@@ -16,6 +16,7 @@ import {
   saveHasSeenOnboardingToLocalStorage,
   saveShowEnglishTranslationsToLocalStorage,
 } from "../../lib/local-storage";
+import { initializeAdMob } from "../../lib/admob";
 import { initializePlausible, trackEvent } from "../../lib/analytics";
 import { puzzleId, puzzleIndex, puzzleTitle } from "../../lib/time-utils";
 
@@ -36,6 +37,7 @@ function App() {
 
   React.useEffect(() => {
     initializePlausible();
+    void initializeAdMob();
     trackEvent("App Open", {
       props: {
         puzzle_id: String(puzzleId),
@@ -132,6 +134,7 @@ function App() {
           <Game
             showEnglishTranslations={showEnglishTranslations}
             suppressEndGameModal={isSplashOpen || isOnboardingOpen}
+            suppressAds={isSplashOpen || isOnboardingOpen}
           />
           <footer className="pb-3 text-center text-sm">
             <a className="text-text-soft underline" href="/privacy/">

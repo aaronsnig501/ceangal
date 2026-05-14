@@ -3,6 +3,7 @@ const hasSeenOnboardingKey = "hasSeenOnboarding";
 const dismissedEndGameResultKey = "dismissedEndGameResult";
 const showEnglishTranslationsKey = "showEnglishTranslations";
 const donePuzzleKeyPrefix = "ceangal-done-";
+const completedPuzzleCountForAdsKey = "adInterstitialCompletionCount";
 
 const getGameStateStorageKey = (puzzleId) => {
   return puzzleId ? `${gameStateKey}:puzzle:${puzzleId}` : gameStateKey;
@@ -155,4 +156,17 @@ export const loadCompletedPuzzlesFromLocalStorage = () => {
   }
 
   return [...completedPuzzles];
+};
+
+export const recordPuzzleCompletionForAds = () => {
+  const storedCount = Number.parseInt(
+    localStorage.getItem(completedPuzzleCountForAdsKey) ?? "",
+    10
+  );
+  const nextCount =
+    Number.isInteger(storedCount) && storedCount > 0 ? storedCount + 1 : 1;
+
+  localStorage.setItem(completedPuzzleCountForAdsKey, String(nextCount));
+
+  return nextCount;
 };

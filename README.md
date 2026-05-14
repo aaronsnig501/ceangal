@@ -41,6 +41,24 @@ Tracked events:
 - `Puzzle Browser Open`
 - `Puzzle Browser Select`
 
+### GitHub Actions deploy
+
+The repo includes a GitHub Actions workflow at
+`.github/workflows/deploy.yml` that deploys the built `dist/` folder to S3 on
+pushes to `main`, then invalidates CloudFront.
+
+Required GitHub repository secrets:
+
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
+- `CF_DISTRIBUTION_ID`
+
+The workflow currently deploys to:
+
+- S3 bucket: `ceangal.app`
+- AWS region: `eu-west-1`
+- Plausible domain env: `ceangal.app`
+
 ### Technology
 
 - [React 18](https://react.dev/)

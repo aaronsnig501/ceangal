@@ -7,6 +7,10 @@ import {
   isGuessRepeated,
   shuffleGameData,
 } from "../../lib/game-helpers";
+import {
+  triggerCorrectGuessHaptic,
+  triggerWrongGuessHaptic,
+} from "../../lib/haptics";
 
 import {
   GameStatusContext,
@@ -72,6 +76,7 @@ function GameControlButtonsPanel({
     // if the guess is correct:
     // set it as solved in game data
     if (isCorrect) {
+      triggerCorrectGuessHaptic();
       setSolvedGameData((currentSolvedGameData) => [
         ...currentSolvedGameData,
         {
@@ -84,6 +89,7 @@ function GameControlButtonsPanel({
       ]);
       setGuessCandidate([]);
     } else {
+      triggerWrongGuessHaptic();
       // Shake the grid to give feedback that they were wrong
       setGridShake(true);
       if (isGuessOneAway) {

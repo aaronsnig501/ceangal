@@ -19,8 +19,8 @@ const MISNEACH_URL = "https://misneachabu.ie/";
 function getPurchaseErrorMessage(error) {
   if (error?.userCancelled) {
     return {
-      title: "Ceannach curtha ar ceal",
-      description: "Níor críochnaíodh an ceannach an uair seo.",
+      title: "Ceannaċ curṫa ar ceal",
+      description: "Níor críoċnaíġ an ceannaċ an uair seo.",
     };
   }
 
@@ -28,14 +28,14 @@ function getPurchaseErrorMessage(error) {
     return {
       title: "Níl sé ar fáil fós",
       description:
-        "Níor aimsíodh an tairiscint Bain Fógraí. Seiceáil an tairiscint default i RevenueCat.",
+        "Níor aimsíġ an tairiscint Bain Fógraí. Seiceáil an tairiscint default i RevenueCat.",
     };
   }
 
   return {
-    title: "Theip ar an gceannach",
+    title: "Ṫeip ar an gceannaċ",
     description:
-      "Níor éirigh linn Bain Fógraí a cheannach anois. Bain triail eile as i gceann tamaill.",
+      "Níor éiriġ linn Bain Fógraí a ċeannaċ anois. Bain triail eile as i gceann tamaill.",
   };
 }
 
@@ -81,7 +81,7 @@ function RemoveAdsModal({
       toast({
         label: "Notification",
         title: "Fógraí bainte",
-        description: "Tá Bain Fógraí gníomhach anois ar an gcuntas seo.",
+        description: "Tá Bain Fógraí gníoṁaċ anois ar an gcuntas seo.",
       });
     } catch (error) {
       const message = getPurchaseErrorMessage(error);
@@ -103,18 +103,18 @@ function RemoveAdsModal({
       setHasRemovedAdsState(restored);
       toast({
         label: "Notification",
-        title: restored ? "Ceannacháin athchóirithe" : "Níor aimsíodh ceannachán",
+        title: restored ? "Ceannaċáin aṫċóiriṫe" : "Níor aimsíġ ceannaċán",
         description: restored
-          ? "Tá Bain Fógraí curtha ar ais ar an gcuntas seo."
-          : "Níor aimsíodh ceannachán Bain Fógraí le hathchóiriú.",
+          ? "Tá Bain Fógraí curṫa ar ais ar an gcuntas seo."
+          : "Níor aimsíġ ceannaċán Bain Fógraí le haṫċóiriú.",
       });
     } catch (error) {
       console.warn("Restore purchases failed", error);
       toast({
         label: "Notification",
-        title: "Theip ar an athchóiriú",
+        title: "Ṫeip ar an aṫċóiriú",
         description:
-          "Níor éirigh linn do cheannacháin a athchóiriú anois. Bain triail eile as.",
+          "Níor éiriġ linn do ċeannaċáin a aṫċóiriú anois. Bain triail eile as.",
       });
     } finally {
       setIsLoading(false);
@@ -155,7 +155,7 @@ function RemoveAdsModal({
                 GA→EN
               </p>
               <p className="text-sm text-text-soft">
-                Taispeáin aistriúcháin Bhéarla faoi na focail.
+                Taispeáin aistriúċáin Ḃéarla faoi na focail.
               </p>
             </div>
             <button
@@ -177,18 +177,18 @@ function RemoveAdsModal({
           </p>
           {!canUseRevenueCat() ? (
             <p className="text-sm text-text-soft">
-              Tá Bain Fógraí ar fáil san aip dhúchasach amháin nuair atá
+              Tá Bain Fógraí ar fáil san aip ḋúċasaċ aṁáin nuair atá
               eochracha RevenueCat socraithe.
             </p>
           ) : hasRemovedAdsState ? (
             <p className="text-sm text-text-soft">
-              Tá Bain Fógraí gníomhach cheana. Níor cheart go bhfeicfeá
-              idirleathanaigh fógraí a thuilleadh.
+              Tá Bain Fógraí gníoṁaċ ċeana. Níor ċeart go ḃfeicfeá
+              idirleaṫanaiġ fógraí a ṫuilleaḋ.
             </p>
           ) : (
             <>
               <p className="text-sm text-text-soft">
-                Bain fógraí idirleathanaigh den aip go buan le ceannach aon
+                Bain fógraí idirleaṫanaiġ den aip go buan le ceannaċ aon
                 uaire.
               </p>
               <div className="rounded-md border border-rule bg-background p-3">
@@ -197,11 +197,11 @@ function RemoveAdsModal({
                 </p>
                 <p className="mt-1 text-sm text-text-soft">
                   {removeAdsPackage?.product?.description ??
-                    "Ceannach aon uaire chun fógraí a mhúchadh."}
+                    "Ceannaċ aon uaire ċun fógraí a ṁúċaḋ."}
                 </p>
                 <p className="mt-2 font-semibold text-vermil">
                   {removeAdsPackage?.product?.priceString ??
-                    "Ag lódáil praghais..."}
+                    "Ag lódáil ṗraghais..."}
                 </p>
               </div>
             </>
@@ -224,7 +224,7 @@ function RemoveAdsModal({
                   strokeWidth={1.5}
                 />
               ) : null}
-              {hasRemovedAdsState ? "Bainte cheana" : "Bain Fógraí"}
+              {hasRemovedAdsState ? "Bainte ċeana" : "Bain Fógraí"}
             </Button>
             <Button
               className="w-full"
@@ -232,7 +232,7 @@ function RemoveAdsModal({
               disabled={isLoading || !isNativePurchasesReady}
               onClick={handleRestorePurchases}
             >
-              Athchóirigh ceannacháin
+              Aṫċóirigh ceannaċáin
             </Button>
           </div>
         </div>
@@ -244,7 +244,7 @@ function RemoveAdsModal({
             target="_blank"
             rel="noreferrer"
           >
-            Príobháideachas
+            Príobḃáideaċas
           </a>
           <p className="text-text-soft">Leagan {packageJson.version}</p>
           <p className="truncate text-text-soft">

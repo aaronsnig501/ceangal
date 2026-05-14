@@ -57,9 +57,9 @@ function PuzzleBrowser({ open, onOpenChange }) {
       <div className="mx-auto flex h-full w-full max-w-[560px] flex-col px-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] pt-[calc(1rem+env(safe-area-inset-top,0px))]">
         <div className="flex min-h-14 items-center justify-between border-b border-rule">
           <div>
-            <h2 className="font-display text-2xl font-bold">Roghnaigh Imirt</h2>
+            <h2 className="font-display text-2xl font-bold">Roġnaiġ Imirt</h2>
             <p className="font-serif text-sm italic text-text-soft">
-              Roghnaigh puzal ar bith.
+              Roġnaiġ puzal ar biṫ.
             </p>
           </div>
           <button
@@ -119,12 +119,12 @@ function PuzzleBrowser({ open, onOpenChange }) {
                     <span className="mt-1 flex flex-wrap gap-1.5">
                       {isRecommended && (
                         <span className="rounded-full border border-vermil px-2 py-0.5 text-xs font-semibold text-vermil">
-                          Ar aghaidh
+                          Ar aġaiḋ
                         </span>
                       )}
                       {isCompleted && (
                         <span className="rounded-full border border-rule px-2 py-0.5 text-xs font-semibold text-text-soft">
-                          Críochnaithe
+                          Críoċnaiṫe
                         </span>
                       )}
                     </span>

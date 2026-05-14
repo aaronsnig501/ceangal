@@ -2,6 +2,7 @@ import React from "react";
 import * as styles from "./WordButton.module.css";
 
 import { GuessCandidateContext } from "../../providers/GameStatusProvider";
+import { triggerTileHaptic } from "../../lib/haptics";
 
 function WordButton({
   word,
@@ -23,6 +24,7 @@ function WordButton({
           return currentGuessCandidate;
         }
 
+        triggerTileHaptic();
         return [...currentGuessCandidate, word];
       }
 
@@ -30,6 +32,7 @@ function WordButton({
         return currentGuessCandidate;
       }
 
+      triggerTileHaptic();
       return currentGuessCandidate.filter((candidateWord) => candidateWord !== word);
     });
   }

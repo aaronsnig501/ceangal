@@ -51,6 +51,8 @@ function RemoveAdsModal({
   onOpenChange,
   showEnglishTranslations = false,
   onToggleTranslations,
+  themePreference = "light",
+  onToggleTheme,
 }) {
   const { toast } = useToast();
   const isNativePlatform = Capacitor.isNativePlatform();
@@ -174,6 +176,29 @@ function RemoveAdsModal({
               aria-pressed={showEnglishTranslations}
             >
               GA→EN{showEnglishTranslations ? " ✓" : ""}
+            </button>
+          </div>
+        </div>
+
+        <div className="grid gap-2 rounded-md border border-rule bg-surface p-3">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="font-display text-base font-bold text-char">
+                Mód dorċa
+              </p>
+              <p className="text-sm text-text-soft">
+                Athraigh an pailéad go téama oiċe níos boige.
+              </p>
+            </div>
+            <button
+              type="button"
+              className={`translation-toggle ${
+                themePreference === "dark" ? "theme-toggle-active" : ""
+              }`}
+              onClick={onToggleTheme}
+              aria-pressed={themePreference === "dark"}
+            >
+              DORCHA{themePreference === "dark" ? " ✓" : ""}
             </button>
           </div>
         </div>

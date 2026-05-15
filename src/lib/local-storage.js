@@ -2,6 +2,7 @@ const gameStateKey = "gameState";
 const hasSeenOnboardingKey = "hasSeenOnboarding";
 const dismissedEndGameResultKey = "dismissedEndGameResult";
 const showEnglishTranslationsKey = "showEnglishTranslations";
+const themePreferenceKey = "themePreference";
 const donePuzzleKeyPrefix = "ceangal-done-";
 const completedPuzzleCountForAdsKey = "adInterstitialCompletionCount";
 
@@ -127,6 +128,20 @@ export const saveShowEnglishTranslationsToLocalStorage = (showTranslations) => {
 
 export const loadShowEnglishTranslationsFromLocalStorage = () => {
   return localStorage.getItem(showEnglishTranslationsKey) === "true";
+};
+
+export const saveThemePreferenceToLocalStorage = (themePreference) => {
+  localStorage.setItem(themePreferenceKey, themePreference);
+};
+
+export const loadThemePreferenceFromLocalStorage = () => {
+  const storedThemePreference = localStorage.getItem(themePreferenceKey);
+
+  if (storedThemePreference === "dark" || storedThemePreference === "light") {
+    return storedThemePreference;
+  }
+
+  return null;
 };
 
 export const saveCompletedPuzzleToLocalStorage = (puzzleId) => {

@@ -6,8 +6,6 @@ node_modules
 node_modules/
 build/
 dist/
-ios/
-android/
 .DS_Store
 *.tgz
 my-app*

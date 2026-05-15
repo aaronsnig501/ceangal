@@ -65,3 +65,46 @@ currently wired with Google's sample Android app ID for development.
 RevenueCat purchase UI is hidden on web. The browser version stays free and
 ad-free, and the settings sheet shows a small link toward the native apps
 instead.
+
+### Capacitor build pipeline
+
+Capacitor is configured with:
+
+- `webDir: "dist"` in [capacitor.config.ts](capacitor.config.ts)
+- Parcel output written to `dist/`
+
+Useful commands:
+
+```bash
+npm run build
+```
+
+Builds the web app into `dist/`, including the privacy page and copied SEO
+assets.
+
+```bash
+npm run build:app
+```
+
+Builds the web app and then runs:
+
+```bash
+npx cap sync
+```
+
+That updates the native platforms from the latest `dist/` output.
+
+Platform copy checks:
+
+```bash
+npx cap copy android
+```
+
+Works in the current repo and copies web assets into the Android project.
+
+```bash
+npx cap copy ios
+```
+
+Requires the iOS platform to be added first. This repo currently includes
+`@capacitor/ios`, but an `ios/` project has not been generated yet.

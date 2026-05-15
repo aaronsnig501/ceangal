@@ -106,5 +106,17 @@ Works in the current repo and copies web assets into the Android project.
 npx cap copy ios
 ```
 
-Requires the iOS platform to be added first. This repo currently includes
-`@capacitor/ios`, but an `ios/` project has not been generated yet.
+Works now that the iOS platform has been added. The generated iOS project is
+configured with:
+
+- Bundle ID `ie.misneach.ceangal`
+- Display Name `Ceangal`
+- native AdMob application ID in `Info.plist`
+- `NSUserTrackingUsageDescription` for ATT / AdMob
+- portrait-only orientation to match Android
+
+Open in Xcode with:
+
+```bash
+npx cap open ios
+```

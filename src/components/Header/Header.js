@@ -9,12 +9,20 @@ function Header({
   onPuzzleBrowserClick,
   onStatsClick,
   onSettingsClick,
+  onLogoClick,
 }) {
   return (
     <header>
-      <h1 className="wordmark" aria-label="Ceangal">
-        <span className="wordmark-strong">CEAN</span>
-        <span className="wordmark-light">gal</span>
+      <h1 className="wordmark">
+        <button
+          type="button"
+          className="logo-trigger"
+          aria-label="Ceangal"
+          onClick={onLogoClick}
+        >
+          <span className="wordmark-strong">CEAN</span>
+          <span className="wordmark-light">gal</span>
+        </button>
       </h1>
       <div className="flex items-center gap-1.5">
         <button

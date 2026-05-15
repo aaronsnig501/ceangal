@@ -82,6 +82,22 @@ h1 {
   line-height: 1;
 }
 
+.logo-trigger {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
 .wordmark-strong {
   color: var(--char);
   font-weight: 900;

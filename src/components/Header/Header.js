@@ -1,10 +1,10 @@
 import React from "react";
 
-import { BarChart3, HelpCircle, List, Settings2 } from "lucide-react";
+import { BarChart3, HelpCircle, List, Moon, Settings2, Sun } from "lucide-react";
 
 function Header({
-  showEnglishTranslations,
-  onToggleTranslations,
+  themePreference,
+  onToggleTheme,
   onHelpClick,
   onPuzzleBrowserClick,
   onStatsClick,
@@ -43,13 +43,20 @@ function Header({
         </button>
         <button
           type="button"
-          className={`translation-toggle ${
-            showEnglishTranslations ? "translation-toggle-active" : ""
+          className={`icon-trigger ${
+            themePreference === "dark" ? "theme-toggle-active" : ""
           }`}
-          onClick={onToggleTranslations}
-          aria-pressed={showEnglishTranslations}
+          onClick={onToggleTheme}
+          aria-label={
+            themePreference === "dark" ? "Athraigh go mód geal" : "Athraigh go mód dorċa"
+          }
+          aria-pressed={themePreference === "dark"}
         >
-          GA→EN{showEnglishTranslations ? " ✓" : ""}
+          {themePreference === "dark" ? (
+            <Sun strokeWidth={1.75} />
+          ) : (
+            <Moon strokeWidth={1.75} />
+          )}
         </button>
         <button
           type="button"

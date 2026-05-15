@@ -15,13 +15,33 @@ import GameStatusProvider from "../../providers/GameStatusProvider";
 import {
   loadHasSeenOnboardingFromLocalStorage,
   loadShowEnglishTranslationsFromLocalStorage,
+  loadThemePreferenceFromLocalStorage,
   saveHasSeenOnboardingToLocalStorage,
   saveShowEnglishTranslationsToLocalStorage,
+  saveThemePreferenceToLocalStorage,
 } from "../../lib/local-storage";
 import { initializeAdMob } from "../../lib/admob";
 import { initializePlausible, trackEvent } from "../../lib/analytics";
 import { initializePurchases } from "../../lib/purchases";
 import { puzzleId, puzzleIndex, puzzleTitle } from "../../lib/time-utils";
+
+function getInitialThemePreference() {
+  const storedThemePreference = loadThemePreferenceFromLocalStorage();
+
+  if (storedThemePreference) {
+    return storedThemePreference;
+  }
+
+  if (
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  ) {
+    return "dark";
+  }
+
+  return "light";
+}
 
 function App() {
   const [hasSeenOnboarding, setHasSeenOnboarding] = React.useState(() =>
@@ -37,6 +57,9 @@ function App() {
   );
   const [showEnglishTranslations, setShowEnglishTranslations] = React.useState(
     () => loadShowEnglishTranslationsFromLocalStorage()
+  );
+  const [themePreference, setThemePreference] = React.useState(
+    getInitialThemePreference
   );
 
   React.useEffect(() => {
@@ -55,11 +78,34 @@ function App() {
     });
   }, []);
 
+  React.useEffect(() => {
+    const rootElement = document.documentElement;
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    const isDarkTheme = themePreference === "dark";
+
+    rootElement.classList.toggle("dark", isDarkTheme);
+
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute(
+        "content",
+        isDarkTheme ? "#171410" : "#f4f0e6"
+      );
+    }
+  }, [themePreference]);
+
   function toggleEnglishTranslations() {
     setShowEnglishTranslations((currentValue) => {
       const nextValue = !currentValue;
       saveShowEnglishTranslationsToLocalStorage(nextValue);
       return nextValue;
+    });
+  }
+
+  function toggleThemePreference() {
+    setThemePreference((currentTheme) => {
+      const nextTheme = currentTheme === "dark" ? "light" : "dark";
+      saveThemePreferenceToLocalStorage(nextTheme);
+      return nextTheme;
     });
   }
 
@@ -113,8 +159,8 @@ function App() {
         <div className="wrapper">
           <Toaster />
           <Header
-            showEnglishTranslations={showEnglishTranslations}
-            onToggleTranslations={toggleEnglishTranslations}
+            themePreference={themePreference}
+            onToggleTheme={toggleThemePreference}
             onLogoClick={handleReturnToSplash}
             onHelpClick={() => setIsOnboardingOpen(true)}
             onPuzzleBrowserClick={() => {
@@ -199,6 +245,8 @@ function App() {
           onOpenChange={setIsSettingsOpen}
           showEnglishTranslations={showEnglishTranslations}
           onToggleTranslations={toggleEnglishTranslations}
+          themePreference={themePreference}
+          onToggleTheme={toggleThemePreference}
         />
       </GameStatusProvider>
     </PuzzleDataProvider>

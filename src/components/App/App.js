@@ -70,9 +70,23 @@ function App() {
     setIsOnboardingOpen(false);
   }
 
+  function dismissSplash() {
+    setIsSplashOpen(false);
+    setIsOnboardingOpen(false);
+  }
+
   function startOnboarding() {
     setIsSplashOpen(false);
     setIsOnboardingOpen(true);
+  }
+
+  function handleSplashSkip() {
+    if (hasSeenOnboarding) {
+      dismissSplash();
+      return;
+    }
+
+    completeFirstRun();
   }
 
   function handleSkip() {
@@ -84,6 +98,15 @@ function App() {
     completeFirstRun();
   }
 
+  function handleReturnToSplash() {
+    setIsSettingsOpen(false);
+    setIsPuzzleBrowserOpen(false);
+    setIsStatsOpen(false);
+    setIsOnboardingOpen(false);
+    setShowResetPrompt(false);
+    setIsSplashOpen(true);
+  }
+
   return (
     <PuzzleDataProvider>
       <GameStatusProvider>
@@ -92,6 +115,7 @@ function App() {
           <Header
             showEnglishTranslations={showEnglishTranslations}
             onToggleTranslations={toggleEnglishTranslations}
+            onLogoClick={handleReturnToSplash}
             onHelpClick={() => setIsOnboardingOpen(true)}
             onPuzzleBrowserClick={() => {
               trackEvent("Puzzle Browser Open", {
@@ -155,6 +179,7 @@ function App() {
           open={isOnboardingOpen}
           isFirstRun={!hasSeenOnboarding}
           onStart={startOnboarding}
+          onSplashSkip={handleSplashSkip}
           onSkip={handleSkip}
           onComplete={completeFirstRun}
           onOpenChange={setIsOnboardingOpen}

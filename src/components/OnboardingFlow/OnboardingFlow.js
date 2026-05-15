@@ -278,6 +278,7 @@ function OnboardingFlow({
   open,
   isFirstRun,
   onStart,
+  onSplashSkip,
   onSkip,
   onComplete,
   onOpenChange,
@@ -316,7 +317,7 @@ function OnboardingFlow({
 
   return (
     <>
-      {showSplash && <SplashScreen onStart={onStart} onSkip={onSkip} />}
+      {showSplash && <SplashScreen onStart={onStart} onSkip={onSplashSkip} />}
       <BaseModal
         title=""
         initiallyOpen={open}

@@ -14,10 +14,13 @@ import {
   userHasRemovedAds,
 } from "../../lib/purchases";
 
-const PRIVACY_URL = "https://ceangal.app/privacy/";
 const MISNEACH_URL = "https://misneachabu.ie/";
+const env = import.meta.env ?? {};
 const MOBILE_APPS_URL =
-  import.meta.env.VITE_MOBILE_APPS_URL ?? "https://ceangal.app/";
+  env.VITE_MOBILE_APPS_URL ?? "https://ceangal.app/";
+const PRIVACY_URL = Capacitor.isNativePlatform()
+  ? "https://ceangal.app/privacy/"
+  : "/privacy/";
 
 function getPurchaseErrorMessage(error) {
   if (error?.userCancelled) {

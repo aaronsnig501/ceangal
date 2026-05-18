@@ -109,7 +109,7 @@ npx cap copy ios
 Works now that the iOS platform has been added. The generated iOS project is
 configured with:
 
-- Bundle ID `ie.misneach.ceangal`
+- Bundle ID `app.ceangal.game`
 - Display Name `Ceangal`
 - native AdMob application ID in `Info.plist`
 - `NSUserTrackingUsageDescription` for ATT / AdMob

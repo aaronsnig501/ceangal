@@ -19,7 +19,7 @@ export const shareStatus = (
   handleShareFailure,
   includeGameLink = true
 ) => {
-  const GAME_URL = "ceangal.ie";
+  const GAME_URL = "ceangal.app";
   const resultMark = isGameWon ? "✅" : "❌";
   const textToShare =
     `${GAME_TITLE} #${puzzleIndex} — ${puzzleTitle}\n` +

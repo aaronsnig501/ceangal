@@ -1,4 +1,4 @@
-package ie.misneach.ceangal;
+package app.ceangal.game;
 
 import com.getcapacitor.BridgeActivity;
 

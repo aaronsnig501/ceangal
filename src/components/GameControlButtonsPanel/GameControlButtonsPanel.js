@@ -112,7 +112,7 @@ function GameControlButtonsPanel({
         }
       >
         <Shuffle className="h-4 w-4 mr-2" strokeWidth={1} />
-        <p className="select-none">Measc</p>
+        <span className="select-none">Measc</span>
       </Button>
       <Button
         size="deselectallsize"
@@ -121,7 +121,7 @@ function GameControlButtonsPanel({
         onClick={deselectAll}
       >
         <Undo className="h-4 w-4 mr-2" strokeWidth={1} />
-        <p className="select-none">Glan</p>
+        <span className="select-none">Glan</span>
       </Button>
       <Button
         variant="submit"
@@ -129,7 +129,7 @@ function GameControlButtonsPanel({
         disabled={isGameOver || guessCandidate.length !== categorySize}
       >
         <SendHorizontal className="h-4 w-4 mr-2" strokeWidth={1} />
-        <p className="select-none">Seol</p>
+        <span className="select-none">Seol</span>
       </Button>
     </div>
   );

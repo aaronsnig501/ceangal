@@ -90,10 +90,12 @@ function StepShell({ kicker, title, children }) {
   return (
     <div className="grid gap-4">
       <div className="grid gap-1 text-center">
-        <p className="text-xs font-semibold uppercase text-vermil">
+        <p className="font-sans text-xs font-semibold uppercase tracking-[0.12em] text-vermil">
           {kicker}
         </p>
-        <h2 className="font-display text-2xl font-bold text-char">{title}</h2>
+        <h2 className="font-display text-2xl font-normal tracking-[0.02em] text-char">
+          {title}
+        </h2>
       </div>
       {children}
     </div>
@@ -106,7 +108,7 @@ function DemoTile({ word, selected, correct, onClick, disabled = false }) {
       type="button"
       disabled={disabled}
       onClick={onClick}
-      className={`grid min-h-[3.35rem] place-items-center rounded-md border px-1 text-center text-sm font-semibold leading-tight transition ${
+      className={`grid min-h-[3.35rem] place-items-center rounded-md border px-1 text-center font-display text-sm font-normal leading-tight tracking-[0.02em] transition ${
         selected
           ? correct
             ? "border-tier-1 bg-tier-1 text-tier-1-fg"
@@ -143,9 +145,13 @@ function GroupsStep() {
       <div className="grid gap-2">
         {categories.map((category) => (
           <div key={category.name} className={`rounded-md p-3 text-center ${category.className}`}>
-            <p className="text-xs font-semibold uppercase">Sampla</p>
-            <p className="font-display text-lg font-bold">{category.name}</p>
-            <p className="text-sm">{category.words.join(", ")}</p>
+            <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em]">
+              Sampla
+            </p>
+            <p className="font-display text-lg font-normal tracking-[0.02em]">
+              {category.name}
+            </p>
+            <p className="font-serif text-sm italic">{category.words.join(", ")}</p>
           </div>
         ))}
       </div>
@@ -226,8 +232,10 @@ function ColoursStep() {
           <div key={tier.label} className="flex items-center gap-3 rounded-md border border-rule bg-surface p-3">
             <span className={`h-8 w-8 rounded ${tier.className}`} aria-hidden="true" />
             <div>
-              <p className={`font-semibold ${tier.textClassName}`}>Leibḣéal {index + 1}</p>
-              <p className="text-sm text-text-soft">{tier.label}</p>
+              <p className={`font-sans text-sm font-semibold ${tier.textClassName}`}>
+                Leibḣéal {index + 1}
+              </p>
+              <p className="font-serif text-sm italic text-text-soft">{tier.label}</p>
             </div>
           </div>
         ))}

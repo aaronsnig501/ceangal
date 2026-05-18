@@ -78,7 +78,7 @@ function StatisticsModal({ open = false, onOpenChange }) {
           <div className="panel-card">
             <div className="stats-heading">
               <BarChart3 size={18} className="text-vermil" strokeWidth={1.75} />
-              <h3 className="font-display text-lg font-bold text-char">
+              <h3 className="font-display text-lg font-normal tracking-[0.02em] text-char">
                 Dáileaḋ botún
               </h3>
             </div>

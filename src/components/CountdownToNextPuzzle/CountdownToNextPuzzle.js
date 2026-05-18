@@ -8,7 +8,7 @@ const renderer = ({ days, hours, minutes, seconds, completed }) => {
   // Render a countdown
   if (completed) {
     return (
-      <span className="font-[600]">
+      <span className="font-sans text-sm font-semibold tracking-[0.01em]">
         Tá cluiċe nua ar fáil. Aṫnuaigh an leaṫanaċ.
       </span>
     );

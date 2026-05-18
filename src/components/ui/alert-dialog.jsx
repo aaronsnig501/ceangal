@@ -63,7 +63,7 @@ AlertDialogFooter.displayName = "AlertDialogFooter";
 const AlertDialogTitle = React.forwardRef(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Title
     ref={ref}
-    className={cn("font-display text-xl font-bold text-char", className)}
+    className={cn("font-display text-xl font-normal tracking-[0.02em] text-char", className)}
     {...props}
   />
 ));

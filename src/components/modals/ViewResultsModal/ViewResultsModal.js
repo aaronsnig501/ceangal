@@ -6,7 +6,6 @@ import { GameStatusContext } from "../../../providers/GameStatusProvider";
 import { PuzzleDataContext } from "../../../providers/PuzzleDataProvider";
 import { Button } from "../../ui/button";
 import ResultMap from "../../ResultMap";
-import StatisticsModal from "../../StatisticsModal";
 
 function ViewResultsModal({ initiallyOpen = false }) {
   const { submittedGuesses } = React.useContext(GameStatusContext);
@@ -27,7 +26,9 @@ function ViewResultsModal({ initiallyOpen = false }) {
       footerElements={
         <div className="grid w-full gap-2">
           <ShareScoreButton buttonText={"Roinn do scór"} />
-          <StatisticsModal />
+          <Button variant="secondary" className="w-full">
+            Staitisticí sa bharra thíos
+          </Button>
         </div>
       }
     >

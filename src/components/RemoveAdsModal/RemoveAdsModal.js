@@ -1,7 +1,6 @@
 import React from "react";
 import { Capacitor } from "@capacitor/core";
-import { Loader2, Settings2 } from "lucide-react";
-import BaseModal from "../modals/BaseModal";
+import { Loader2 } from "lucide-react";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import packageJson from "../../../package.json";
@@ -16,11 +15,55 @@ import {
 
 const MISNEACH_URL = "https://misneachabu.ie/";
 const env = import.meta.env ?? {};
-const MOBILE_APPS_URL =
-  env.VITE_MOBILE_APPS_URL ?? "https://ceangal.app/";
+const MOBILE_APPS_URL = env.VITE_MOBILE_APPS_URL ?? "https://ceangal.app/";
 const PRIVACY_URL = Capacitor.isNativePlatform()
   ? "https://ceangal.app/privacy/"
   : "/privacy/";
+
+function SettingsToggle({ label, hint, checked, onToggle }) {
+  return (
+    <div className="settings-row">
+      <div className="settings-copy">
+        <p className="settings-label">{label}</p>
+        <p className="settings-hint">{hint}</p>
+      </div>
+      <button
+        type="button"
+        className={`ios-toggle ${checked ? "ios-toggle-on" : ""}`}
+        onClick={onToggle}
+        aria-pressed={checked}
+      >
+        <span className="ios-toggle-thumb" />
+      </button>
+    </div>
+  );
+}
+
+function SettingsAction({
+  label,
+  hint,
+  onClick,
+  disabled = false,
+  loading = false,
+  children,
+}) {
+  return (
+    <button
+      type="button"
+      className="settings-row settings-row-button"
+      onClick={onClick}
+      disabled={disabled || loading}
+    >
+      <div className="settings-copy">
+        <p className="settings-label">{label}</p>
+        <p className="settings-hint">{hint}</p>
+      </div>
+      <div className="settings-trailing">
+        {loading ? <Loader2 className="animate-spin" size={16} /> : children}
+      </div>
+    </button>
+  );
+}
 
 function getPurchaseErrorMessage(error) {
   if (error?.userCancelled) {
@@ -46,8 +89,7 @@ function getPurchaseErrorMessage(error) {
 }
 
 function RemoveAdsModal({
-  initiallyOpen = false,
-  showTrigger = true,
+  open = false,
   onOpenChange,
   showEnglishTranslations = false,
   onToggleTranslations,
@@ -57,14 +99,11 @@ function RemoveAdsModal({
   const { toast } = useToast();
   const isNativePlatform = Capacitor.isNativePlatform();
   const [isLoading, setIsLoading] = React.useState(false);
-  const [isNativePurchasesReady, setIsNativePurchasesReady] =
-    React.useState(false);
   const [hasRemovedAdsState, setHasRemovedAdsState] = React.useState(false);
   const [removeAdsPackage, setRemoveAdsPackage] = React.useState(null);
 
   async function refreshPurchaseState() {
     const ready = await initializePurchases();
-    setIsNativePurchasesReady(ready);
 
     if (!ready) {
       setRemoveAdsPackage(null);
@@ -80,6 +119,15 @@ function RemoveAdsModal({
     setHasRemovedAdsState(nextHasRemovedAds);
     setRemoveAdsPackage(nextPackage);
   }
+
+  React.useEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    setIsLoading(true);
+    refreshPurchaseState().finally(() => setIsLoading(false));
+  }, [open]);
 
   async function handlePurchase() {
     setIsLoading(true);
@@ -130,186 +178,115 @@ function RemoveAdsModal({
     }
   }
 
+  if (!open) {
+    return null;
+  }
+
   return (
-    <BaseModal
-      title="Socruithe"
-      trigger={
-        showTrigger ? (
-          <button
-            type="button"
-            className="icon-trigger"
-            aria-label="Socruithe"
-          >
-            <Settings2 strokeWidth={1.75} />
-          </button>
-        ) : undefined
-      }
-      initiallyOpen={initiallyOpen}
-      actionButtonText="Dún"
-      contentClassName="top-auto bottom-0 translate-y-0 w-full max-w-[520px] rounded-b-none rounded-t-[18px] border-b-0 p-5 pb-[calc(1.25rem+env(safe-area-inset-bottom,0px))] data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom data-[state=closed]:slide-out-to-left-0 data-[state=open]:slide-in-from-left-0 data-[state=closed]:slide-out-to-top-0 data-[state=open]:slide-in-from-top-0"
-      footerClassName="pt-1"
-      onOpenChange={(open) => {
-        if (open) {
-          setIsLoading(true);
-          refreshPurchaseState().finally(() => setIsLoading(false));
-        }
-        onOpenChange?.(open);
-      }}
-    >
-      <div className="grid gap-4 text-left">
-        <div className="grid gap-2 rounded-md border border-rule bg-surface p-3">
-          <div className="flex items-center justify-between gap-3">
-            <div>
-              <p className="font-display text-base font-bold text-char">
-                GA→EN
-              </p>
-              <p className="text-sm text-text-soft">
-                Taispeáin aistriúċáin Ḃéarla faoi na focail.
-              </p>
-            </div>
-            <button
-              type="button"
-              className={`translation-toggle ${
-                showEnglishTranslations ? "translation-toggle-active" : ""
-              }`}
-              onClick={onToggleTranslations}
-              aria-pressed={showEnglishTranslations}
-            >
-              GA→EN{showEnglishTranslations ? " ✓" : ""}
-            </button>
-          </div>
-        </div>
-
-        <div className="grid gap-2 rounded-md border border-rule bg-surface p-3">
-          <div className="flex items-center justify-between gap-3">
-            <div>
-              <p className="font-display text-base font-bold text-char">
-                Mód dorċa
-              </p>
-              <p className="text-sm text-text-soft">
-                Athraigh an pailéad go téama oiċe níos boige.
-              </p>
-            </div>
-            <button
-              type="button"
-              className={`translation-toggle ${
-                themePreference === "dark" ? "theme-toggle-active" : ""
-              }`}
-              onClick={onToggleTheme}
-              aria-pressed={themePreference === "dark"}
-            >
-              DORCHA{themePreference === "dark" ? " ✓" : ""}
-            </button>
-          </div>
-        </div>
-
-        <div className="grid gap-2 rounded-md border border-rule bg-surface p-3">
-          <p className="font-display text-base font-bold text-char">
-            Bain Fógraí
-          </p>
-          {!isNativePlatform ? (
-            <>
-              <p className="text-sm text-text-soft">
-                Tá an leagan gréasáin saor in aisce ⁊ gan fógraí. Tá ceannaċ
-                Bain Fógraí ar fáil san aip aṁáin.
-              </p>
-              <a
-                className="text-sm text-text-soft underline"
-                href={MOBILE_APPS_URL}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Available on iOS and Android
-              </a>
-            </>
-          ) : !canUseRevenueCat() ? (
-            <p className="text-sm text-text-soft">
-              Tá Bain Fógraí ar fáil san aip ḋúċasaċ aṁáin nuair atá
-              eochracha RevenueCat socraithe.
-            </p>
-          ) : hasRemovedAdsState ? (
-            <p className="text-sm text-text-soft">
-              Tá Bain Fógraí gníoṁaċ ċeana. Níor ċeart go ḃfeicfeá
-              idirleaṫanaiġ fógraí a ṫuilleaḋ.
-            </p>
-          ) : (
-            <>
-              <p className="text-sm text-text-soft">
-                Bain fógraí idirleaṫanaiġ den aip go buan le ceannaċ aon
-                uaire.
-              </p>
-              <div className="rounded-md border border-rule bg-background p-3">
-                <p className="font-display text-sm font-bold text-char">
-                  {removeAdsPackage?.product?.title ?? "Bain Fógraí"}
-                </p>
-                <p className="mt-1 text-sm text-text-soft">
-                  {removeAdsPackage?.product?.description ??
-                    "Ceannaċ aon uaire ċun fógraí a ṁúċaḋ."}
-                </p>
-                <p className="mt-2 font-semibold text-vermil">
-                  {removeAdsPackage?.product?.priceString ??
-                    "Ag lódáil ṗraghais..."}
-                </p>
-              </div>
-            </>
-          )}
-          {isNativePlatform && (
-            <div className="grid gap-2 pt-1">
-              <Button
-                className="w-full"
-                variant="submit"
-                disabled={
-                  isLoading ||
-                  !isNativePurchasesReady ||
-                  hasRemovedAdsState ||
-                  !removeAdsPackage
-                }
-                onClick={handlePurchase}
-              >
-                {isLoading ? (
-                  <Loader2
-                    className="mr-2 h-4 w-4 animate-spin"
-                    strokeWidth={1.5}
-                  />
-                ) : null}
-                {hasRemovedAdsState ? "Bainte ċeana" : "Bain Fógraí"}
-              </Button>
-              <Button
-                className="w-full"
-                variant="secondary"
-                disabled={isLoading || !isNativePurchasesReady}
-                onClick={handleRestorePurchases}
-              >
-                Aṫċóirigh ceannaċáin
-              </Button>
-            </div>
-          )}
-        </div>
-
-        <div className="grid gap-2 rounded-md border border-rule bg-surface p-3 text-sm">
-          <a
-            className="font-semibold text-char underline"
-            href={PRIVACY_URL}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Príobḃáideaċas
-          </a>
-          <p className="text-text-soft">Leagan {packageJson.version}</p>
-          <p className="truncate text-text-soft">
-            Made by the team behind{" "}
-            <a
-              className="underline"
-              href={MISNEACH_URL}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Misneach
-            </a>
-          </p>
+    <section className="app-panel-screen" aria-label="Socruithe">
+      <div className="panel-header">
+        <div>
+          <h2 className="panel-title">Socruithe</h2>
+          <p className="panel-subtitle">Roghanna don aip ⁊ don imirt.</p>
         </div>
       </div>
-    </BaseModal>
+
+      <div className="panel-scroll">
+        <div className="panel-card-list">
+          <div className="panel-card">
+            <SettingsToggle
+              label="GA→EN"
+              hint="Taispeáin aistriúċáin Ḃéarla faoi na focail."
+              checked={showEnglishTranslations}
+              onToggle={onToggleTranslations}
+            />
+            <SettingsToggle
+              label="Mód dorċa"
+              hint="Athraigh an pailéad go téama oiċe níos boige."
+              checked={themePreference === "dark"}
+              onToggle={onToggleTheme}
+            />
+          </div>
+
+          <div className="panel-card">
+            {isNativePlatform ? (
+              <>
+                <SettingsAction
+                  label="Bain fógráin"
+                  hint={
+                    hasRemovedAdsState
+                      ? "Tá Bain Fógraí gníoṁaċ cheana ar an gcuntas seo."
+                      : removeAdsPackage?.product?.priceString ??
+                        "Ceannaċ aon uaire ċun fógraí a ṁúċaḋ."
+                  }
+                  onClick={handlePurchase}
+                  disabled={!canUseRevenueCat() || hasRemovedAdsState}
+                  loading={isLoading}
+                >
+                  {hasRemovedAdsState ? "Gníomhach" : "Ceannaigh"}
+                </SettingsAction>
+                <SettingsAction
+                  label="Aisgaḃ ceannacáin"
+                  hint="Aṫċóirigh ceannacáin roimhe seo ar an ngléas seo."
+                  onClick={handleRestorePurchases}
+                  disabled={!canUseRevenueCat()}
+                  loading={isLoading}
+                >
+                  Aisgaḃ
+                </SettingsAction>
+              </>
+            ) : (
+              <>
+                <div className="settings-row">
+                  <div className="settings-copy">
+                    <p className="settings-label">Bain fógráin</p>
+                    <p className="settings-hint">
+                      Tá an leagan gréasáin saor in aisce ⁊ gan fógraí.
+                    </p>
+                  </div>
+                </div>
+                <a
+                  className="settings-inline-link"
+                  href={MOBILE_APPS_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Available on iOS and Android
+                </a>
+              </>
+            )}
+          </div>
+
+          <div className="panel-card">
+            <a className="settings-row settings-link-row" href={PRIVACY_URL}>
+              <span className="settings-label">Príobḃáideaċas</span>
+              <span className="settings-link-value">ceangal.app/privacy</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <footer className="settings-footer">
+        <a
+          className="wordmark settings-footer-wordmark"
+          href={MISNEACH_URL}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <span className="wordmark-strong">CEAN</span>
+          <span className="wordmark-light">gal</span>
+        </a>
+        <p className="settings-footer-copy">
+          Déanta ag foireann Misneaċ · ceangal.app
+        </p>
+        <p className="settings-footer-version">v{packageJson.version}</p>
+        <div className="settings-footer-actions">
+          <Button variant="secondary" className="w-full" onClick={() => onOpenChange(false)}>
+            Fill ar an imirt
+          </Button>
+        </div>
+      </footer>
+    </section>
   );
 }
 

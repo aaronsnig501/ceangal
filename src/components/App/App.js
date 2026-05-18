@@ -1,6 +1,7 @@
 import React from "react";
 import { Capacitor } from "@capacitor/core";
 import Header from "../Header";
+import BottomNav from "../BottomNav";
 import Game from "../Game";
 import OnboardingFlow from "../OnboardingFlow";
 import PuzzleBrowser from "../PuzzleBrowser";
@@ -50,8 +51,7 @@ function App() {
   const [isSplashOpen, setIsSplashOpen] = React.useState(!hasSeenOnboarding);
   const [isOnboardingOpen, setIsOnboardingOpen] = React.useState(false);
   const [isPuzzleBrowserOpen, setIsPuzzleBrowserOpen] = React.useState(false);
-  const [isStatsOpen, setIsStatsOpen] = React.useState(false);
-  const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
+  const [activeScreen, setActiveScreen] = React.useState("game");
   const [showResetPrompt, setShowResetPrompt] = React.useState(
     allPuzzlesCompletedOnBoot
   );
@@ -145,12 +145,33 @@ function App() {
   }
 
   function handleReturnToSplash() {
-    setIsSettingsOpen(false);
+    setActiveScreen("game");
     setIsPuzzleBrowserOpen(false);
-    setIsStatsOpen(false);
     setIsOnboardingOpen(false);
     setShowResetPrompt(false);
     setIsSplashOpen(true);
+  }
+
+  function handleNavSelect(target) {
+    if (target === "help") {
+      setActiveScreen("game");
+      setIsOnboardingOpen(true);
+      return;
+    }
+
+    if (target === "browser") {
+      setActiveScreen("game");
+      trackEvent("Puzzle Browser Open", {
+        props: {
+          puzzle_id: String(puzzleId),
+          puzzle_index: String(puzzleIndex),
+        },
+      });
+      setIsPuzzleBrowserOpen(true);
+      return;
+    }
+
+    setActiveScreen(target);
   }
 
   return (
@@ -159,66 +180,69 @@ function App() {
         <div className="wrapper">
           <Toaster />
           <Header
-            themePreference={themePreference}
-            onToggleTheme={toggleThemePreference}
             onLogoClick={handleReturnToSplash}
-            onHelpClick={() => setIsOnboardingOpen(true)}
-            onPuzzleBrowserClick={() => {
-              trackEvent("Puzzle Browser Open", {
-                props: {
-                  puzzle_id: String(puzzleId),
-                  puzzle_index: String(puzzleIndex),
-                },
-              });
-              setIsPuzzleBrowserOpen(true);
-            }}
-            onStatsClick={() => setIsStatsOpen(true)}
-            onSettingsClick={() => setIsSettingsOpen(true)}
           />
-          {showResetPrompt && (
-            <div className="rounded-md border border-rule bg-surface p-4 text-center">
-              <p className="font-display text-lg font-bold text-char">
-                Tá gaċ puzal críoċnaiṫe agat
-              </p>
-              <p className="mt-1 font-serif text-sm italic text-text-soft">
-                Táimid tar éis filleaḋ ar ṗuzal 1. Is féidir leat imirt
-                arís nó puzal eile a roġnú.
-              </p>
-              <Button
-                className="mt-3 w-full"
-                variant="secondary"
-                onClick={() => {
-                  trackEvent("Puzzle Browser Open", {
-                    props: {
-                      puzzle_id: String(puzzleId),
-                      puzzle_index: String(puzzleIndex),
-                      source: "reset_prompt",
-                    },
-                  });
-                  setIsPuzzleBrowserOpen(true);
-                }}
-              >
-                Roġnaiġ puzal
-              </Button>
-              <button
-                type="button"
-                className="mt-3 text-sm text-text-soft underline"
-                onClick={() => setShowResetPrompt(false)}
-              >
-                Dún
-              </button>
+          <div className="app-stage">
+            <div className={activeScreen === "game" ? "app-screen" : "app-screen hidden"}>
+              {showResetPrompt && (
+                <div className="rounded-md border border-rule bg-surface p-4 text-center">
+                  <p className="font-display text-lg font-bold text-char">
+                    Tá gaċ puzal críoċnaiṫe agat
+                  </p>
+                  <p className="mt-1 font-serif text-sm italic text-text-soft">
+                    Táimid tar éis filleaḋ ar ṗuzal 1. Is féidir leat imirt
+                    arís nó puzal eile a roġnú.
+                  </p>
+                  <Button
+                    className="mt-3 w-full"
+                    variant="secondary"
+                    onClick={() => {
+                      trackEvent("Puzzle Browser Open", {
+                        props: {
+                          puzzle_id: String(puzzleId),
+                          puzzle_index: String(puzzleIndex),
+                          source: "reset_prompt",
+                        },
+                      });
+                      setIsPuzzleBrowserOpen(true);
+                    }}
+                  >
+                    Roġnaiġ puzal
+                  </Button>
+                  <button
+                    type="button"
+                    className="mt-3 text-sm text-text-soft underline"
+                    onClick={() => setShowResetPrompt(false)}
+                  >
+                    Dún
+                  </button>
+                </div>
+              )}
+              <Game
+                showEnglishTranslations={showEnglishTranslations}
+                suppressEndGameModal={
+                  isSplashOpen || isOnboardingOpen || activeScreen !== "game"
+                }
+                suppressAds={isSplashOpen || isOnboardingOpen}
+              />
             </div>
-          )}
-          <Game
-            showEnglishTranslations={showEnglishTranslations}
-            suppressEndGameModal={isSplashOpen || isOnboardingOpen}
-            suppressAds={isSplashOpen || isOnboardingOpen}
-          />
-          <footer className="pb-3 text-center text-sm">
-            <a className="text-text-soft underline" href="/privacy/">
-              Príobḃáideaċas
-            </a>
-          </footer>
+
+            <StatisticsModal
+              open={activeScreen === "stats"}
+              onOpenChange={(open) => setActiveScreen(open ? "stats" : "game")}
+            />
+            <RemoveAdsModal
+              open={activeScreen === "settings"}
+              onOpenChange={(open) =>
+                setActiveScreen(open ? "settings" : "game")
+              }
+              showEnglishTranslations={showEnglishTranslations}
+              onToggleTranslations={toggleEnglishTranslations}
+              themePreference={themePreference}
+              onToggleTheme={toggleThemePreference}
+            />
+          </div>
+          <BottomNav activeScreen={activeScreen} onSelect={handleNavSelect} />
         </div>
         <OnboardingFlow
           showSplash={isSplashOpen}
@@ -233,20 +257,6 @@ function App() {
         <PuzzleBrowser
           open={isPuzzleBrowserOpen}
           onOpenChange={setIsPuzzleBrowserOpen}
-        />
-        <StatisticsModal
-          showTrigger={false}
-          initiallyOpen={isStatsOpen}
-          onOpenChange={setIsStatsOpen}
-        />
-        <RemoveAdsModal
-          showTrigger={false}
-          initiallyOpen={isSettingsOpen}
-          onOpenChange={setIsSettingsOpen}
-          showEnglishTranslations={showEnglishTranslations}
-          onToggleTranslations={toggleEnglishTranslations}
-          themePreference={themePreference}
-          onToggleTheme={toggleThemePreference}
         />
       </GameStatusProvider>
     </PuzzleDataProvider>

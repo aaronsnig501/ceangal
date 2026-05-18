@@ -53,6 +53,7 @@ function Game({
   const previousIsGameOver = React.useRef(isGameOver);
   const hasHandledCompletedGame = React.useRef(wasGameOverOnLoad);
   const [gridShake, setGridShake] = React.useState(false);
+  const solvedCount = solvedGameData.length;
 
   React.useEffect(() => {
     trackEvent("Puzzle Start", {
@@ -145,11 +146,28 @@ function Game({
 
   return (
     <>
-      <h3 className="font-serif italic text-text-soft text-center mt-4">
-        Aimsiġ {numCategories} gṙúpa de {categorySize} ḟocal
-      </h3>
+      <div className="game-meta">
+        <div>
+          <p className="game-meta-kicker">Imirt #{puzzleId}</p>
+          <h2 className="game-meta-title">{puzzleTitle}</h2>
+        </div>
+        <div className="game-progress-dots" aria-label="Dul chun cinn">
+          {Array.from({ length: numCategories }).map((_, index) => (
+            <span
+              key={index}
+              className={`game-progress-dot ${
+                index < solvedCount ? "game-progress-dot-done" : ""
+              }`}
+            />
+          ))}
+        </div>
+      </div>
 
-      <div className={`game-wrapper`}>
+      <p className="game-subtitle">
+        Aimsiġ {numCategories} gṙúpa de {categorySize} ḟocal
+      </p>
+
+      <div className="game-wrapper">
         {isGameOver && isGameWon ? (
           <GameWonModal
             open={isEndGameModalOpen}

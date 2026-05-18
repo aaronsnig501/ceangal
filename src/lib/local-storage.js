@@ -30,17 +30,19 @@ export const loadGameStateFromLocalStorage = (puzzleId) => {
   }
 };
 
-const gameStatKey = "gameStats";
+const gameStatKey = "ceangal-stats";
+const legacyGameStatKey = "gameStats";
 const defaultGameStats = {
   gamesPlayed: 0,
   gamesWon: 0,
   currentStreak: 0,
   maxStreak: 0,
   guessDistribution: {
+    0: 0,
     1: 0,
     2: 0,
     3: 0,
-    4: 0,
+    x: 0,
   },
   recordedPuzzles: [],
 };
@@ -50,19 +52,33 @@ export const saveStatsToLocalStorage = (gameStats) => {
 };
 
 export const loadStatsFromLocalStorage = () => {
-  const stats = localStorage.getItem(gameStatKey);
+  const stats =
+    localStorage.getItem(gameStatKey) ?? localStorage.getItem(legacyGameStatKey);
   if (!stats) {
     return defaultGameStats;
   }
 
   try {
     const parsedStats = JSON.parse(stats);
+    const legacyDistribution = parsedStats.guessDistribution ?? {};
+    const normalizedDistribution = {
+      0: legacyDistribution[0] ?? legacyDistribution["0"] ?? 0,
+      1: legacyDistribution[1] ?? legacyDistribution["1"] ?? 0,
+      2: legacyDistribution[2] ?? legacyDistribution["2"] ?? 0,
+      3: legacyDistribution[3] ?? legacyDistribution["3"] ?? 0,
+      x: legacyDistribution.x ?? 0,
+    };
+
+    if (legacyDistribution[4] || legacyDistribution["4"]) {
+      normalizedDistribution.x += legacyDistribution[4] ?? legacyDistribution["4"] ?? 0;
+    }
+
     return {
       ...defaultGameStats,
       ...parsedStats,
       guessDistribution: {
         ...defaultGameStats.guessDistribution,
-        ...(parsedStats.guessDistribution ?? {}),
+        ...normalizedDistribution,
       },
       recordedPuzzles: Array.isArray(parsedStats.recordedPuzzles)
         ? parsedStats.recordedPuzzles
@@ -97,9 +113,12 @@ export const recordCompletedPuzzleStats = ({
     },
   };
 
-  if (isGameWon && numMistakesUsed >= 1 && numMistakesUsed <= 4) {
+  if (isGameWon && numMistakesUsed >= 0 && numMistakesUsed <= 3) {
     nextStats.guessDistribution[numMistakesUsed] =
       (nextStats.guessDistribution[numMistakesUsed] ?? 0) + 1;
+  } else if (!isGameWon) {
+    nextStats.guessDistribution.x =
+      (nextStats.guessDistribution.x ?? 0) + 1;
   }
 
   saveStatsToLocalStorage(nextStats);

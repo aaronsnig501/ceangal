@@ -57,7 +57,9 @@ function PuzzleBrowser({ open, onOpenChange }) {
       <div className="mx-auto flex h-full w-full max-w-[560px] flex-col px-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] pt-[calc(1rem+env(safe-area-inset-top,0px))]">
         <div className="flex min-h-14 items-center justify-between border-b border-rule">
           <div>
-            <h2 className="font-display text-2xl font-bold">Roġnaiġ Imirt</h2>
+            <h2 className="font-display text-2xl font-normal tracking-[0.02em]">
+              Roġnaiġ Imirt
+            </h2>
             <p className="font-serif text-sm italic text-text-soft">
               Roġnaiġ puzal ar biṫ.
             </p>
@@ -97,7 +99,7 @@ function PuzzleBrowser({ open, onOpenChange }) {
                   onClick={() => handleSelectPuzzle(index)}
                 >
                   <span
-                    className={`grid h-9 w-9 place-items-center rounded-full border text-sm font-bold ${
+                    className={`grid h-9 w-9 place-items-center rounded-full border font-sans text-sm font-semibold ${
                       isCurrent
                         ? "border-vermil bg-vermil text-cream"
                         : "border-rule text-text-soft"
@@ -106,7 +108,7 @@ function PuzzleBrowser({ open, onOpenChange }) {
                     {index + 1}
                   </span>
                   <span className="min-w-0">
-                    <span className="flex items-center gap-2 font-display text-lg font-bold leading-tight">
+                    <span className="flex items-center gap-2 font-display text-lg font-normal leading-tight tracking-[0.02em]">
                       {puzzle.title}
                       {isCompleted && (
                         <Check
@@ -118,12 +120,12 @@ function PuzzleBrowser({ open, onOpenChange }) {
                     </span>
                     <span className="mt-1 flex flex-wrap gap-1.5">
                       {isRecommended && (
-                        <span className="rounded-full border border-vermil px-2 py-0.5 text-xs font-semibold text-vermil">
+                        <span className="rounded-full border border-vermil px-2 py-0.5 font-sans text-xs font-semibold text-vermil">
                           Ar aġaiḋ
                         </span>
                       )}
                       {isCompleted && (
-                        <span className="rounded-full border border-rule px-2 py-0.5 text-xs font-semibold text-text-soft">
+                        <span className="rounded-full border border-rule px-2 py-0.5 font-sans text-xs font-semibold text-text-soft">
                           Críoċnaiṫe
                         </span>
                       )}

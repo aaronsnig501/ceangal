@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Lora:ital,wght@0,400;0,600;1,400&family=Instrument+Sans:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Lora:ital,wght@0,400;0,600;1,400&family=Instrument+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -50,13 +50,14 @@
 
       .wordmark {
         margin: 0;
-        font-family: "Playfair Display", serif;
-        font-size: clamp(2rem, 8vw, 3.5rem);
-        line-height: 1;
+        font-family: "Uncial Antiqua", serif;
+        font-size: clamp(1.9rem, 8vw, 3.2rem);
+        line-height: 1.05;
+        letter-spacing: 0.02em;
       }
 
       .wordmark strong {
-        font-weight: 900;
+        font-weight: 400;
       }
 
       .wordmark em {
@@ -79,9 +80,11 @@
 
       h2 {
         margin: 0 0 0.75rem;
-        font-family: "Playfair Display", serif;
-        font-size: 1.55rem;
-        line-height: 1.2;
+        font-family: "Uncial Antiqua", serif;
+        font-size: 1.35rem;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        line-height: 1.24;
       }
 
       p,
@@ -95,12 +98,15 @@
 
       a {
         color: var(--vermil);
+        font-family: "Instrument Sans", system-ui, sans-serif;
         font-weight: 700;
       }
 
       .updated {
         color: var(--text2);
+        font-family: "Lora", serif;
         font-size: 0.95rem;
+        font-style: italic;
       }
 
       .note {

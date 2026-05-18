@@ -186,7 +186,7 @@ function App() {
             <div className={activeScreen === "game" ? "app-screen" : "app-screen hidden"}>
               {showResetPrompt && (
                 <div className="rounded-md border border-rule bg-surface p-4 text-center">
-                  <p className="font-display text-lg font-bold text-char">
+                  <p className="font-display text-lg font-normal tracking-[0.02em] text-char">
                     Tá gaċ puzal críoċnaiṫe agat
                   </p>
                   <p className="mt-1 font-serif text-sm italic text-text-soft">

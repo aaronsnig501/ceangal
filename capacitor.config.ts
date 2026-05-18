@@ -1,7 +1,7 @@
 import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: "ie.misneach.ceangal",
+  appId: "app.ceangal.game",
   appName: "Ceangal",
   webDir: "dist",
   plugins: {

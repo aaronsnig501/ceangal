@@ -1,10 +1,17 @@
 apply plugin: 'com.android.application'
 
+def signingProperties = new Properties()
+def signingPropertiesFile = rootProject.file("../signing.properties")
+
+if (signingPropertiesFile.exists()) {
+    signingProperties.load(new FileInputStream(signingPropertiesFile))
+}
+
 android {
-    namespace = "ie.misneach.ceangal"
+    namespace = "app.ceangal.game"
     compileSdk = rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "ie.misneach.ceangal"
+        applicationId "app.ceangal.game"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -16,8 +23,23 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        release {
+            if (signingPropertiesFile.exists()) {
+                storeFile file(signingProperties["storeFile"])
+                storePassword signingProperties["storePassword"]
+                keyAlias signingProperties["keyAlias"]
+                keyPassword signingProperties["keyPassword"]
+            }
+        }
+    }
+
     buildTypes {
         release {
+            if (!signingPropertiesFile.exists()) {
+                throw new GradleException("Missing signing.properties at ${signingPropertiesFile}. Create it before building a release bundle.")
+            }
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

@@ -27,3 +27,6 @@ tofu.tfvars
 .terraform.lock.hcl
 tfplan
 *.tfplan
+signing.properties
+*.keystore
+*.jks

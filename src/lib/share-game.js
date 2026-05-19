@@ -1,7 +1,7 @@
 import { UAParser } from "ua-parser-js";
 
 import { GAME_TITLE } from "./constants";
-import { puzzleIndex, puzzleTitle } from "./time-utils";
+import { puzzleId, puzzleIndex, puzzleTitle } from "./time-utils";
 import { generateEmojiGrid } from "./game-helpers";
 
 // Share logic from here: https://github.com/cwackerfuss/react-wordle/blob/main/src/lib/share.ts
@@ -19,10 +19,10 @@ export const shareStatus = (
   handleShareFailure,
   includeGameLink = true
 ) => {
-  const GAME_URL = "ceangal.app";
+  const GAME_URL = `https://ceangal.app/?p=${puzzleIndex}`;
   const resultMark = isGameWon ? "✅" : "❌";
   const textToShare =
-    `${GAME_TITLE} #${puzzleIndex} — ${puzzleTitle}\n` +
+    `${GAME_TITLE} #${puzzleId} — ${puzzleTitle}\n` +
     `${resultMark} ${numMistakesUsed} botún\n` +
     generateEmojiGrid(gameData, submittedGuesses, true) +
     `${includeGameLink ? "\n" + GAME_URL : ""}`;

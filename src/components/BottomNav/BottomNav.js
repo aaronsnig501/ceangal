@@ -3,12 +3,13 @@ import {
   BarChart3,
   BookOpen,
   Gamepad2,
+  Home,
   LayoutGrid,
   Settings2,
 } from "lucide-react";
 
 const navItems = [
-  { key: "game", label: "Imirt", icon: Gamepad2 },
+  { key: "game", label: "Baile", icon: Home },
   { key: "help", label: "Conas", icon: BookOpen },
   { key: "browser", label: "Roġnaiġ", icon: LayoutGrid, isPrimary: true },
   { key: "stats", label: "Staitisticí", icon: BarChart3 },

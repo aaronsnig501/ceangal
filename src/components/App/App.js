@@ -153,6 +153,11 @@ function App() {
   }
 
   function handleNavSelect(target) {
+    if (target === "game") {
+      handleReturnToSplash();
+      return;
+    }
+
     if (target === "help") {
       setActiveScreen("game");
       setIsOnboardingOpen(true);

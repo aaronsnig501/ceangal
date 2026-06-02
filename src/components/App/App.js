@@ -185,7 +185,13 @@ function App() {
         <div className="wrapper">
           <Toaster />
           <Header
+            showEnglishTranslations={showEnglishTranslations}
+            onToggleTranslations={toggleEnglishTranslations}
             onLogoClick={handleReturnToSplash}
+            onHelpClick={() => handleNavSelect("help")}
+            onPuzzleBrowserClick={() => handleNavSelect("browser")}
+            onStatsClick={() => handleNavSelect("stats")}
+            onSettingsClick={() => handleNavSelect("settings")}
           />
           <div className="app-stage">
             <div className={activeScreen === "game" ? "app-screen" : "app-screen hidden"}>

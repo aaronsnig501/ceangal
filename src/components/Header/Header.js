@@ -1,7 +1,16 @@
 import React from "react";
+import { BarChart3, HelpCircle, List, Settings2 } from "lucide-react";
 import NumberOfMistakesDisplay from "../NumberOfMistakesDisplay";
 
-function Header({ onLogoClick }) {
+function Header({
+  showEnglishTranslations = false,
+  onToggleTranslations,
+  onHelpClick,
+  onPuzzleBrowserClick,
+  onStatsClick,
+  onSettingsClick,
+  onLogoClick,
+}) {
   return (
     <header className="app-header">
       <h1 className="wordmark">
@@ -15,6 +24,52 @@ function Header({ onLogoClick }) {
           <span className="wordmark-light">gal</span>
         </button>
       </h1>
+
+      <div className="header-controls-desktop">
+        <button
+          type="button"
+          className="icon-trigger"
+          onClick={onPuzzleBrowserClick}
+          aria-label="Roġnaiġ imirt"
+        >
+          <List strokeWidth={1.75} />
+        </button>
+        <button
+          type="button"
+          className="icon-trigger"
+          onClick={onStatsClick}
+          aria-label="Staitisticí"
+        >
+          <BarChart3 strokeWidth={1.75} />
+        </button>
+        <button
+          type="button"
+          className={`translation-toggle ${
+            showEnglishTranslations ? "translation-toggle-active" : ""
+          }`}
+          onClick={onToggleTranslations}
+          aria-pressed={showEnglishTranslations}
+        >
+          GA→EN{showEnglishTranslations ? " ✓" : ""}
+        </button>
+        <button
+          type="button"
+          className="icon-trigger"
+          onClick={onSettingsClick}
+          aria-label="Socruithe"
+        >
+          <Settings2 strokeWidth={1.75} />
+        </button>
+        <button
+          type="button"
+          className="icon-trigger"
+          onClick={onHelpClick}
+          aria-label="Conas a imrítear"
+        >
+          <HelpCircle strokeWidth={1.75} />
+        </button>
+      </div>
+
       <div className="header-mistakes" aria-label="Botúin fágtha">
         <NumberOfMistakesDisplay compact />
       </div>

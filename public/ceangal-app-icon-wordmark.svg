@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="Ceangal two-line wordmark app icon">
+  <rect width="1024" height="1024" fill="#1e1c18" />
+  <text
+    x="512"
+    y="446"
+    fill="#f4f0e6"
+    font-family="'Uncial Antiqua', serif"
+    font-size="224"
+    text-anchor="middle"
+  >
+    Cean
+  </text>
+  <text
+    x="512"
+    y="668"
+    fill="#c8381a"
+    font-family="'Uncial Antiqua', serif"
+    font-size="224"
+    text-anchor="middle"
+  >
+    gal
+  </text>
+</svg>

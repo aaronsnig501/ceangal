@@ -17,7 +17,7 @@ import {
 
 function WordRow({ words, translations, showEnglishTranslations }) {
   return (
-    <div className="grid grid-cols-4 gap-1.5 min-[380px]:gap-2">
+    <div className="game-grid-row grid grid-cols-4 gap-1.5 min-[380px]:gap-2">
       {words.map((word) => (
         <WordButton
           key={word}
@@ -171,7 +171,7 @@ function GameGrid({
     isGameActive && solvedGameData.length > 0;
 
   return (
-    <div>
+    <div className="game-grid-shell">
       {(isGameOverAndWon || isGameActiveWithAnySolvedRows) && (
         <div className="grid gap-y-2 pb-2">
           {solvedGameData.map((solvedRowObj) => (
@@ -181,7 +181,7 @@ function GameGrid({
       )}
       {isGameActive && (
         <div
-          className={`grid gap-y-1.5 min-[380px]:gap-y-2 ${
+          className={`game-grid-active grid gap-y-1.5 min-[380px]:gap-y-2 ${
             shouldGridShake ? styles.shake : ""
           }`}
         >

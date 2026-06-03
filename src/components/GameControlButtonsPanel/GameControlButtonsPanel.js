@@ -103,10 +103,11 @@ function GameControlButtonsPanel({
   }
 
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="game-controls grid grid-cols-3 gap-4">
       <Button
         disabled={isGameOver}
         variant="secondary"
+        className="game-control-button"
         onClick={() =>
           setShuffledRows(shuffleGameData({ gameData: shuffledRows }))
         }
@@ -118,6 +119,7 @@ function GameControlButtonsPanel({
         size="deselectallsize"
         disabled={isGameOver}
         variant="secondary"
+        className="game-control-button"
         onClick={deselectAll}
       >
         <Undo className="h-4 w-4 mr-2" strokeWidth={1} />
@@ -125,6 +127,7 @@ function GameControlButtonsPanel({
       </Button>
       <Button
         variant="submit"
+        className="game-control-button"
         onClick={submitCandidateGuess}
         disabled={isGameOver || guessCandidate.length !== categorySize}
       >

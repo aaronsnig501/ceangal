@@ -45,6 +45,29 @@ function getInitialThemePreference() {
 }
 
 function App() {
+  const isNativeApp = Capacitor.isNativePlatform();
+
+  function getViewportMetrics() {
+    if (typeof window === "undefined") {
+      return {
+        width: 0,
+        height: 0,
+        physicalShortestEdge: 0,
+      };
+    }
+
+    return {
+      width: window.innerWidth,
+      height: window.innerHeight,
+      physicalShortestEdge:
+        Math.min(window.screen.width, window.screen.height) *
+        window.devicePixelRatio,
+    };
+  }
+
+  const [viewport, setViewport] = React.useState(() => ({
+    ...getViewportMetrics(),
+  }));
   const [hasSeenOnboarding, setHasSeenOnboarding] = React.useState(() =>
     loadHasSeenOnboardingFromLocalStorage()
   );
@@ -92,6 +115,20 @@ function App() {
       );
     }
   }, [themePreference]);
+
+  React.useEffect(() => {
+    function handleResize() {
+      setViewport(getViewportMetrics());
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const isNativePortraitTablet =
+    isNativeApp &&
+    viewport.height > viewport.width &&
+    viewport.physicalShortestEdge >= 900;
 
   function toggleEnglishTranslations() {
     setShowEnglishTranslations((currentValue) => {
@@ -182,7 +219,11 @@ function App() {
   return (
     <PuzzleDataProvider>
       <GameStatusProvider>
-        <div className="wrapper">
+        <div
+          className={`wrapper ${isNativeApp ? "wrapper-native-app" : ""} ${
+            isNativePortraitTablet ? "wrapper-native-tablet-portrait" : ""
+          }`}
+        >
           <Toaster />
           <Header
             showEnglishTranslations={showEnglishTranslations}

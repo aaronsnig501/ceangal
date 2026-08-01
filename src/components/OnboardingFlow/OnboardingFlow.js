@@ -167,7 +167,10 @@ function SplashScreen({ onStart, onSkip, showStoreBadges }) {
             Conas a imrítear
           </Button>
           {showStoreBadges && <StoreBadges />}
-          <a className="text-sm text-text-soft underline" href="/privacy/">
+          <a
+            className="text-sm text-text-soft underline"
+            href="/privacy/index.html"
+          >
             Príobḃáideaċas
           </a>
         </div>

@@ -65,6 +65,30 @@ resource "aws_cloudfront_origin_access_control" "site" {
   signing_protocol                  = "sigv4"
 }
 
+resource "aws_cloudfront_function" "directory_index" {
+  name    = "${replace(var.domain_name, ".", "-")}-directory-index"
+  runtime = "cloudfront-js-2.0"
+  comment = "Rewrite clean directory URLs to index.html objects."
+  publish = true
+  code    = <<-EOT
+function handler(event) {
+  var request = event.request;
+  var uri = request.uri;
+
+  if (uri.endsWith("/")) {
+    request.uri = uri + "index.html";
+    return request;
+  }
+
+  if (!uri.includes(".")) {
+    request.uri = uri + "/index.html";
+  }
+
+  return request;
+}
+EOT
+}
+
 resource "aws_acm_certificate" "site" {
   provider                  = aws.us_east_1
   domain_name               = var.domain_name
@@ -122,6 +146,11 @@ resource "aws_cloudfront_distribution" "site" {
 
     viewer_protocol_policy = "redirect-to-https"
     compress               = true
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.directory_index.arn
+    }
 
     forwarded_values {
       query_string = true

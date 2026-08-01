@@ -1,4 +1,5 @@
 html {
+  --app-max-width: 520px;
   --game-spacing: 18px;
   --header-height: 4rem;
   --nav-height: calc(62px + env(safe-area-inset-bottom, 0px));
@@ -30,12 +31,104 @@ body {
   flex-direction: column;
   min-height: 100dvh;
   height: 100dvh;
-  max-width: 520px;
+  max-width: var(--app-max-width);
   margin: 0 auto;
   padding: 0 12px;
   overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
+}
+
+.wrapper-native-tablet-portrait {
+  --app-max-width: 100%;
+  --game-spacing: 28px;
+  padding: 0 32px;
+}
+
+.wrapper-native-app .header-controls-desktop {
+  display: none !important;
+}
+
+.wrapper-native-app .header-mistakes {
+  display: flex !important;
+}
+
+.wrapper-native-app .app-stage {
+  padding-bottom: var(--nav-height);
+}
+
+.wrapper-native-app .bottom-nav {
+  display: block !important;
+}
+
+.wrapper-native-tablet-portrait .app-header {
+  min-height: 4.5rem;
+  padding-bottom: 14px;
+}
+
+.wrapper-native-tablet-portrait .wordmark {
+  font-size: 2rem;
+}
+
+.wrapper-native-tablet-portrait .bottom-nav {
+  display: block !important;
+  width: min(calc(100% - 64px), 980px);
+}
+
+.wrapper-native-tablet-portrait .game-shell {
+  max-width: none;
+  width: 100%;
+}
+
+.wrapper-native-tablet-portrait .game-meta {
+  padding-top: 14px;
+}
+
+.wrapper-native-tablet-portrait .game-meta-kicker {
+  font-size: 0.84rem;
+}
+
+.wrapper-native-tablet-portrait .game-meta-title {
+  font-size: 1.34rem;
+}
+
+.wrapper-native-tablet-portrait .game-subtitle {
+  font-size: 1rem;
+}
+
+.wrapper-native-tablet-portrait .game-wrapper {
+  gap: 18px;
+  padding-top: 16px;
+}
+
+.wrapper-native-tablet-portrait .game-grid-shell {
+  width: 100%;
+}
+
+.wrapper-native-tablet-portrait .game-grid-active {
+  gap: 0.9rem;
+}
+
+.wrapper-native-tablet-portrait .game-grid-row {
+  gap: 0.9rem;
+}
+
+.wrapper-native-tablet-portrait .mistakes-display {
+  font-size: 1rem;
+}
+
+.wrapper-native-tablet-portrait .game-controls {
+  gap: 1rem;
+}
+
+.wrapper-native-tablet-portrait .game-control-button {
+  min-height: 3.7rem;
+  font-size: 1.15rem;
+}
+
+.wrapper-native-tablet-portrait .game-control-button svg {
+  width: 1.3rem;
+  height: 1.3rem;
 }
 
 .app-header {
@@ -161,8 +254,13 @@ body {
 }
 
 .app-screen {
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  overflow: hidden;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .game-meta {
@@ -171,6 +269,13 @@ body {
   justify-content: space-between;
   gap: 12px;
   padding: 10px 2px 0;
+}
+
+.game-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  width: 100%;
 }
 
 .game-meta-kicker {
@@ -226,7 +331,7 @@ body {
   padding-top: 10px;
   padding-bottom: var(--game-spacing);
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .bottom-nav {
@@ -235,7 +340,7 @@ body {
   bottom: 0;
   transform: translateX(-50%);
   z-index: 30;
-  width: min(calc(100% - 24px), 520px);
+  width: min(calc(100% - 24px), var(--app-max-width));
   height: var(--nav-height);
   background: var(--page);
   border-top: 1px solid var(--rule);
@@ -585,6 +690,23 @@ body {
 }
 
 @media (min-width: 48rem) {
+  html {
+    --app-max-width: 760px;
+    --game-spacing: 22px;
+  }
+
+  .wrapper {
+    padding: 0 24px;
+  }
+
+  .game-shell {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
+
   .header-controls-desktop {
     display: inline-flex;
   }
@@ -603,6 +725,74 @@ body {
 
   .bottom-nav {
     display: none;
+  }
+}
+
+@media (min-width: 48rem) and (orientation: portrait) {
+  html {
+    --app-max-width: 920px;
+    --game-spacing: 24px;
+  }
+
+  .wrapper {
+    padding: 0 28px;
+  }
+
+  .game-shell {
+    max-width: 920px;
+  }
+
+  .game-meta-title {
+    font-size: 1.2rem;
+  }
+
+  .game-subtitle {
+    font-size: 0.92rem;
+  }
+}
+
+@media (min-width: 48rem) and (orientation: portrait) and (pointer: coarse) {
+  html {
+    --app-max-width: 100%;
+    --game-spacing: 28px;
+  }
+
+  .wrapper {
+    padding: 0 32px;
+  }
+
+  .game-shell {
+    max-width: 980px;
+  }
+
+  .app-header {
+    min-height: 4.5rem;
+    padding-bottom: 14px;
+  }
+
+  .wordmark {
+    font-size: 2rem;
+  }
+
+  .game-meta {
+    padding-top: 14px;
+  }
+
+  .game-meta-kicker {
+    font-size: 0.84rem;
+  }
+
+  .game-meta-title {
+    font-size: 1.34rem;
+  }
+
+  .game-subtitle {
+    font-size: 1rem;
+  }
+
+  .game-wrapper {
+    gap: 18px;
+    padding-top: 16px;
   }
 }
 

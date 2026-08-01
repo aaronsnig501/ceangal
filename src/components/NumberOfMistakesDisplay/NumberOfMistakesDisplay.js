@@ -21,7 +21,7 @@ function NumberOfMistakesDisplay({ compact = false }) {
 
   return (
     <div
-      className={`flex flex-row items-center text-text-soft ${
+      className={`mistakes-display flex flex-row items-center text-text-soft ${
         compact ? "gap-x-1.5 justify-end" : "gap-x-2 justify-center"
       }`}
     >

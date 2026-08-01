@@ -145,7 +145,7 @@ function Game({
   }
 
   return (
-    <>
+    <div className="game-shell">
       <div className="game-meta">
         <div>
           <p className="game-meta-kicker">Imirt #{puzzleId}</p>
@@ -206,7 +206,7 @@ function Game({
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
 

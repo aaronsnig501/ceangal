@@ -5,14 +5,18 @@ import {
   InterstitialAdPluginEvents,
 } from "@capacitor-community/admob";
 import { userHasRemovedAds } from "./purchases";
+import { monetizationDebug } from "./monetization-debug";
 
-const env = import.meta.env ?? {};
-const isDevelopmentBuild = (env.VITE_IS_DEV ?? "false") === "true";
+const isDevelopmentBuild = (process.env.VITE_IS_DEV ?? "false") === "true";
 
 let initializationPromise = null;
 let consentInfoCache = null;
 let interstitialReady = false;
 let interstitialListenersRegistered = false;
+
+function debugAdMob(message, details = {}) {
+  console.info("[AdMob]", message, details);
+}
 
 function canUseNativeAds() {
   return (
@@ -25,17 +29,17 @@ function getInterstitialAdUnitId() {
 
   if (platform === "ios") {
     return isDevelopmentBuild
-      ? env.VITE_ADMOB_IOS_INTERSTITIAL ?? ""
-      : env.VITE_ADMOB_REAL_IOS_INTERSTITIAL ||
-          env.VITE_ADMOB_IOS_INTERSTITIAL ||
+      ? process.env.VITE_ADMOB_IOS_INTERSTITIAL ?? ""
+      : process.env.VITE_ADMOB_REAL_IOS_INTERSTITIAL ||
+          process.env.VITE_ADMOB_IOS_INTERSTITIAL ||
           "";
   }
 
   if (platform === "android") {
     return isDevelopmentBuild
-      ? env.VITE_ADMOB_ANDROID_INTERSTITIAL ?? ""
-      : env.VITE_ADMOB_REAL_ANDROID_INTERSTITIAL ||
-          env.VITE_ADMOB_ANDROID_INTERSTITIAL ||
+      ? process.env.VITE_ADMOB_ANDROID_INTERSTITIAL ?? ""
+      : process.env.VITE_ADMOB_REAL_ANDROID_INTERSTITIAL ||
+          process.env.VITE_ADMOB_ANDROID_INTERSTITIAL ||
           "";
   }
 
@@ -55,16 +59,38 @@ async function prepareInterstitialWithCurrentState() {
   const adId = getInterstitialAdUnitId();
 
   if (!adId) {
+    debugAdMob("Skipping interstitial prepare because no ad unit ID is configured", {
+      platform: Capacitor.getPlatform(),
+      isDevelopmentBuild,
+    });
+    monetizationDebug(
+      "AdMob: no ad unit",
+      "No interstitial ad unit ID is configured for this build."
+    );
     return false;
   }
 
   try {
+    debugAdMob("Preparing interstitial", {
+      platform: Capacitor.getPlatform(),
+      isDevelopmentBuild,
+      adId,
+      npa: consentInfoCache?.status !== AdmobConsentStatus.OBTAINED,
+    });
     await AdMob.prepareInterstitial(getInterstitialOptions());
     interstitialReady = true;
+    debugAdMob("Interstitial prepared", { adId });
     return true;
   } catch (error) {
     interstitialReady = false;
-    console.warn("Preparing interstitial failed", error);
+    console.warn("[AdMob] Preparing interstitial failed", {
+      adId,
+      error,
+    });
+    monetizationDebug(
+      "AdMob: prepare failed",
+      "Interstitial failed to prepare."
+    );
     return false;
   }
 }
@@ -77,18 +103,28 @@ async function registerInterstitialListeners() {
   await Promise.all([
     AdMob.addListener(InterstitialAdPluginEvents.Loaded, () => {
       interstitialReady = true;
+      debugAdMob("Interstitial loaded");
     }),
     AdMob.addListener(InterstitialAdPluginEvents.Dismissed, () => {
       interstitialReady = false;
+      debugAdMob("Interstitial dismissed; preparing next one");
       void prepareInterstitial();
     }),
     AdMob.addListener(InterstitialAdPluginEvents.FailedToLoad, (error) => {
       interstitialReady = false;
-      console.warn("Interstitial failed to load", error);
+      console.warn("[AdMob] Interstitial failed to load", error);
+      monetizationDebug(
+        "AdMob: failed to load",
+        "Interstitial failed to load from AdMob."
+      );
     }),
     AdMob.addListener(InterstitialAdPluginEvents.FailedToShow, (error) => {
       interstitialReady = false;
-      console.warn("Interstitial failed to show", error);
+      console.warn("[AdMob] Interstitial failed to show", error);
+      monetizationDebug(
+        "AdMob: failed to show",
+        "Interstitial loaded but failed to show."
+      );
       void prepareInterstitial();
     }),
   ]);
@@ -98,16 +134,34 @@ async function registerInterstitialListeners() {
 
 export async function initializeAdMob() {
   if (!canUseNativeAds()) {
+    debugAdMob("Native ads unavailable", {
+      isNativePlatform: Capacitor.isNativePlatform(),
+      pluginAvailable: Capacitor.isPluginAvailable("AdMob"),
+    });
+    monetizationDebug(
+      "AdMob unavailable",
+      "Native AdMob plugin is unavailable on this build."
+    );
     return false;
   }
 
   if (await userHasRemovedAds()) {
+    debugAdMob("Ads disabled because remove_ads entitlement is active");
+    monetizationDebug(
+      "Ads disabled",
+      "RevenueCat says remove_ads is active on this account."
+    );
     return false;
   }
 
   if (!initializationPromise) {
     initializationPromise = (async () => {
       await registerInterstitialListeners();
+      debugAdMob("Initializing AdMob", {
+        platform: Capacitor.getPlatform(),
+        isDevelopmentBuild,
+        adId: getInterstitialAdUnitId(),
+      });
       await AdMob.initialize({
         initializeForTesting: isDevelopmentBuild,
         tagForUnderAgeOfConsent: false,
@@ -122,20 +176,33 @@ export async function initializeAdMob() {
       }
 
       let consentInfo = await AdMob.requestConsentInfo();
+      debugAdMob("Consent info received", consentInfo);
 
       if (!consentInfo.canRequestAds && consentInfo.isConsentFormAvailable) {
+        debugAdMob("Showing consent form");
         consentInfo = await AdMob.showConsentForm();
+        debugAdMob("Consent form completed", consentInfo);
       }
 
       consentInfoCache = consentInfo;
 
       if (consentInfo.canRequestAds) {
         await prepareInterstitialWithCurrentState();
+      } else {
+        debugAdMob("Ads cannot be requested after consent flow", consentInfo);
+        monetizationDebug(
+          "AdMob blocked by consent",
+          "Consent flow did not allow ad requests."
+        );
       }
 
       return consentInfo.canRequestAds;
     })().catch((error) => {
-      console.warn("AdMob initialization failed", error);
+      console.warn("[AdMob] Initialization failed", error);
+      monetizationDebug(
+        "AdMob init failed",
+        "AdMob initialization failed."
+      );
       initializationPromise = null;
       return false;
     });
@@ -167,34 +234,60 @@ export async function maybeShowInterstitialForCompletedPuzzle({
     !Number.isInteger(completedPuzzleCount) ||
     completedPuzzleCount % 2 !== 0
   ) {
+    debugAdMob("Skipping interstitial for completion", {
+      completedPuzzleCount,
+      isBlocked,
+      reason: isBlocked
+        ? "blocked"
+        : !Number.isInteger(completedPuzzleCount)
+          ? "invalid_count"
+          : "odd_count",
+    });
     return false;
   }
 
   if (await userHasRemovedAds()) {
+    debugAdMob("Skipping interstitial because remove_ads entitlement is active");
     return false;
   }
 
   const canShowAds = await initializeAdMob();
 
   if (!canShowAds) {
+    debugAdMob("AdMob initialization says ads cannot be shown");
+    monetizationDebug(
+      "Ads unavailable",
+      "AdMob says this session cannot show ads."
+    );
     return false;
   }
 
   if (!interstitialReady) {
+    debugAdMob("Interstitial not ready; attempting prepare");
     const isPrepared = await prepareInterstitial();
 
     if (!isPrepared) {
+      debugAdMob("Interstitial prepare failed immediately before show");
       return false;
     }
   }
 
   try {
+    debugAdMob("Showing interstitial", { completedPuzzleCount });
     await AdMob.showInterstitial();
     interstitialReady = false;
+    monetizationDebug(
+      "AdMob shown",
+      `Interstitial shown after puzzle ${completedPuzzleCount}.`
+    );
     return true;
   } catch (error) {
     interstitialReady = false;
-    console.warn("Showing interstitial failed", error);
+    console.warn("[AdMob] Showing interstitial failed", error);
+    monetizationDebug(
+      "AdMob show failed",
+      "Attempted to show interstitial, but it failed."
+    );
     void prepareInterstitial();
     return false;
   }

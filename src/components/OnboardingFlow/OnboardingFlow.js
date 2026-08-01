@@ -34,7 +34,12 @@ const categories = [
   },
   {
     name: "Frásaí",
-    words: ["Le do ṫoil", "Go raiḃ maiṫ agat", "An féidir liom?", "An ḃfuil sé saor?"],
+    words: [
+      "Le do ṫoil",
+      "Go raiḃ maiṫ agat",
+      "An féidir liom?",
+      "An ḃfuil sé saor?",
+    ],
     className: "bg-tier-3 text-tier-3-fg",
   },
   {
@@ -46,10 +51,17 @@ const categories = [
 
 const tiers = [
   { label: "Éasca", className: "bg-tier-1", textClassName: "text-tier-1-fg" },
-  { label: "Measarṫa", className: "bg-tier-2", textClassName: "text-tier-2-fg" },
+  {
+    label: "Measarṫa",
+    className: "bg-tier-2",
+    textClassName: "text-tier-2-fg",
+  },
   { label: "Deacair", className: "bg-tier-3", textClassName: "text-tier-3-fg" },
   { label: "Casta", className: "bg-tier-4", textClassName: "text-tier-4-fg" },
 ];
+
+const googlePlayUrl =
+  "https://play.google.com/store/apps/details?id=ie.misneach.ceangal";
 
 function Wordmark() {
   return (
@@ -60,7 +72,86 @@ function Wordmark() {
   );
 }
 
-function SplashScreen({ onStart, onSkip }) {
+function GooglePlayIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <path
+        d="M3.18 23.76c.32.18.68.24 1.06.14l13.04-7.53-2.83-2.83-11.27 10.22z"
+        fill="#EA4335"
+      />
+      <path
+        d="M20.82 10.13L17.6 8.27 14.48 11.4l3.12 3.12 3.23-1.87c.92-.53.92-1.99-.01-2.52z"
+        fill="#FBBC05"
+      />
+      <path
+        d="M4.24.1C3.86 0 3.5.06 3.18.24L14.48 11.4l2.83-2.83L4.24.1z"
+        fill="#4285F4"
+      />
+      <path
+        d="M3.18.24C2.46.65 2 1.43 2 2.4v19.2c0 .97.46 1.75 1.18 2.16l11.3-11.36L3.18.24z"
+        fill="#34A853"
+      />
+    </svg>
+  );
+}
+
+function AppStoreIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
+      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+    </svg>
+  );
+}
+
+function StoreBadges() {
+  return (
+    <div className="store-badges-section" aria-label="Íoslódáil">
+      <p className="store-label">Íoslódáil</p>
+      <div className="store-badges">
+        <div
+          className="store-badge store-badge-unavailable"
+          aria-disabled="true"
+          data-store-url={googlePlayUrl}
+        >
+          <span className="store-badge-icon">
+            <GooglePlayIcon />
+          </span>
+          <span className="store-badge-text">
+            <span className="store-badge-sub">Ag teacht go luath ar</span>
+            <span className="store-badge-name">Google Play</span>
+          </span>
+        </div>
+
+        <div
+          className="store-badge store-badge-unavailable"
+          aria-disabled="true"
+        >
+          <span className="store-badge-icon store-badge-icon-muted">
+            <AppStoreIcon />
+          </span>
+          <span className="store-badge-text">
+            <span className="store-badge-sub">Ag teacht go luath ar</span>
+            <span className="store-badge-name">App Store</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SplashScreen({ onStart, onSkip, showStoreBadges }) {
   return (
     <div className="fixed inset-0 z-[70] grid place-items-center bg-background px-6">
       <div className="grid w-full max-w-sm gap-8 text-center">
@@ -71,12 +162,11 @@ function SplashScreen({ onStart, onSkip }) {
           </p>
         </div>
         <div className="grid gap-3">
-          <Button onClick={onSkip}>
-            Imirt díreaċ
-          </Button>
+          <Button onClick={onSkip}>Imirt díreaċ</Button>
           <Button variant="secondary" onClick={onStart}>
             Conas a imrítear
           </Button>
+          {showStoreBadges && <StoreBadges />}
           <a className="text-sm text-text-soft underline" href="/privacy/">
             Príobḃáideaċas
           </a>
@@ -140,18 +230,24 @@ function GroupsStep() {
   return (
     <StepShell kicker="2 as 5" title="Na grúpaí">
       <p className="text-center font-serif italic text-text-soft">
-        Nuair a aimsíonn tú ceiṫre focail a ḃaineann le ċéile, noċtar an ċatagóir.
+        Nuair a aimsíonn tú ceiṫre focail a ḃaineann le ċéile, noċtar an
+        ċatagóir.
       </p>
       <div className="grid gap-2">
         {categories.map((category) => (
-          <div key={category.name} className={`rounded-md p-3 text-center ${category.className}`}>
+          <div
+            key={category.name}
+            className={`rounded-md p-3 text-center ${category.className}`}
+          >
             <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em]">
               Sampla
             </p>
             <p className="font-display text-lg font-normal tracking-[0.02em]">
               {category.name}
             </p>
-            <p className="font-serif text-sm italic">{category.words.join(", ")}</p>
+            <p className="font-serif text-sm italic">
+              {category.words.join(", ")}
+            </p>
           </div>
         ))}
       </div>
@@ -202,7 +298,10 @@ function SelectTilesStep({ isSolved, setIsSolved }) {
         ))}
       </div>
       <div className="grid gap-2">
-        <Button onClick={checkSelection} disabled={selectedWords.length !== 4 || isSolved}>
+        <Button
+          onClick={checkSelection}
+          disabled={selectedWords.length !== 4 || isSolved}
+        >
           {isSolved ? (
             <span className="inline-flex items-center gap-2">
               <Check size={16} /> Ceart
@@ -229,13 +328,23 @@ function ColoursStep() {
       </p>
       <div className="grid gap-2">
         {tiers.map((tier, index) => (
-          <div key={tier.label} className="flex items-center gap-3 rounded-md border border-rule bg-surface p-3">
-            <span className={`h-8 w-8 rounded ${tier.className}`} aria-hidden="true" />
+          <div
+            key={tier.label}
+            className="flex items-center gap-3 rounded-md border border-rule bg-surface p-3"
+          >
+            <span
+              className={`h-8 w-8 rounded ${tier.className}`}
+              aria-hidden="true"
+            />
             <div>
-              <p className={`font-sans text-sm font-semibold ${tier.textClassName}`}>
+              <p
+                className={`font-sans text-sm font-semibold ${tier.textClassName}`}
+              >
                 Leibḣéal {index + 1}
               </p>
-              <p className="font-serif text-sm italic text-text-soft">{tier.label}</p>
+              <p className="font-serif text-sm italic text-text-soft">
+                {tier.label}
+              </p>
             </div>
           </div>
         ))}
@@ -258,8 +367,9 @@ function MistakesStep() {
   return (
     <StepShell kicker="5 as 5" title="Botúin">
       <p className="text-center font-serif italic text-text-soft">
-        Tá ceiṫre ḃotún agat. Líontar ponc nuair a ḋéanann tú roġa ṁíċeart.
-        Is féidir GA→EN a ċasaḋ air sa ċeanntásc má ṫeastaíonn aistriúċán Béarla uait.
+        Tá ceiṫre ḃotún agat. Líontar ponc nuair a ḋéanann tú roġa ṁíċeart. Is
+        féidir GA→EN a ċasaḋ air sa ċeanntásc má ṫeastaíonn aistriúċán Béarla
+        uait.
       </p>
       <div className="grid place-items-center gap-4 rounded-md border border-rule bg-surface p-6">
         <p className="font-serif italic text-sm text-text-soft">Botúin fágṫa</p>
@@ -283,6 +393,7 @@ function MistakesStep() {
 
 function OnboardingFlow({
   showSplash,
+  showStoreBadges = false,
   open,
   isFirstRun,
   onStart,
@@ -325,7 +436,13 @@ function OnboardingFlow({
 
   return (
     <>
-      {showSplash && <SplashScreen onStart={onStart} onSkip={onSplashSkip} />}
+      {showSplash && (
+        <SplashScreen
+          onStart={onStart}
+          onSkip={onSplashSkip}
+          showStoreBadges={showStoreBadges}
+        />
+      )}
       <BaseModal
         title=""
         initiallyOpen={open}
@@ -349,7 +466,9 @@ function OnboardingFlow({
                 type="button"
                 variant="secondary"
                 onClick={() =>
-                  currentStep === 0 ? onSkip() : setCurrentStep((step) => step - 1)
+                  currentStep === 0
+                    ? onSkip()
+                    : setCurrentStep((step) => step - 1)
                 }
               >
                 {currentStep === 0 ? "Scipeáil" : <ChevronLeft size={18} />}
@@ -360,7 +479,11 @@ function OnboardingFlow({
                 disabled={isDemoStepBlocked}
               >
                 {isLastStep ? (
-                  isFirstRun ? "Tosaiġ" : "Déanta"
+                  isFirstRun ? (
+                    "Tosaiġ"
+                  ) : (
+                    "Déanta"
+                  )
                 ) : (
                   <span className="inline-flex items-center gap-2">
                     Ar aġaiḋ <ChevronRight size={18} />

@@ -14,8 +14,8 @@ import {
 } from "../../lib/purchases";
 
 const MISNEACH_URL = "https://misneachabu.ie/";
-const env = import.meta.env ?? {};
-const MOBILE_APPS_URL = env.VITE_MOBILE_APPS_URL ?? "https://ceangal.app/";
+const MOBILE_APPS_URL =
+  process.env.VITE_MOBILE_APPS_URL ?? "https://ceangal.app/";
 const PRIVACY_URL = Capacitor.isNativePlatform()
   ? "https://ceangal.app/privacy/"
   : "/privacy/";

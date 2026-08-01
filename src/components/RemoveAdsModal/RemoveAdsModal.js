@@ -17,8 +17,8 @@ const MISNEACH_URL = "https://misneachabu.ie/";
 const MOBILE_APPS_URL =
   process.env.VITE_MOBILE_APPS_URL ?? "https://ceangal.app/";
 const PRIVACY_URL = Capacitor.isNativePlatform()
-  ? "https://ceangal.app/privacy/"
-  : "/privacy/";
+  ? "https://ceangal.app/privacy/index.html"
+  : "/privacy/index.html";
 
 function SettingsToggle({ label, hint, checked, onToggle }) {
   return (
@@ -281,7 +281,11 @@ function RemoveAdsModal({
         </p>
         <p className="settings-footer-version">v{packageJson.version}</p>
         <div className="settings-footer-actions">
-          <Button variant="secondary" className="w-full" onClick={() => onOpenChange(false)}>
+          <Button
+            variant="secondary"
+            className="w-full"
+            onClick={() => onOpenChange(false)}
+          >
             Fill ar an imirt
           </Button>
         </div>

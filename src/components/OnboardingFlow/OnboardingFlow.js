@@ -61,7 +61,7 @@ const tiers = [
 ];
 
 const googlePlayUrl =
-  "https://play.google.com/store/apps/details?id=ie.misneach.ceangal";
+  "https://play.google.com/store/apps/details?id=app.ceangal.game";
 
 function Wordmark() {
   return (

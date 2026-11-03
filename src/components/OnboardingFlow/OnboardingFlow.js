@@ -120,19 +120,20 @@ function StoreBadges() {
     <div className="store-badges-section" aria-label="Íoslódáil">
       <p className="store-label">Íoslódáil</p>
       <div className="store-badges">
-        <div
-          className="store-badge store-badge-unavailable"
-          aria-disabled="true"
-          data-store-url={googlePlayUrl}
+        <a
+          className="store-badge"
+          href={googlePlayUrl}
+          target="_blank"
+          rel="noopener"
         >
           <span className="store-badge-icon">
             <GooglePlayIcon />
           </span>
           <span className="store-badge-text">
-            <span className="store-badge-sub">Ag teacht go luath ar</span>
+            <span className="store-badge-sub">Faigh é ar</span>
             <span className="store-badge-name">Google Play</span>
           </span>
-        </div>
+        </a>
 
         <div
           className="store-badge store-badge-unavailable"
